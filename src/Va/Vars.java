@@ -6,8 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Vars {
+
+    public Vars() {
+        refresh();
+    }
     private static final int screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    private static final int screenHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    private static final int screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    private static final double widthScale = (double) screenWidth / 1920;
+    private static final double heightScale = (double) screenHeight / 1080;
     private static final double screenScale = (double) ((screenWidth + screenHeight) / 2) / 1500;
     public static int getScreenWidth() {
         return screenWidth;
@@ -20,20 +26,28 @@ public class Vars {
         return screenScale;
     }
 
-    public static final ImageIcon portrait = new ImageIcon("C:\\Users\\f\\IdeaProjects\\untitled\\src\\images\\file.png");
-    public static ImageIcon home = new ImageIcon("C:\\Users\\f\\IdeaProjects\\untitled\\src\\images\\Home.png");
+    public static double getWidthScale() {
+        return widthScale;
+    }
+
+    public static double getHeightScale() {
+        return heightScale;
+    }
+
+    public static final ImageIcon portrait = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\");
+    public static ImageIcon home = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\Home.png");
     public static final Image image = home.getImage().getScaledInstance(getScreenWidth(), getScreenHeight(), Image.SCALE_SMOOTH);
     public static JLabel background;
     public static JFrame frame;
     public static GUI buttons = new GUI();
-    private static Dimension dimension = new Dimension(300, 50);
-    private static Font menuFont = new Font("Serif", Font.BOLD, 25);
+    private static Dimension dimension;
+    private static Font menuFont;
     public static int foodType = 1;
     public static boolean bossMode = false;
 
     public static void refresh() {
-        menuFont = new Font("Serif", Font.BOLD, 25);
-        dimension = new Dimension(300, 50);
+        menuFont = new Font("Serif", Font.BOLD, (int) (25 * getScreenScale()));
+        dimension = new Dimension((int) (300 * getWidthScale()), (int) (50 * getHeightScale()));
     }
 
     public static Dimension getDimension() {

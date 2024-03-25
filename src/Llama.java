@@ -7,6 +7,8 @@ public class Llama extends Vars {
 
     public static void main(String[] args) {
         System.out.println(getScreenScale());
+        System.out.println(getHeightScale());
+        System.out.println(getWidthScale());
 
         home = new ImageIcon(image);
 
