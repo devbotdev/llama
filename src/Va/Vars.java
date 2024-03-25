@@ -1,6 +1,6 @@
 package Va;
 
-import resource.GUI;
+import Panels.resource.GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,20 +41,35 @@ public class Vars {
     public static JFrame frame;
     public static GUI buttons = new GUI();
     private static Dimension dimension;
+    private static Dimension inGameButtonDimension;
     private static Font menuFont;
     public static int foodType = 1;
     public static boolean bossMode = false;
+    public static boolean gameStarted = false;
 
     public static void refresh() {
         menuFont = new Font("Serif", Font.BOLD, (int) (25 * getScreenScale()));
         dimension = new Dimension((int) (300 * getWidthScale()), (int) (50 * getHeightScale()));
+        inGameButtonDimension = new Dimension((int) (700 * getWidthScale()), (int) (50 * getHeightScale()));
     }
 
     public static Dimension getDimension() {
         return dimension;
     }
 
+    public static Dimension getInGameButtonDimension() {
+        return inGameButtonDimension;
+    }
+
     public static Font getMenuFont() {
         return menuFont;
+    }
+
+    public static void toggleMenu() {
+        frame.setVisible(!gameStarted);
+    }
+
+    public static void toggleMenu(boolean b) {
+        frame.setVisible(b);
     }
 }

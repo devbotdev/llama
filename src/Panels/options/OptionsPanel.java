@@ -1,4 +1,4 @@
-package options;
+package Panels.options;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static Va.Vars.getDimension;
-import static options.Options.*;
+import static Panels.options.Options.*;
 import static Va.Vars.*;
 
 public class OptionsPanel extends JPanel implements ActionListener {
@@ -32,7 +32,6 @@ public class OptionsPanel extends JPanel implements ActionListener {
         food.setPreferredSize(getDimension());
         exit.setPreferredSize(getDimension());
         bossModeButton.setPreferredSize(getDimension());
-        foodLabel.setLocation(food.getX(), food.getY());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -69,7 +68,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         button = (JButton) e.getSource();
 
-        if (button == food) {
+        if (button == food && !gameStarted) {
             if (foodType == 0) {
                 food.setText("Hamburger");
                 foodType++;
@@ -88,9 +87,9 @@ public class OptionsPanel extends JPanel implements ActionListener {
             }
         }
 
-        if (button == exit) options(false);
+        if (button == exit && !gameStarted) options(false);
 
-        if (button == bossModeButton) {
+        if (button == bossModeButton && !gameStarted) {
             if (!bossMode) {
                 bossModeButton.setText("Boss Mode: Orielbisha");
                 bossMode = true;

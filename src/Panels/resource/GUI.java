@@ -1,6 +1,7 @@
-package resource;
+package Panels.resource;
 
-import options.Options;
+import Game.GamePanel;
+import Panels.options.Options;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ public class GUI extends JPanel implements ActionListener {
     public static boolean optionsPressed = false;
     private static boolean exitPressed = false;
     private static JButton button;
+    private static GamePanel gamePanel;
     public GUI() {
         refresh();
 
@@ -72,9 +74,21 @@ public class GUI extends JPanel implements ActionListener {
             } else {
                 quitButton.setText("luj aty gej muti");
             }
+            return;
         }
         if (button == optionsButton) {
             Options.options(!optionsPressed);
+            return;
         }
+
+        if (button == playButton) {
+            gamePanel = new GamePanel();
+
+            gamePanel.startGame();
+        }
+    }
+
+    public static GamePanel getGamePanel() {
+        return gamePanel;
     }
 }
