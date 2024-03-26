@@ -2,6 +2,7 @@ package Panels.Pause;
 
 import Game.GamePanel;
 import Panels.options.OptionsPanel;
+import Va.Vars;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static Panels.resource.GUI.getGamePanel;
 import static Va.Vars.*;
 
 public class PausePanel extends JPanel implements ActionListener, KeyListener {
@@ -23,6 +23,7 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
         setLayout(new GridBagLayout());
 
         setBackground(new Color(0, 0, 0, 0));
+
         setOpaque(false);
 
         if (bossMode) {
@@ -30,7 +31,17 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
         } else {
             beastMode = new JLabel("Boss Mode: Disabled");
         }
-        foodType = new JLabel("0");
+        if (Vars.foodType == 4) {
+            this.foodType = new JLabel("Hamburger");
+        } else if (Vars.foodType == 0) {
+            this.foodType = new JLabel("Bacon");
+        } else if (Vars.foodType == 1) {
+            this.foodType = new JLabel("Steak");
+        } else if (Vars.foodType == 2) {
+            this.foodType = new JLabel("French Fries");
+        } else if (Vars.foodType == 3) {
+            this.foodType = new JLabel("Pizza");
+        }
 
         menu = new JButton("Exit to Main Menu");
         resume = new JButton("Resume");
@@ -62,10 +73,11 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
         beastMode.setFont(getMenuFont());
         foodType.setFont(getMenuFont());
 
-        panelButtons = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));
+        //panelButtons = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));
 
-        panelButtons.add(beastMode);
-        panelButtons.add(foodType);
+        //panelButtons.add(foodType);
+
+
 
         add(resume, gbc);
         gbc.gridy++;
@@ -73,7 +85,7 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
         gbc.gridy++;
         add(menu, gbc);
         gbc.gridy++;
-        add(panelButtons, gbc);
+        //add(panelButtons, gbc);
 
         menu.addActionListener(this);
         resume.addActionListener(this);

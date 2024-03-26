@@ -1,8 +1,12 @@
 package Panels.Pause;
 
+import Panels.resource.GUI;
+import Va.Vars;
+
 import javax.swing.*;
 import java.awt.*;
 
+import static Panels.resource.GUI.getGamePanel;
 import static Panels.resource.GUI.optionsPressed;
 import static Va.Vars.*;
 
@@ -25,5 +29,6 @@ public class Pause {
 
         pause.setVisible(visible);
         optionsPressed = !optionsPressed;
+        setPanelEnabled(gamePanel.getFrame(), false);
     }
 }

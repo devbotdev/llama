@@ -2,6 +2,7 @@ package Panels.resource;
 
 import Game.GamePanel;
 import Panels.options.Options;
+import Va.Vars;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,6 @@ public class GUI extends JPanel implements ActionListener {
     public static boolean optionsPressed = false;
     private static boolean exitPressed = false;
     private static JButton button;
-    private static GamePanel gamePanel;
     public GUI() {
         refresh();
 

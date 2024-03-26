@@ -13,7 +13,7 @@ public class Llama extends Vars {
         home = new ImageIcon(image);
 
         background = new JLabel(home);
-        background.setLayout(new GridLayout());
+        background.setLayout(null);
         background.setBounds(0, 0, getScreenWidth(), getScreenHeight());
 
         createGUI("Orjel Lamaj Type Game");

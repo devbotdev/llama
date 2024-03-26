@@ -1,5 +1,6 @@
 package Va;
 
+import Game.GamePanel;
 import Panels.resource.GUI;
 
 import javax.swing.*;
@@ -37,7 +38,8 @@ public class Vars {
     public static final ImageIcon portrait = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\");
     public static ImageIcon home = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\Home.png");
     public static final Image image = home.getImage().getScaledInstance(getScreenWidth(), getScreenHeight(), Image.SCALE_SMOOTH);
-    public static JLabel background;
+    public static ImageIcon garage = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\garage.png");
+    public static JLabel background, background1;
     public static JFrame frame;
     public static GUI buttons = new GUI();
     private static Dimension dimension;
@@ -46,6 +48,7 @@ public class Vars {
     public static int foodType = 1;
     public static boolean bossMode = false;
     public static boolean gameStarted = false;
+    public static GamePanel gamePanel;
 
     public static void refresh() {
         menuFont = new Font("Serif", Font.BOLD, (int) (25 * getScreenScale()));
@@ -71,5 +74,18 @@ public class Vars {
 
     public static void toggleMenu(boolean b) {
         frame.setVisible(b);
+    }
+
+    public static void setPanelEnabled(JFrame panel, Boolean isEnabled) {
+        panel.setEnabled(isEnabled);
+
+        Component[] components = panel.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JFrame) {
+                setPanelEnabled((JFrame) component, isEnabled);
+            }
+            component.setEnabled(isEnabled);
+        }
     }
 }

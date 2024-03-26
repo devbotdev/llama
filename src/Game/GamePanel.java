@@ -2,6 +2,8 @@ package Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -55,10 +57,11 @@ public class GamePanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent event) {
         e = event.getKeyCode();
-
     }
+
 
     public JFrame getFrame() {
         return frame;
     }
+
 }
