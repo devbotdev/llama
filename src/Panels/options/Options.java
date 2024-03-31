@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 import static Panels.resource.GUI.optionsPressed;
-import static Va.Vars.getHeightScale;
-import static Va.Vars.getWidthScale;
+import static Variables.Vars.getHeightScale;
+import static Variables.Vars.getWidthScale;
 
 public class Options {
 

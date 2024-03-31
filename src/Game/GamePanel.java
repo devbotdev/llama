@@ -1,15 +1,12 @@
 package Game;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import static Panels.Pause.Pause.pause;
-import static Va.Vars.gameStarted;
-import static Va.Vars.toggleMenu;
+import static Variables.Vars.gameStarted;
+import static Variables.Vars.toggleMenu;
 
 public class GamePanel implements KeyListener {
 

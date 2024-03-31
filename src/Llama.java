@@ -1,4 +1,4 @@
-import Va.Vars;
+import Variables.Vars;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,6 +6,10 @@ import java.awt.*;
 public class Llama extends Vars {
 
     public static void main(String[] args) {
+        foodType = 0;
+        bossMode = false;
+        gameStarted = false;
+
         System.out.println(getScreenScale());
         System.out.println(getHeightScale());
         System.out.println(getWidthScale());
@@ -14,7 +18,7 @@ public class Llama extends Vars {
 
         background = new JLabel(home);
         background.setLayout(null);
-        background.setBounds(0, 0, getScreenWidth(), getScreenHeight());
+        background.setBounds(0, 0, screenWidth, screenHeight);
 
         createGUI("Orjel Lamaj Type Game");
 

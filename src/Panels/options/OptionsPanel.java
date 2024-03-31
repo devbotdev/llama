@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static Va.Vars.getDimension;
+import static Variables.Vars.getDimension;
 import static Panels.options.Options.*;
-import static Va.Vars.*;
+import static Variables.Vars.*;
 
 public class OptionsPanel extends JPanel implements ActionListener {
 
@@ -67,22 +67,23 @@ public class OptionsPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         button = (JButton) e.getSource();
+        refresh();
 
         if (button == food && !gameStarted) {
             if (foodType == 0) {
-                food.setText("Hamburger");
-                foodType++;
-            } else if (foodType == 1) {
                 food.setText("Bacon");
                 foodType++;
-            } else if (foodType == 2) {
+            } else if (foodType == 1) {
                 food.setText("Steak");
                 foodType++;
-            } else if (foodType == 3) {
+            } else if (foodType == 2) {
                 food.setText("French Fries");
                 foodType++;
-            } else if (foodType == 4) {
+            } else if (foodType == 3) {
                 food.setText("Pizza");
+                foodType++;
+            } else if (foodType == 4) {
+                food.setText("Hamburger");
                 foodType = 0;
             }
         }

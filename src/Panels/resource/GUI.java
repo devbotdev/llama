@@ -2,14 +2,13 @@ package Panels.resource;
 
 import Game.GamePanel;
 import Panels.options.Options;
-import Va.Vars;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static Va.Vars.*;
+import static Variables.Vars.*;
 
 public class GUI extends JPanel implements ActionListener {
     private static JButton playButton, optionsButton, quitButton;
