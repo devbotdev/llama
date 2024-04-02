@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static Panels.Pause.Pause.pause;
-import static Variables.Vars.gameStarted;
-import static Variables.Vars.toggleMenu;
+import static Panels.pause.Pause.pause;
+import static Variables.Vars.*;
 
 public class GamePanel implements KeyListener {
 
@@ -15,14 +14,15 @@ public class GamePanel implements KeyListener {
     private JFrame frame;
 
     public void startGame() {
+        optionsPressed = false;
         frame = new JFrame();
 
         pausePressed = false;
 
         frame.setLayout(null);
+        frame.setUndecorated(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setUndecorated(true);
         frame.setLocationRelativeTo(null);
 
         frame.setVisible(true);

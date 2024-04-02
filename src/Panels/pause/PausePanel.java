@@ -1,4 +1,6 @@
-package Panels.Pause;
+package Panels.pause;
+
+import Panels.options.Options;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,16 +9,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static Panels.options.Options.options;
+import static Panels.pause.Pause.pause;
 import static Variables.Vars.*;
 
 public class PausePanel extends JPanel implements ActionListener, KeyListener {
 
     private final JButton menu, resume, options;
-
+    private Object e;
     public PausePanel() {
         setLayout(new GridBagLayout());
 
-        setBackground(new Color(0, 0, 0, 0));
+        setBackground(blankColor);
 
         setOpaque(false);
 
@@ -55,7 +59,22 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
     }
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        e = actionEvent.getSource();
 
+        if (e == options) {
+            if (!javaIsShit) {
+                options(optionsPressed);
+                javaIsShit = true;
+            } else {
+                options(!optionsPressed);
+            }
+
+            return;
+        }
+        if (e == resume) {
+            if (optionsPressed) options(false);
+            pause(false);
+        }
     }
 
     @Override

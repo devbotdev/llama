@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class Vars {
 
+    public static boolean javaIsShit;
+    public static boolean isJavaGay;
     public Vars() {
         refresh();
     }
@@ -48,7 +50,7 @@ public class Vars {
             enabledPizza = "pizzaO4.png",
             enabledHamburger = "hamburgerO0.png";
     private static String pauseMenuImageString;
-
+    public static final Color blankColor = new Color(0,0,0,0);
     public static final ImageIcon portrait = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\");
     public static ImageIcon home = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\Home.png");
     public static final Image image = home.getImage().getScaledInstance(screenWidth, screenHeight, Image.SCALE_SMOOTH);
@@ -64,6 +66,7 @@ public class Vars {
     public static boolean bossMode;
     public static boolean gameStarted;
     public static GamePanel gamePanel;
+    public static boolean optionsPressed;
 
     public static void refresh() {
         if (!bossMode) {

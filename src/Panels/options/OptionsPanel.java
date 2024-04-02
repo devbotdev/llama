@@ -11,7 +11,7 @@ import static Variables.Vars.*;
 
 public class OptionsPanel extends JPanel implements ActionListener {
 
-    private JButton button;
+    private Object button;
     private final JButton food, bossModeButton, exit;
     private final JLabel foodLabel = new JLabel("Food Type");
 
@@ -66,7 +66,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        button = (JButton) e.getSource();
+        button = e.getSource();
         refresh();
 
         if (button == food && !gameStarted) {
@@ -88,7 +88,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
             }
         }
 
-        if (button == exit && !gameStarted) options(false);
+        if (button == exit) Options.options(false);
 
         if (button == bossModeButton && !gameStarted) {
             if (!bossMode) {

@@ -12,9 +12,8 @@ import static Variables.Vars.*;
 
 public class GUI extends JPanel implements ActionListener {
     private static JButton playButton, optionsButton, quitButton;
-    public static boolean optionsPressed = false;
     private static boolean exitPressed = false;
-    private static JButton button;
+    private static Object button;
     public GUI() {
         refresh();
 
@@ -35,7 +34,6 @@ public class GUI extends JPanel implements ActionListener {
         optionsButton.setPreferredSize(getDimension());
         quitButton.setPreferredSize(getDimension());
 
-
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -53,10 +51,6 @@ public class GUI extends JPanel implements ActionListener {
         optionsButton.setFont(getMenuFont());
         quitButton.setFont(getMenuFont());
 
-        /*playButton.setFont(new Font("Serif", Font.BOLD, 25));
-        optionsButton.setFont(new Font("Serif", Font.BOLD, 25));
-        quitButton.setFont(new Font("Serif", Font.BOLD, 25));*/
-
         playButton.addActionListener(this);
         optionsButton.addActionListener(this);
         quitButton.addActionListener(this);
@@ -64,7 +58,7 @@ public class GUI extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        button = (JButton) e.getSource();
+        button = e.getSource();
 
         if (button == quitButton) {
             if (!exitPressed) {
@@ -75,6 +69,7 @@ public class GUI extends JPanel implements ActionListener {
             }
             return;
         }
+
         if (button == optionsButton) {
             Options.options(!optionsPressed);
             return;
@@ -82,12 +77,7 @@ public class GUI extends JPanel implements ActionListener {
 
         if (button == playButton) {
             gamePanel = new GamePanel();
-
             gamePanel.startGame();
         }
-    }
-
-    public static GamePanel getGamePanel() {
-        return gamePanel;
     }
 }

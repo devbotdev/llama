@@ -9,6 +9,9 @@ public class Llama extends Vars {
         foodType = 0;
         bossMode = false;
         gameStarted = false;
+        javaIsShit = false;
+        optionsPressed = false;
+        isJavaGay = false;
 
         System.out.println(getScreenScale());
         System.out.println(getHeightScale());
@@ -19,6 +22,7 @@ public class Llama extends Vars {
         background = new JLabel(home);
         background.setLayout(null);
         background.setBounds(0, 0, screenWidth, screenHeight);
+        buttons.setBackground(blankColor);
 
         createGUI("Orjel Lamaj Type Game");
 
