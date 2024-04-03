@@ -6,14 +6,13 @@ import static Variables.Vars.*;
 
 public class Pause {
 
-    private static JFrame pause = new JFrame("Pause Menu");
+    protected static JFrame pause = new JFrame("Pause Menu");
     private static PausePanel panel = new PausePanel();
     private static JFrame pauseB = new JFrame("P");
     protected static JLabel image = new JLabel(getPauseMenuImage());
 
     public static void pause(boolean visible) {
         optionsPressed = visible;
-
 
         if (visible) {
             setFrame(pauseB);
@@ -26,7 +25,6 @@ public class Pause {
 
             pauseB.setVisible(true);
             pause.setVisible(true);
-
         } else play();
     }
 
@@ -38,6 +36,8 @@ public class Pause {
 
         pause.remove(panel);
         pauseB.remove(image);
+
+        javaIsShit = false;
     }
 
     private static void setPanel() {
@@ -60,5 +60,9 @@ public class Pause {
             b.setUndecorated(g);
             isJavaGay = true;
         }
+    }
+
+    public static PausePanel getPausePanel() {
+        return panel;
     }
 }

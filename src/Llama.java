@@ -2,22 +2,16 @@ import Variables.Vars;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Llama extends Vars {
-
+public class Llama extends Vars implements KeyListener {
     public static void main(String[] args) {
-        foodType = 0;
-        bossMode = false;
-        gameStarted = false;
-        javaIsShit = false;
-        optionsPressed = false;
-        isJavaGay = false;
+        setVariables();
 
         System.out.println(getScreenScale());
         System.out.println(getHeightScale());
         System.out.println(getWidthScale());
-
-        home = new ImageIcon(image);
 
         background = new JLabel(home);
         background.setLayout(null);
@@ -46,5 +40,32 @@ public class Llama extends Vars {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
         frame.setLocationRelativeTo(null);
+    }
+
+    private static void setVariables() {
+        foodType = 0;
+        bossMode = false;
+        gameStarted = false;
+        javaIsShit = false;
+        optionsPressed = false;
+        isJavaGay = false;
+        codeIsWritten = false;
+
+        home = new ImageIcon(image);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+
     }
 }

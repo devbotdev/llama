@@ -1,10 +1,15 @@
 package Panels.options;
 
+import Panels.pause.PausePanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
+import static Panels.pause.Pause.*;
 import static Variables.Vars.getDimension;
 import static Panels.options.Options.*;
 import static Variables.Vars.*;
@@ -88,7 +93,10 @@ public class OptionsPanel extends JPanel implements ActionListener {
             }
         }
 
-        if (button == exit) Options.options(false);
+        if (button == exit) {
+            Options.options(false);
+            if (gameStarted) getPausePanel().requestFocus();
+        }
 
         if (button == bossModeButton && !gameStarted) {
             if (!bossMode) {
@@ -101,3 +109,4 @@ public class OptionsPanel extends JPanel implements ActionListener {
         }
     }
 }
+

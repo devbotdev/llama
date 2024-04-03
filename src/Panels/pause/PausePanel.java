@@ -1,28 +1,27 @@
 package Panels.pause;
 
-import Panels.options.Options;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import static Panels.options.Options.options;
 import static Panels.pause.Pause.pause;
 import static Variables.Vars.*;
 
 public class PausePanel extends JPanel implements ActionListener, KeyListener {
-
     private final JButton menu, resume, options;
-    private Object e;
+    private Object object;
+    private int e;
     public PausePanel() {
         setLayout(new GridBagLayout());
 
         setBackground(blankColor);
 
-        setOpaque(false);
+        setOpaque(true);
 
         menu = new JButton("Exit to Main Menu");
         resume = new JButton("Resume");
@@ -56,12 +55,15 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
         menu.addActionListener(this);
         resume.addActionListener(this);
         options.addActionListener(this);
+
+        addKeyListener(this);
     }
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        e = actionEvent.getSource();
+        this.requestFocus();
+        object = actionEvent.getSource();
 
-        if (e == options) {
+        if (object == options) {
             if (!javaIsShit) {
                 options(optionsPressed);
                 javaIsShit = true;
@@ -71,24 +73,39 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
 
             return;
         }
-        if (e == resume) {
+        if (object == resume) {
             if (optionsPressed) options(false);
+            pause(false);
+            return;
+        }
+
+        if (object == menu) {
+            try {
+                restart();
+            } catch (IOException ignored){}
+        }
+    }
+
+    @Override
+    public boolean isFocusable() {
+        return true;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent event) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent event) {
+        e = event.getKeyCode();
+        if (e == KeyEvent.VK_ESCAPE) {
             pause(false);
         }
     }
 
     @Override
-    public void keyTyped(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
+    public void keyReleased(KeyEvent event) {
 
     }
 }

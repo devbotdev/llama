@@ -5,6 +5,9 @@ import Panels.resource.GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Vars {
 
@@ -19,7 +22,7 @@ public class Vars {
     private static final double heightScale = (double) screenHeight / 1080;
     private static final double screenScale = (double) ((screenWidth + screenHeight) / 2) / 1500;
     public static int getScreenWidthS() {
-        return (int) (screenHeight * getWidthScale());
+        return (int) (screenWidth * getWidthScale());
     }
     public static int getScreenHeightS() {
         return (int) (screenHeight * getHeightScale());
@@ -51,14 +54,20 @@ public class Vars {
             enabledHamburger = "hamburgerO0.png";
     private static String pauseMenuImageString;
     public static final Color blankColor = new Color(0,0,0,0);
-    public static final ImageIcon portrait = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\");
-    public static ImageIcon home = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\Home.png");
+    private static ImageIcon portrait = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\file.png");
+
+    public static ImageIcon getPortraitI(int i) {
+        portrait = new ImageIcon(portrait.getImage().getScaledInstance((int) (i * widthScale), (int) (i * heightScale), Image.SCALE_SMOOTH));
+        return portrait;
+    }
+
+    public static ImageIcon home = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\Home.png");;
     public static final Image image = home.getImage().getScaledInstance(screenWidth, screenHeight, Image.SCALE_SMOOTH);
-    public static ImageIcon garage = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\garage.png");
+    //public static ImageIcon garage = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\garage.png");
     private static ImageIcon pauseMenuImage;
-    public static JLabel background, background1;
+    public static JLabel background;
     public static JFrame frame;
-    public static GUI buttons = new GUI();
+    public final static GUI buttons = new GUI();
     private static Dimension dimension;
     private static Dimension inGameButtonDimension;
     private static Font menuFont;
@@ -67,6 +76,7 @@ public class Vars {
     public static boolean gameStarted;
     public static GamePanel gamePanel;
     public static boolean optionsPressed;
+    public static boolean codeIsWritten;
 
     public static void refresh() {
         if (!bossMode) {
@@ -131,7 +141,26 @@ public class Vars {
         return pauseMenuImage;
     }
 
-    private static void setPauseMenuImageString(String hamburger, String bacon, String steak, String frenchfries, String pizza) {
+    private static final File path;
 
+    static {
+        try {
+            path = new File(new File(Vars.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void restart() throws IOException {
+        exec(path.getPath());
+        System.exit(0);
+    }
+    private static void exec(String path) throws IOException {
+        String javaHome = System.getProperty("java.home");
+        String javaBin = javaHome +
+                File.separator + "bin" +
+                File.separator + "java";
+
+        ProcessBuilder pb = new ProcessBuilder(javaBin, "-jar", path);
+        pb.start();
     }
 }

@@ -76,6 +76,7 @@ public class GUI extends JPanel implements ActionListener {
         }
 
         if (button == playButton) {
+            playButton.removeActionListener(this);
             gamePanel = new GamePanel();
             gamePanel.startGame();
         }
