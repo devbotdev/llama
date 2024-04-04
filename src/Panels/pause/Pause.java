@@ -9,7 +9,7 @@ public class Pause {
     protected static JFrame pause = new JFrame("Pause Menu");
     private static PausePanel panel = new PausePanel();
     private static JFrame pauseB = new JFrame("P");
-    protected static JLabel image = new JLabel(getPauseMenuImage());
+    protected static JLabel image = new JLabel(pauseMenuImage);
 
     public static void pause(boolean visible) {
         optionsPressed = visible;

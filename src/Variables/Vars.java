@@ -1,7 +1,7 @@
 package Variables;
 
 import Game.GamePanel;
-import Panels.resource.GUI;
+import Panels.resource.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,10 +21,10 @@ public class Vars {
     private static final double widthScale = (double) screenWidth / 1920;
     private static final double heightScale = (double) screenHeight / 1080;
     private static final double screenScale = (double) ((screenWidth + screenHeight) / 2) / 1500;
-    public static int getScreenWidthS() {
+    public static int getScreenWidthScaled() {
         return (int) (screenWidth * getWidthScale());
     }
-    public static int getScreenHeightS() {
+    public static int getScreenHeightScaled() {
         return (int) (screenHeight * getHeightScale());
     }
 
@@ -56,18 +56,24 @@ public class Vars {
     public static final Color blankColor = new Color(0,0,0,0);
     private static ImageIcon portrait = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\file.png");
 
-    public static ImageIcon getPortraitI(int i) {
+    public static ImageIcon getPortrait(int i) {
         portrait = new ImageIcon(portrait.getImage().getScaledInstance((int) (i * widthScale), (int) (i * heightScale), Image.SCALE_SMOOTH));
         return portrait;
     }
 
-    public static ImageIcon home = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\Home.png");;
-    public static final Image image = home.getImage().getScaledInstance(screenWidth, screenHeight, Image.SCALE_SMOOTH);
-    //public static ImageIcon garage = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\garage.png");
-    private static ImageIcon pauseMenuImage;
-    public static JLabel background;
+    private static ImageIcon home = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\Home.png");;
+
+    public static ImageIcon getHome() {
+        home = new ImageIcon(home.getImage().getScaledInstance(screenWidth, screenHeight, Image.SCALE_SMOOTH));
+        return home;
+    }
+    public static ImageIcon pauseMenuImage;
+    public static ImageIcon getPauseMenuImage() {
+        pauseMenuImage = new ImageIcon(pauseMenuImage.getImage().getScaledInstance(getScreenWidthScaled(), getScreenHeightScaled(), Image.SCALE_SMOOTH));
+        return pauseMenuImage;
+    }
     public static JFrame frame;
-    public final static GUI buttons = new GUI();
+    public final static MainMenu buttons = new MainMenu();
     private static Dimension dimension;
     private static Dimension inGameButtonDimension;
     private static Font menuFont;
@@ -88,6 +94,7 @@ public class Vars {
         menuFont = new Font("Serif", Font.BOLD, (int) (25 * getScreenScale()));
         dimension = new Dimension((int) (300 * getWidthScale()), (int) (50 * getHeightScale()));
         inGameButtonDimension = new Dimension((int) (700 * getWidthScale()), (int) (50 * getHeightScale()));
+
         pauseMenuImage = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\" + pauseMenuImageString);
     }
 
@@ -136,9 +143,6 @@ public class Vars {
             }
             component.setEnabled(isEnabled);
         }
-    }
-    public static ImageIcon getPauseMenuImage() {
-        return pauseMenuImage;
     }
 
     private static final File path;
