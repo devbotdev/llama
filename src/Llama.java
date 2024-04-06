@@ -28,7 +28,6 @@ public class Llama extends Vars {
         frame.setLocationRelativeTo(null);
     }
 
-
     private static void setVariables() {
         foodType = 0;
         bossMode = false;

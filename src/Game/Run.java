@@ -1,59 +1,45 @@
 package Game;
 
-import Game.Character.ControlsHandler;
+import Game.Tile.TileManager;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-
-import static Game.Character.MainCharacter.*;
-import static Variables.Vars.gamePanel;
+import static Variables.Vars.*;
 
 public class Run extends GamePanel implements Runnable {
-
-    public static boolean timeToUpdateCharacter = false;
     public static final byte FPS = 60;
-    double drawInterval = (double) 1000000000 / FPS;
-    double nextDrawTime = System.nanoTime() + drawInterval;
-    double remainingTime;
+    public double drawInterval = (double) 1000000000 / FPS;
+    public double delta = 0;
+    public long lastTime, currentTime, timer;
+    public int drawCount = 0;
     protected Run() {
         gameThread = new Thread(this);
     }
     @Override
     public void run() {
-        while (gameThread != null){
+        lastTime = System.nanoTime();
+        while (gameThread != null) {
+            if (!gameRunning) continue;
+            currentTime = System.nanoTime();
 
-            update();
+            delta += (currentTime - lastTime) / drawInterval;
+            timer += (currentTime - lastTime);
+            lastTime = currentTime;
 
-            gamePanel.repaint();
+            if (delta >= 1) {
+                update();
+                gamePanel.repaint();
+                delta--;
+                drawCount++;
 
-            try {
-                remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime / 1000000;
-
-                if (remainingTime < 0) {
-                    remainingTime = 0;
+                if (timer >= 1000000000) {
+                    if (printFPS) System.out.println(drawCount);
+                    drawCount = 0;
+                    timer = 0;
                 }
-
-                Thread.sleep((long) remainingTime);
-
-                nextDrawTime += drawInterval;
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
     }
 
     public void update() {
-
-
-
-        if (ControlsHandler.upPressed) playerY -= playerSpeed;
-        if (ControlsHandler.downPressed) playerY += playerSpeed;
-        if (ControlsHandler.leftPressed) playerX -= playerSpeed;
-        if (ControlsHandler.rightPressed) playerX += playerSpeed;
-    }
-
-    public void updateCharacter() {
-        timeToUpdateCharacter = false;
+        orjeli.update();
     }
 }

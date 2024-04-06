@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 
 public class Vars {
 
+    public static boolean printFPS = true;
+    public static boolean gameRunning;
     public static boolean javaIsShit;
     public static boolean isJavaGay;
     public Vars() {
@@ -39,7 +41,7 @@ public class Vars {
     public static double getHeightScale() {
         return heightScale;
     }
-
+    public final static String directory = System.getProperty("user.dir") + "\\src";
     public final static String disabledBacon = "bacon1.png",
             disabledSteak = "steak2.png",
             disabledFrenchFries = "frenchfries3.png",
@@ -54,14 +56,14 @@ public class Vars {
             enabledHamburger = "hamburgerO0.png";
     private static String pauseMenuImageString;
     public static final Color blankColor = new Color(0,0,0,0);
-    private static ImageIcon portrait = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\file.png");
+    private static ImageIcon portrait = new ImageIcon(directory + "\\images\\file.png");
 
     public static ImageIcon getPortrait(int i) {
         portrait = new ImageIcon(portrait.getImage().getScaledInstance((int) (i * widthScale), (int) (i * heightScale), Image.SCALE_SMOOTH));
         return portrait;
     }
 
-    private static ImageIcon home = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\Home.png");;
+    private static ImageIcon home = new ImageIcon(directory + "\\images\\Home.png");;
 
     public static ImageIcon getHome() {
         home = new ImageIcon(home.getImage().getScaledInstance(screenWidth, screenHeight, Image.SCALE_SMOOTH));
@@ -69,7 +71,7 @@ public class Vars {
     }
     public static ImageIcon pauseMenuImage;
     public static ImageIcon getPauseMenuImage() {
-        pauseMenuImage = new ImageIcon(pauseMenuImage.getImage().getScaledInstance(getScreenWidthScaled(), getScreenHeightScaled(), Image.SCALE_SMOOTH));
+        pauseMenuImage = new ImageIcon(new ImageIcon(directory + "\\images\\" + pauseMenuImageString).getImage().getScaledInstance(getScreenWidthScaled(), getScreenHeightScaled(), Image.SCALE_SMOOTH));
         return pauseMenuImage;
     }
     public static JFrame frame;
@@ -95,7 +97,7 @@ public class Vars {
         dimension = new Dimension((int) (300 * getWidthScale()), (int) (50 * getHeightScale()));
         inGameButtonDimension = new Dimension((int) (700 * getWidthScale()), (int) (50 * getHeightScale()));
 
-        pauseMenuImage = new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\" + pauseMenuImageString);
+        pauseMenuImage = new ImageIcon(directory + "\\images\\" + pauseMenuImageString);
     }
 
     private static void setString(String enabledHamburger, String enabledBacon, String enabledSteak, String enabledFrenchFries, String enabledPizza) {
@@ -123,11 +125,6 @@ public class Vars {
     public static Font getMenuFont() {
         return menuFont;
     }
-
-    public static void toggleMenu() {
-        frame.setVisible(!gameStarted);
-    }
-
     public static void toggleMenu(boolean b) {
         frame.setVisible(b);
     }

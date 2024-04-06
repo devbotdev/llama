@@ -1,12 +1,12 @@
-package Game.Character;
+package Game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import static Panels.pause.Pause.pause;
+import static Variables.Vars.gameRunning;
 
 public class ControlsHandler implements KeyListener {
-
     public static int a, b;
     public static boolean upPressed, downPressed, leftPressed, rightPressed;
 
@@ -16,6 +16,8 @@ public class ControlsHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent event) {
+        if (!gameRunning) return;
+
         a = event.getKeyCode();
 
         if (a == KeyEvent.VK_ESCAPE) {
@@ -30,11 +32,12 @@ public class ControlsHandler implements KeyListener {
             ControlsHandler.leftPressed = true;
         else if (ControlsHandler.a == KeyEvent.VK_D || ControlsHandler.a == KeyEvent.VK_RIGHT)
             ControlsHandler.rightPressed = true;
-
     }
 
     @Override
     public void keyReleased(KeyEvent event) {
+        if (!gameRunning) return;
+
         b = event.getKeyCode();
 
         if (ControlsHandler.b == KeyEvent.VK_W || ControlsHandler.b == KeyEvent.VK_UP)

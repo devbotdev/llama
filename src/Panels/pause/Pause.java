@@ -2,6 +2,7 @@ package Panels.pause;
 
 import javax.swing.*;
 
+import static Game.ControlsHandler.*;
 import static Variables.Vars.*;
 
 public class Pause {
@@ -15,6 +16,8 @@ public class Pause {
         optionsPressed = visible;
 
         if (visible) {
+            gameRunning = false;
+
             setFrame(pauseB);
             setFrame(pause);
 
@@ -29,6 +32,12 @@ public class Pause {
     }
 
     private static void play() {
+        gameRunning = true;
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+
         setPanel();
 
         pauseB.setVisible(false);

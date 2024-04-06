@@ -1,23 +1,26 @@
 package Game;
 
-import Game.Character.ControlsHandler;
+import Game.Characters.Orjeli;
+import Game.Tile.Tile;
+import Game.Tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static Game.Character.MainCharacter.*;
 import static Variables.Vars.*;
 
 public class GamePanel extends JPanel {
+    public final int maxCol = 32, maxRow = 18;
+    protected Orjeli orjeli;
+    protected TileManager tileManager;
     private Run run;
     private int e;
-    public static boolean pausePressed;
+    public boolean pausePressed;
     private JFrame frame;
     protected static Thread gameThread;
-    protected Graphics2D g;
-    protected final short tileSize = (short) (60 * getScreenScale());
-    protected final byte maxScreenRow = 18, maxScreenCol = 32;
-    public final ControlsHandler controlsHandler = new ControlsHandler();
+    private Graphics2D g;
+    public final short tileSize = (short) (60 * getScreenScale());
+    private final ControlsHandler controlsHandler = new ControlsHandler();
 
     public GamePanel() {
         super();
@@ -25,9 +28,13 @@ public class GamePanel extends JPanel {
         setOpaque(true);
         setFocusable(true);
         requestFocusInWindow();
+
+        orjeli = new Orjeli(this, controlsHandler);
+        tileManager = new TileManager(this);
     }
 
     public void startGame() {
+        gameRunning = true;
         run = new Run();
 
         optionsPressed = false;
@@ -71,7 +78,9 @@ public class GamePanel extends JPanel {
 
         g = (Graphics2D) graphics;
 
-        getPortrait(tileSize).paintIcon(this, g, playerX, playerY);
+        tileManager.draw(g);
+
+        orjeli.draw(g);
 
         g.dispose();
     }
