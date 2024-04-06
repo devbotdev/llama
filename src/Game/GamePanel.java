@@ -1,8 +1,10 @@
 package Game;
 
 import Game.Characters.Orjeli;
-import Game.Tile.Tile;
 import Game.Tile.TileManager;
+import Panels.pause.Pause;
+import Panels.pause.PausePanel;
+import Panels.resource.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +13,8 @@ import static Variables.Vars.*;
 
 public class GamePanel extends JPanel {
     public final int maxCol = 32, maxRow = 18;
-    protected Orjeli orjeli;
-    protected TileManager tileManager;
+    public Orjeli orjeli;
+    public TileManager tileManager;
     private Run run;
     private int e;
     public boolean pausePressed;
@@ -21,6 +23,8 @@ public class GamePanel extends JPanel {
     private Graphics2D g;
     public final short tileSize = (short) (60 * getScreenScale());
     private final ControlsHandler controlsHandler = new ControlsHandler();
+    protected final Pause pause = new Pause(this);
+    protected final MainMenu mainMenu = new MainMenu();
 
     public GamePanel() {
         super();
@@ -35,7 +39,7 @@ public class GamePanel extends JPanel {
 
     public void startGame() {
         gameRunning = true;
-        run = new Run();
+        run = new Run(this);
 
         optionsPressed = false;
         frame = new JFrame();

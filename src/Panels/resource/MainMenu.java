@@ -15,6 +15,7 @@ public class MainMenu extends JPanel implements ActionListener {
     private static boolean exitPressed = false;
     private static Object button;
     private Graphics g;
+    private GamePanel gp;
     public MainMenu() {
         refresh();
 

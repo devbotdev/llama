@@ -7,9 +7,7 @@ import java.awt.*;
 
 import static Variables.Vars.*;
 
-public class Orjeli {
-    public float fatnessLevel;
-    public static int playerY, playerX, playerSpeedF, playerSpeed;
+public class Orjeli extends Entity {
     private final GamePanel gp;
     private final ControlsHandler handler;
 
@@ -19,20 +17,31 @@ public class Orjeli {
         this.setDefaultValues();
     }
 
-    private void setDefaultValues() {
+    public void setDefaultValues() {
         fatnessLevel = 1.0F;
-        playerY = 100;
-        playerX = 100;
+        playerY = (int) (100 * getScreenScale());
+        playerX = (int) (100 * getScreenScale());
         playerSpeedF = 6;
     }
 
     public void update() {
-        playerSpeed = (int) (playerSpeedF - fatnessLevel);
-
-        if (ControlsHandler.upPressed && !(playerY == 0)) playerY -= playerSpeed;
-        if (ControlsHandler.downPressed && !(playerY == screenHeight)) playerY += playerSpeed;
-        if (ControlsHandler.leftPressed && !(playerX == 0)) playerX -= playerSpeed;
-        if (ControlsHandler.rightPressed && !(playerX == screenWidth)) playerX += playerSpeed;
+        playerSpeed = (int) ((playerSpeedF - fatnessLevel) * getScreenScale());
+        if (ControlsHandler.upPressed && !(playerY <= 48)) {
+            direction = 0;
+            playerY -= playerSpeed;
+        }
+        if (ControlsHandler.downPressed && !(playerY >= screenHeight - 48 - gp.tileSize)) {
+            direction = 1;
+            playerY += playerSpeed;
+        }
+        if (ControlsHandler.leftPressed && !(playerX <= 48)) {
+            direction = 2;
+            playerX -= playerSpeed;
+        }
+        if (ControlsHandler.rightPressed && !(playerX >= screenWidth - 48 - gp.tileSize)) {
+            direction = 3;
+            playerX += playerSpeed;
+        }
     }
 
     public void draw(Graphics2D g) {

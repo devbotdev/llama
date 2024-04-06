@@ -11,12 +11,12 @@ import static Variables.Vars.directory;
 
 public class TileManager {
     private int col, row, x, y;
-    private final int[][] mapTile;
-    private int num, tileNum;
-    private String string;
-    private String[] numbers;
+    protected final int[][] mapTile;
+    protected int num, tileNum;
+    protected String string;
+    protected String[] numbers;
     private GamePanel gp;
-    private Tile[] tile;
+    protected Tile[] tile;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -63,6 +63,10 @@ public class TileManager {
     public void setTileImage() {
         tile[0] = new Tile();
         tile[1] = new Tile();
+
+        tile[0].collision = false;
+        tile[1].collision = true;
+
         try {
             tile[0].image = ImageIO.read(new File(directory + "\\images\\tile.png"));
             tile[1].image = ImageIO.read(new File(directory + "\\images\\tile_brown.jpg"));

@@ -1,7 +1,5 @@
 package Game;
 
-import Game.Tile.TileManager;
-
 import static Variables.Vars.*;
 
 public class Run extends GamePanel implements Runnable {
@@ -10,7 +8,10 @@ public class Run extends GamePanel implements Runnable {
     public double delta = 0;
     public long lastTime, currentTime, timer;
     public int drawCount = 0;
-    protected Run() {
+    private GamePanel gp;
+    protected Run(GamePanel gp) {
+        this.gp = gp;
+
         gameThread = new Thread(this);
     }
     @Override
@@ -26,7 +27,7 @@ public class Run extends GamePanel implements Runnable {
 
             if (delta >= 1) {
                 update();
-                gamePanel.repaint();
+                gp.repaint();
                 delta--;
                 drawCount++;
 
