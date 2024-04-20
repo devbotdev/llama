@@ -3,7 +3,7 @@ package Game;
 import static Variables.Vars.*;
 
 public class Run extends GamePanel implements Runnable {
-    public static final byte FPS = 60;
+    public static final byte FPS = 126;
     public double drawInterval = (double) 1000000000 / FPS;
     public double delta = 0;
     public long lastTime, currentTime, timer;

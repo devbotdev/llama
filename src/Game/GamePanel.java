@@ -1,9 +1,10 @@
 package Game;
 
 import Game.Characters.Orjeli;
-import Game.Tile.TileManager;
+import Game.Food.FoodObject;
+import Game.Paint.AssetSetter;
+import Game.Paint.TileManager;
 import Panels.pause.Pause;
-import Panels.pause.PausePanel;
 import Panels.resource.MainMenu;
 
 import javax.swing.*;
@@ -25,6 +26,8 @@ public class GamePanel extends JPanel {
     private final ControlsHandler controlsHandler = new ControlsHandler();
     protected final Pause pause = new Pause(this);
     protected final MainMenu mainMenu = new MainMenu();
+    public FoodObject[] foodObject = new FoodObject[10];
+    public AssetSetter setter = new AssetSetter(this);
 
     public GamePanel() {
         super();
@@ -37,9 +40,15 @@ public class GamePanel extends JPanel {
         tileManager = new TileManager(this);
     }
 
+    public void setupGame() {
+        setter.set();
+    }
+
     public void startGame() {
         gameRunning = true;
         run = new Run(this);
+
+        gamePanel.setupGame();
 
         optionsPressed = false;
         frame = new JFrame();
@@ -77,13 +86,30 @@ public class GamePanel extends JPanel {
     public JFrame getFrame() {
         return frame;
     }
+
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
         g = (Graphics2D) graphics;
 
+        // Map
         tileManager.draw(g);
 
+        // Foods
+        foodObject[0].draw(g, this);
+        foodObject[1].draw(g, this);
+        foodObject[2].draw(g, this);
+        foodObject[3].draw(g, this);
+        foodObject[4].draw(g, this);
+        foodObject[5].draw(g, this);
+
+        /*for (FoodObject object : foodObject) {
+            if (object != null) {
+                object.draw(g, this);
+            }
+        }*/
+
+        // Orjeli
         orjeli.draw(g);
 
         g.dispose();

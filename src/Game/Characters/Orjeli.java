@@ -2,6 +2,7 @@ package Game.Characters;
 
 import Game.ControlsHandler;
 import Game.GamePanel;
+import Game.Run;
 
 import java.awt.*;
 
@@ -19,32 +20,66 @@ public class Orjeli extends Entity {
 
     public void setDefaultValues() {
         fatnessLevel = 1.0F;
-        playerY = (int) (100 * getScreenScale());
-        playerX = (int) (100 * getScreenScale());
-        playerSpeedF = 6;
+
+        sizeI = (short) (60 * getScreenScale());
+        sizeYI = (short) (60 * getHeightScale());
+        sizeXI = (short) (60 * getWidthScale());
+
+        updateFatness();
+
+        playerY = (int) (100 * getHeightScale());
+        playerX = (int) (100 * getWidthScale());
+        playerSpeedF = 6 / (Run.FPS / 60);
+    }
+
+    public void updateFatness() {
+        size = (short) (sizeI * fatnessLevel);
     }
 
     public void update() {
+        updateFatness();
         playerSpeed = (int) ((playerSpeedF - fatnessLevel) * getScreenScale());
-        if (ControlsHandler.upPressed && !(playerY <= 48)) {
+
+        if (ControlsHandler.upPressed && gp.tileManager.movementAllowed(this, (byte) 0)) {
             direction = 0;
             playerY -= playerSpeed;
         }
-        if (ControlsHandler.downPressed && !(playerY >= screenHeight - 48 - gp.tileSize)) {
+        if (ControlsHandler.downPressed && gp.tileManager.movementAllowed(this, (byte) 1)) {
             direction = 1;
             playerY += playerSpeed;
         }
-        if (ControlsHandler.leftPressed && !(playerX <= 48)) {
+        if (ControlsHandler.leftPressed && gp.tileManager.movementAllowed(this, (byte) 2)) {
             direction = 2;
             playerX -= playerSpeed;
         }
-        if (ControlsHandler.rightPressed && !(playerX >= screenWidth - 48 - gp.tileSize)) {
+        if (ControlsHandler.rightPressed && gp.tileManager.movementAllowed(this, (byte) 3)) {
             direction = 3;
             playerX += playerSpeed;
+        }
+
+        if (playerY >= (gp.tileSize + 1)) {
+            if (!gp.tileManager.movementAllowed(this, (byte) 0)) {
+                playerY += 1;
+            }
+        }
+        if (playerY >= (screenHeight - gp.tileSize)) {
+            if (!gp.tileManager.movementAllowed(this, (byte) 1)) {
+                playerY -= 1;
+            }
+        }
+        if (playerX >= (gp.tileSize + 1)) {
+            if (!gp.tileManager.movementAllowed(this, (byte) 2)) {
+                playerX += 1;
+            }
+        }
+        if (playerY >= (screenWidth - gp.tileSize)) {
+            if (!gp.tileManager.movementAllowed(this, (byte) 3)) {
+                playerX -= 1;
+            }
         }
     }
 
     public void draw(Graphics2D g) {
-        getPortrait(gp.tileSize).paintIcon(gp, g, playerX, playerY);
+        getPortrait(size).paintIcon(gp, g, playerX, playerY);
     }
 }

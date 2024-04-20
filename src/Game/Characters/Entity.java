@@ -6,4 +6,7 @@ public class Entity {
     public float fatnessLevel;
     public static int playerY, playerX;
     public int playerSpeed, playerSpeedF;
+
+    public short size;
+    public short sizeXI, sizeYI, sizeI;
 }

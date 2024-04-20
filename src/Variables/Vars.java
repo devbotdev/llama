@@ -3,8 +3,10 @@ package Variables;
 import Game.GamePanel;
 import Panels.resource.MainMenu;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -63,17 +65,18 @@ public class Vars {
         return portrait;
     }
 
-    private static ImageIcon home = new ImageIcon(directory + "\\images\\Home.png");;
+    public final static BufferedImage home;
 
-    public static ImageIcon getHome() {
-        home = new ImageIcon(home.getImage().getScaledInstance(screenWidth, screenHeight, Image.SCALE_SMOOTH));
-        return home;
+    static {
+        try {
+            home = ImageIO.read(new File(directory + "\\images\\Home.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
     public static ImageIcon pauseMenuImage;
-    public static ImageIcon getPauseMenuImage() {
-        pauseMenuImage = new ImageIcon(new ImageIcon(directory + "\\images\\" + pauseMenuImageString).getImage().getScaledInstance(getScreenWidthScaled(), getScreenHeightScaled(), Image.SCALE_SMOOTH));
-        return pauseMenuImage;
-    }
+
     public static JFrame frame;
     public final static MainMenu buttons = new MainMenu();
     private static Dimension dimension;

@@ -1,12 +1,12 @@
-import Variables.Vars;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public class Llama extends Vars {
+import static Variables.Vars.*;
+
+public class Llama {
     public static void main(String[] args) {
+        System.setProperty("sun.java2d.opengl", "true");
+
         setVariables();
 
         System.out.println(getScreenScale());
