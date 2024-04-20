@@ -9,6 +9,11 @@ import static Variables.Vars.gameRunning;
 public class ControlsHandler implements KeyListener {
     public static int a, b;
     public static boolean upPressed, downPressed, leftPressed, rightPressed;
+    private GamePanel gp;
+
+    public ControlsHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent event) {
@@ -23,6 +28,8 @@ public class ControlsHandler implements KeyListener {
         if (a == KeyEvent.VK_ESCAPE) {
             pause(true);
         }
+
+        gp.orjeli.movingAllowed();
 
         if (ControlsHandler.a == KeyEvent.VK_W || ControlsHandler.a == KeyEvent.VK_UP)
             ControlsHandler.upPressed = true;

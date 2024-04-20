@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
     protected static Thread gameThread;
     private Graphics2D g;
     public final short tileSize = (short) (60 * getScreenScale());
-    private final ControlsHandler controlsHandler = new ControlsHandler();
+    private final ControlsHandler controlsHandler = new ControlsHandler(this);
     protected final Pause pause = new Pause(this);
     protected final MainMenu mainMenu = new MainMenu();
     public FoodObject[] foodObject = new FoodObject[10];
@@ -49,10 +49,10 @@ public class GamePanel extends JPanel {
         run = new Run(this);
 
         gamePanel.setupGame();
+        gameThread.start();
 
         optionsPressed = false;
         frame = new JFrame();
-        gameThread.start();
 
         pausePressed = false;
 

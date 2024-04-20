@@ -38,48 +38,50 @@ public class Orjeli extends Entity {
 
     public void update() {
         updateFatness();
-        playerSpeed = (int) ((playerSpeedF - fatnessLevel) * getScreenScale());
+        playerSpeed = ((playerSpeedF - fatnessLevel) * getScreenScale());
 
-        if (ControlsHandler.upPressed && gp.tileManager.movementAllowed(this, (byte) 0)) {
+        if (ControlsHandler.upPressed && gp.tileManager.movementAllowed(this, 0)) {
             direction = 0;
             playerY -= playerSpeed;
         }
-        if (ControlsHandler.downPressed && gp.tileManager.movementAllowed(this, (byte) 1)) {
+        if (ControlsHandler.downPressed && gp.tileManager.movementAllowed(this, 1)) {
             direction = 1;
             playerY += playerSpeed;
         }
-        if (ControlsHandler.leftPressed && gp.tileManager.movementAllowed(this, (byte) 2)) {
+        if (ControlsHandler.leftPressed && gp.tileManager.movementAllowed(this, 2)) {
             direction = 2;
             playerX -= playerSpeed;
         }
-        if (ControlsHandler.rightPressed && gp.tileManager.movementAllowed(this, (byte) 3)) {
+        if (ControlsHandler.rightPressed && gp.tileManager.movementAllowed(this, 3)) {
             direction = 3;
             playerX += playerSpeed;
-        }
-
-        if (playerY >= (gp.tileSize + 1)) {
-            if (!gp.tileManager.movementAllowed(this, (byte) 0)) {
-                playerY += 1;
-            }
-        }
-        if (playerY >= (screenHeight - gp.tileSize)) {
-            if (!gp.tileManager.movementAllowed(this, (byte) 1)) {
-                playerY -= 1;
-            }
-        }
-        if (playerX >= (gp.tileSize + 1)) {
-            if (!gp.tileManager.movementAllowed(this, (byte) 2)) {
-                playerX += 1;
-            }
-        }
-        if (playerY >= (screenWidth - gp.tileSize)) {
-            if (!gp.tileManager.movementAllowed(this, (byte) 3)) {
-                playerX -= 1;
-            }
         }
     }
 
     public void draw(Graphics2D g) {
         getPortrait(size).paintIcon(gp, g, playerX, playerY);
+    }
+
+    public void movingAllowed() {
+        if (playerY >= (gp.tileSize + 1)) {
+            if (!gp.tileManager.movementAllowed(this, 0)) {
+                playerY += 1;
+            }
+        }
+        if (playerY <= (screenHeight - gp.tileSize)) {
+            if (!gp.tileManager.movementAllowed(this, 1)) {
+                playerY -= 1;
+            }
+        }
+        if (playerX >= (gp.tileSize + 1)) {
+            if (!gp.tileManager.movementAllowed(this, 2)) {
+                playerX += 1;
+            }
+        }
+        if (playerY <= (screenWidth - gp.tileSize)) {
+            if (!gp.tileManager.movementAllowed(this, 3)) {
+                playerX -= 1;
+            }
+        }
     }
 }

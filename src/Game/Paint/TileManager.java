@@ -23,11 +23,13 @@ public class TileManager {
             entityCol, entityRow, entityLeftCol, entityRightCol, entityTopRow, entityBottomRow,
             tileNum0;
 
-    public boolean movementAllowed(Entity e, byte b) {
-        entityLeftWorldX = e.playerX - e.playerSpeed;
-        entityRightWorldX = e.playerX + e.size + e.playerSpeed - (byte) (0.66666666666 * e.playerSpeed);
-        entityTopWorldY = e.playerY - e.playerSpeed;
-        entityBottomWorldY = e.playerY + e.size + e.playerSpeed - (byte) (0.66666666666 * e.playerSpeed);
+    public boolean movementAllowed(Entity e, int b) {
+        e.playerSpeedI = (int) e.playerSpeed;
+
+        entityLeftWorldX = Entity.playerX - e.playerSpeedI;
+        entityRightWorldX = (int) (Entity.playerX + e.size + e.playerSpeed - 0.66666666666 * e.playerSpeedI);
+        entityTopWorldY = Entity.playerY - e.playerSpeedI;
+        entityBottomWorldY = (int) (Entity.playerY + e.size + e.playerSpeed - 0.66666666666 * e.playerSpeedI);
 
         entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / gp.tileSize;
         entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / gp.tileSize;
@@ -54,78 +56,78 @@ public class TileManager {
     }
 
     public TileManager(GamePanel gp) {
-            this.gp = gp;
+        this.gp = gp;
 
-            tile = new Tile[2];
+        tile = new Tile[2];
 
-            mapTile = new int[gp.maxCol][gp.maxRow];
+        mapTile = new int[gp.maxCol][gp.maxRow];
 
-            setTileImage();
+        setTileImage();
 
-            try {
-                loadMap("map0.txt");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            loadMap("map0.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-        public void loadMap (String s) throws IOException {
-            File file = new File(directory + "\\images\\maps\\" + s);
-            BufferedReader br = new BufferedReader(new FileReader(file));
+    public void loadMap(String s) throws IOException {
+        File file = new File(directory + "\\images\\maps\\" + s);
+        BufferedReader br = new BufferedReader(new FileReader(file));
 
-            col = 0;
-            row = 0;
-            x = 0;
-            y = 0;
+        col = 0;
+        row = 0;
+        x = 0;
+        y = 0;
 
-            while (col < gp.maxCol && row < gp.maxRow) {
-                string = br.readLine();
-                while (col < gp.maxCol) {
-                    numbers = string.split(" ");
-                    num = Integer.parseInt(numbers[col]);
+        while (col < gp.maxCol && row < gp.maxRow) {
+            string = br.readLine();
+            while (col < gp.maxCol) {
+                numbers = string.split(" ");
+                num = Integer.parseInt(numbers[col]);
 
-                    mapTile[col][row] = num;
-                    col++;
-                }
-                if (col == gp.maxCol) {
-                    col = 0;
-                    row++;
-                }
-            }
-            br.close();
-        }
-
-        public void setTileImage () {
-            tile[0] = new Tile();
-            tile[1] = new Tile();
-
-            try {
-                tile[0].image = ImageIO.read(new File(directory + "\\images\\tile.png"));
-                tile[1].image = ImageIO.read(new File(directory + "\\images\\tile_brown.jpg"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void draw (Graphics2D g) {
-            col = 0;
-            row = 0;
-            x = 0;
-            y = 0;
-
-            while (col < gp.maxCol && row < gp.maxRow) {
-                tileNum = mapTile[col][row];
-
-                g.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
+                mapTile[col][row] = num;
                 col++;
-                x += gp.tileSize;
+            }
+            if (col == gp.maxCol) {
+                col = 0;
+                row++;
+            }
+        }
+        br.close();
+    }
 
-                if (col == gp.maxCol) {
-                    col = 0;
-                    x = 0;
-                    row++;
-                    y += gp.tileSize;
-                }
+    public void setTileImage() {
+        tile[0] = new Tile();
+        tile[1] = new Tile();
+
+        try {
+            tile[0].image = ImageIO.read(new File(directory + "\\images\\tile.png"));
+            tile[1].image = ImageIO.read(new File(directory + "\\images\\tile_brown.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void draw(Graphics2D g) {
+        col = 0;
+        row = 0;
+        x = 0;
+        y = 0;
+
+        while (col < gp.maxCol && row < gp.maxRow) {
+            tileNum = mapTile[col][row];
+
+            g.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
+            col++;
+            x += gp.tileSize;
+
+            if (col == gp.maxCol) {
+                col = 0;
+                x = 0;
+                row++;
+                y += gp.tileSize;
             }
         }
     }
+}
