@@ -4,17 +4,17 @@ import Game.ControlsHandler;
 import Game.GamePanel;
 import Game.Run;
 
+import javax.swing.*;
 import java.awt.*;
 
 import static Variables.Vars.*;
 
 public class Orjeli extends Entity {
-    private final GamePanel gp;
-    private final ControlsHandler handler;
 
-    public Orjeli(GamePanel gp, ControlsHandler handler) {
+    private final GamePanel gp;
+
+    public Orjeli(GamePanel gp) {
         this.gp = gp;
-        this.handler = handler;
         this.setDefaultValues();
     }
 
@@ -42,46 +42,38 @@ public class Orjeli extends Entity {
 
         if (ControlsHandler.upPressed && gp.tileManager.movementAllowed(this, 0)) {
             direction = 0;
-            playerY -= playerSpeed;
+            playerY -= (int) playerSpeed;
         }
         if (ControlsHandler.downPressed && gp.tileManager.movementAllowed(this, 1)) {
             direction = 1;
-            playerY += playerSpeed;
+            playerY += (int) playerSpeed;
         }
         if (ControlsHandler.leftPressed && gp.tileManager.movementAllowed(this, 2)) {
             direction = 2;
-            playerX -= playerSpeed;
+            playerX -= (int) playerSpeed;
         }
         if (ControlsHandler.rightPressed && gp.tileManager.movementAllowed(this, 3)) {
             direction = 3;
-            playerX += playerSpeed;
+            playerX += (int) playerSpeed;
         }
+
+        gp.orjeli.movingAllowed();
     }
 
+    private final ImageIcon portrait = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\file.png").getImage().getScaledInstance((int) (60), (int) (60), Image.SCALE_SMOOTH));
     public void draw(Graphics2D g) {
-        getPortrait(size).paintIcon(gp, g, playerX, playerY);
+        portrait.paintIcon(gp, g, playerX, playerY);
     }
 
     public void movingAllowed() {
-        if (playerY >= (gp.tileSize + 1)) {
-            if (!gp.tileManager.movementAllowed(this, 0)) {
-                playerY += 1;
-            }
-        }
-        if (playerY <= (screenHeight - gp.tileSize)) {
-            if (!gp.tileManager.movementAllowed(this, 1)) {
-                playerY -= 1;
-            }
-        }
-        if (playerX >= (gp.tileSize + 1)) {
-            if (!gp.tileManager.movementAllowed(this, 2)) {
-                playerX += 1;
-            }
-        }
-        if (playerY <= (screenWidth - gp.tileSize)) {
-            if (!gp.tileManager.movementAllowed(this, 3)) {
-                playerX -= 1;
-            }
-        }
+        if (playerY <= (gp.tileSize - 1)) playerY += 1;
+        if (playerY >= (screenHeight - gp.tileSize + 1)) playerY -= 1;
+        if (playerX <= (gp.tileSize - 1)) playerX += 1;
+        if (playerY >= (screenWidth - gp.tileSize + 1)) playerX -= 1;
+
+        if (gp.tileManager.noMovementAllowed(this, 0)) playerY += 1;
+        if (gp.tileManager.noMovementAllowed(this, 1)) playerY -= 1;
+        if (gp.tileManager.noMovementAllowed(this, 2)) playerX += 1;
+        if (gp.tileManager.noMovementAllowed(this, 3)) playerX -= 1;
     }
 }

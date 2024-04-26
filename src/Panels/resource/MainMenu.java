@@ -18,7 +18,12 @@ public class MainMenu extends JPanel implements ActionListener {
     private GamePanel gp;
     private GridBagConstraints gbc;
 
+    public static Options o;
+
     public MainMenu() {
+
+        o = new Options();
+
         refresh();
 
         playButton = new JButton("Play");
@@ -47,14 +52,14 @@ public class MainMenu extends JPanel implements ActionListener {
         }
 
         if (button == optionsButton) {
-            Options.options(!optionsPressed);
+            MainMenu.o.optionsMenu(!optionsPressed);
             return;
         }
 
         if (button == playButton) {
             playButton.removeActionListener(this);
-            gamePanel = new GamePanel();
-            gamePanel.startGame();
+            gp = new GamePanel();
+            gp.startGame(o);
         }
     }
 

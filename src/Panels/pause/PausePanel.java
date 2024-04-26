@@ -1,5 +1,8 @@
 package Panels.pause;
 
+import Game.GamePanel;
+import Panels.resource.MainMenu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,15 +11,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-import static Panels.options.Options.options;
-import static Panels.pause.Pause.pause;
 import static Variables.Vars.*;
 
 public class PausePanel extends JPanel implements ActionListener, KeyListener {
+
     private final JButton menu, resume, options;
     private Object object;
     private int e;
-    public PausePanel() {
+
+    private GamePanel gp;
+
+    public PausePanel(GamePanel gp) {
+        this.gp = gp;
+
         setLayout(new GridBagLayout());
 
         setBackground(blankColor);
@@ -42,6 +49,8 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
         gbc.ipadx = 20;
         gbc.ipady = 20;
 
+        refresh();
+
         menu.setFont(getMenuFont());
         resume.setFont(getMenuFont());
         options.setFont(getMenuFont());
@@ -65,17 +74,17 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
 
         if (object == options) {
             if (!javaIsShit) {
-                options(optionsPressed);
+                MainMenu.o.optionsMenu(optionsPressed);
                 javaIsShit = true;
             } else {
-                options(!optionsPressed);
+                MainMenu.o.optionsMenu(!optionsPressed);
             }
 
             return;
         }
         if (object == resume) {
-            if (optionsPressed) options(false);
-            pause(false);
+            if (optionsPressed) MainMenu.o.optionsMenu(false);
+            gp.pause.pause(false);
             return;
         }
 
@@ -93,19 +102,17 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent event) {
-
     }
 
     @Override
     public void keyPressed(KeyEvent event) {
         e = event.getKeyCode();
         if (e == KeyEvent.VK_ESCAPE) {
-            pause(false);
+            gp.pause.pause(false);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent event) {
-
     }
 }

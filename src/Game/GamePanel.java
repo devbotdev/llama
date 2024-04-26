@@ -4,8 +4,8 @@ import Game.Characters.Orjeli;
 import Game.Food.FoodObject;
 import Game.Paint.AssetSetter;
 import Game.Paint.TileManager;
+import Panels.options.Options;
 import Panels.pause.Pause;
-import Panels.resource.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +13,7 @@ import java.awt.*;
 import static Variables.Vars.*;
 
 public class GamePanel extends JPanel {
+
     public final int maxCol = 32, maxRow = 18;
     public Orjeli orjeli;
     public TileManager tileManager;
@@ -20,36 +21,34 @@ public class GamePanel extends JPanel {
     private int e;
     public boolean pausePressed;
     private JFrame frame;
-    protected static Thread gameThread;
     private Graphics2D g;
     public final short tileSize = (short) (60 * getScreenScale());
-    private final ControlsHandler controlsHandler = new ControlsHandler(this);
-    protected final Pause pause = new Pause(this);
-    protected final MainMenu mainMenu = new MainMenu();
+    public final Pause pause = new Pause(this);
     public FoodObject[] foodObject = new FoodObject[10];
     public AssetSetter setter = new AssetSetter(this);
+    public final ControlsHandler handler;
 
     public GamePanel() {
-        super();
-        addKeyListener(controlsHandler);
+        orjeli = new Orjeli(this);
+        handler = new ControlsHandler(this);
+        tileManager = new TileManager(this);
+        addKeyListener(handler);
         setOpaque(true);
         setFocusable(true);
         requestFocusInWindow();
-
-        orjeli = new Orjeli(this, controlsHandler);
-        tileManager = new TileManager(this);
     }
 
     public void setupGame() {
         setter.set();
     }
 
-    public void startGame() {
+    public void startGame(Options o) {
+        o.panel.setGamePanel(this);
+
         gameRunning = true;
         run = new Run(this);
 
-        gamePanel.setupGame();
-        gameThread.start();
+        setupGame();
 
         optionsPressed = false;
         frame = new JFrame();
@@ -63,18 +62,15 @@ public class GamePanel extends JPanel {
         frame.setSize(getScreenWidthScaled(), getScreenHeightScaled());
         frame.setLocationRelativeTo(null);
 
-        frame.getContentPane().setBackground(Color.BLACK);
-        frame.setBackground(Color.BLACK);
-        this.setBackground(Color.BLACK);
-
         frame.add(this);
 
         frame.setVisible(true);
         toggleMenu(false);
 
-        frame.addKeyListener(controlsHandler);
+        frame.addKeyListener(handler);
 
         gameStarted = true;
+        run.gameThread.start();
     }
 
     private void endGame() {
@@ -96,20 +92,13 @@ public class GamePanel extends JPanel {
         tileManager.draw(g);
 
         // Foods
-        foodObject[0].draw(g, this);
-        foodObject[1].draw(g, this);
-        foodObject[2].draw(g, this);
-        foodObject[3].draw(g, this);
-        foodObject[4].draw(g, this);
-        foodObject[5].draw(g, this);
 
-        /*for (FoodObject object : foodObject) {
+        for (FoodObject object : foodObject) {
             if (object != null) {
                 object.draw(g, this);
             }
-        }*/
+        }
 
-        // Orjeli
         orjeli.draw(g);
 
         g.dispose();

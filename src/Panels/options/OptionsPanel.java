@@ -1,17 +1,14 @@
 package Panels.options;
 
-import Panels.pause.PausePanel;
+import Game.GamePanel;
+import Panels.resource.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-import static Panels.pause.Pause.*;
 import static Variables.Vars.getDimension;
-import static Panels.options.Options.*;
 import static Variables.Vars.*;
 
 public class OptionsPanel extends JPanel implements ActionListener {
@@ -19,6 +16,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
     private Object button;
     private final JButton food, bossModeButton, exit;
     private final JLabel foodLabel = new JLabel("Food Type");
+    private GamePanel gp;
 
     public OptionsPanel() {
         setLayout(new GridBagLayout());
@@ -45,6 +43,8 @@ public class OptionsPanel extends JPanel implements ActionListener {
         gbc.ipadx = 20;
         gbc.ipady = 20;
 
+        refresh();
+
         food.setFont(getMenuFont());
         exit.setFont(getMenuFont());
         bossModeButton.setFont(getMenuFont());
@@ -67,6 +67,10 @@ public class OptionsPanel extends JPanel implements ActionListener {
         food.addActionListener(this);
         exit.addActionListener(this);
         bossModeButton.addActionListener(this);
+    }
+
+    public void setGamePanel(GamePanel gp) {
+        this.gp = gp;
     }
 
     @Override
@@ -94,8 +98,8 @@ public class OptionsPanel extends JPanel implements ActionListener {
         }
 
         if (button == exit) {
-            Options.options(false);
-            if (gameStarted) getPausePanel().requestFocus();
+            MainMenu.o.optionsMenu(false);
+            if (gameStarted) gp.pause.getPausePanel().requestFocus();
         }
 
         if (button == bossModeButton && !gameStarted) {

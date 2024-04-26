@@ -1,22 +1,26 @@
 package Panels.pause;
 
+import Game.ControlsHandler;
 import Game.GamePanel;
 
 import javax.swing.*;
 
-import static Game.ControlsHandler.*;
 import static Variables.Vars.*;
 
 public class Pause {
-    protected static JFrame pause = new JFrame("Pause Menu");
-    private static PausePanel panel = new PausePanel();
-    private static JFrame pauseB = new JFrame("P");
-    protected static JLabel image = new JLabel(pauseMenuImage);
+
+    protected JFrame pause = new JFrame("Pause Menu");
+    private PausePanel panel;
+    private JFrame pauseB = new JFrame("P");
+    protected JLabel image = new JLabel(pauseMenuImage);
     protected GamePanel gp;
+
     public Pause(GamePanel gp) {
         this.gp = gp;
+        panel = new PausePanel(this.gp);
     }
-    public static void pause(boolean visible) {
+
+    public void pause(boolean visible) {
         optionsPressed = visible;
 
         if (visible) {
@@ -35,12 +39,12 @@ public class Pause {
         } else play();
     }
 
-    private static void play() {
+    private void play() {
         gameRunning = true;
-        upPressed = false;
-        downPressed = false;
-        leftPressed = false;
-        rightPressed = false;
+        ControlsHandler.upPressed = false;
+        ControlsHandler.downPressed = false;
+        ControlsHandler.leftPressed = false;
+        ControlsHandler.rightPressed = false;
 
         setPanel();
 
@@ -53,13 +57,13 @@ public class Pause {
         javaIsShit = false;
     }
 
-    private static void setPanel() {
-        setPanelEnabled(gamePanel.getFrame(), !optionsPressed);
-        setPanelEnabled(pauseB, !optionsPressed);
+    private void setPanel() {
+        setPanelEnabled(gp.getFrame(), !optionsPressed);
+        setPanelEnabled(gp.pause.pauseB, !optionsPressed);
         setPanelEnabled(pause, optionsPressed);
     }
 
-    private static void setFrame(JFrame frame) {
+    private void setFrame(JFrame frame) {
         setDecoration(true, pauseB, pause);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setBackground(blankColor);
@@ -67,7 +71,7 @@ public class Pause {
         frame.setLocationRelativeTo(null);
     }
 
-    private static void setDecoration(boolean g, JFrame a, JFrame b) {
+    private void setDecoration(boolean g, JFrame a, JFrame b) {
         if (!isJavaGay) {
             a.setUndecorated(g);
             b.setUndecorated(g);
@@ -75,7 +79,7 @@ public class Pause {
         }
     }
 
-    public static PausePanel getPausePanel() {
-        return panel;
+    public PausePanel getPausePanel() {
+        return gp.pause.panel;
     }
 }

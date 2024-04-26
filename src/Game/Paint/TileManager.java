@@ -27,9 +27,9 @@ public class TileManager {
         e.playerSpeedI = (int) e.playerSpeed;
 
         entityLeftWorldX = Entity.playerX - e.playerSpeedI;
-        entityRightWorldX = (int) (Entity.playerX + e.size + e.playerSpeed - 0.66666666666 * e.playerSpeedI);
+        entityRightWorldX = (int) (Entity.playerX + e.size + e.playerSpeed - 1 * e.playerSpeedI);
         entityTopWorldY = Entity.playerY - e.playerSpeedI;
-        entityBottomWorldY = (int) (Entity.playerY + e.size + e.playerSpeed - 0.66666666666 * e.playerSpeedI);
+        entityBottomWorldY = (int) (Entity.playerY + e.size + e.playerSpeed - 1 * e.playerSpeedI);
 
         entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / gp.tileSize;
         entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / gp.tileSize;
@@ -53,6 +53,38 @@ public class TileManager {
             return tile[tileNum0] != tile[1];
         }
         return true;
+    }
+
+    public boolean noMovementAllowed(Entity e, int b) {
+        e.playerSpeedI = (int) e.playerSpeed;
+
+        entityLeftWorldX = Entity.playerX;
+        entityRightWorldX = (Entity.playerX + e.size - 2);
+        entityTopWorldY = Entity.playerY;
+        entityBottomWorldY = (Entity.playerY + e.size - 2);
+
+        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / gp.tileSize;
+        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / gp.tileSize;
+
+        entityLeftCol = entityLeftWorldX / gp.tileSize;
+        entityRightCol = entityRightWorldX / gp.tileSize;
+        entityTopRow = entityTopWorldY / gp.tileSize;
+        entityBottomRow = entityBottomWorldY / gp.tileSize;
+
+        if (b == 0) {
+            tileNum0 = mapTile[entityCol][entityTopRow];
+            return tile[tileNum0] == tile[1];
+        } else if (b == 1) {
+            tileNum0 = mapTile[entityCol][entityBottomRow];
+            return tile[tileNum0] == tile[1];
+        } else if (b == 2) {
+            tileNum0 = mapTile[entityLeftCol][entityRow];
+            return tile[tileNum0] == tile[1];
+        } else if (b == 3) {
+            tileNum0 = mapTile[entityRightCol][entityRow];
+            return tile[tileNum0] == tile[1];
+        }
+        return false;
     }
 
     public TileManager(GamePanel gp) {

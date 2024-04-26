@@ -43,6 +43,7 @@ public class Vars {
     public static double getHeightScale() {
         return heightScale;
     }
+
     public final static String directory = System.getProperty("user.dir") + "\\src";
     public final static String disabledBacon = "bacon1.png",
             disabledSteak = "steak2.png",
@@ -58,13 +59,6 @@ public class Vars {
             enabledHamburger = "hamburgerO0.png";
     private static String pauseMenuImageString;
     public static final Color blankColor = new Color(0,0,0,0);
-    private static ImageIcon portrait = new ImageIcon(directory + "\\images\\file.png");
-
-    public static ImageIcon getPortrait(int i) {
-        portrait = new ImageIcon(portrait.getImage().getScaledInstance((int) (i * widthScale), (int) (i * heightScale), Image.SCALE_SMOOTH));
-        return portrait;
-    }
-
     public final static BufferedImage home;
 
     static {
@@ -85,7 +79,6 @@ public class Vars {
     public static int foodType;
     public static boolean bossMode;
     public static boolean gameStarted;
-    public static GamePanel gamePanel;
     public static boolean optionsPressed;
     public static boolean codeIsWritten;
 

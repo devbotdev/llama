@@ -2,13 +2,15 @@ package Game;
 
 import static Variables.Vars.*;
 
-public class Run extends GamePanel implements Runnable {
+public class Run implements Runnable {
+
     public static final int FPS = 60;
     public double drawInterval;
     public double delta;
     public long lastTime, currentTime, timer;
     public int drawCount;
     private GamePanel gp;
+    protected Thread gameThread;
 
     protected Run(GamePanel gp) {
         this.gp = gp;
@@ -45,6 +47,6 @@ public class Run extends GamePanel implements Runnable {
     }
 
     public void update() {
-        orjeli.update();
+        gp.orjeli.update();
     }
 }

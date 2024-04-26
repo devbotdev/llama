@@ -1,9 +1,10 @@
 package Game;
 
+import Panels.pause.Pause;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static Panels.pause.Pause.pause;
 import static Variables.Vars.gameRunning;
 
 public class ControlsHandler implements KeyListener {
@@ -26,10 +27,8 @@ public class ControlsHandler implements KeyListener {
         a = event.getKeyCode();
 
         if (a == KeyEvent.VK_ESCAPE) {
-            pause(true);
+            gp.pause.pause(true);
         }
-
-        gp.orjeli.movingAllowed();
 
         if (ControlsHandler.a == KeyEvent.VK_W || ControlsHandler.a == KeyEvent.VK_UP)
             ControlsHandler.upPressed = true;

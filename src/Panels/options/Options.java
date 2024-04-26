@@ -8,10 +8,17 @@ import java.awt.event.KeyListener;
 import static Variables.Vars.*;
 
 public class Options implements KeyListener {
-    protected static final JFrame options = new JFrame("Options");
-    protected static final OptionsPanel panel = new OptionsPanel();
+
+    protected final JFrame options;
+    public final OptionsPanel panel;
     private int e;
-    public static void options(boolean visible) {
+
+    public Options() {
+        options = new JFrame("Options");
+        panel = new OptionsPanel();
+    }
+
+    public void optionsMenu(boolean visible) {
         optionsPressed = visible;
 
         options.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
