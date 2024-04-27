@@ -22,7 +22,6 @@ public class GamePanel extends JPanel {
     public boolean pausePressed;
     private JFrame frame;
     private Graphics2D g;
-    public final short tileSize = (short) (60 * getScreenScale());
     public final Pause pause = new Pause(this);
     public FoodObject[] foodObject = new FoodObject[10];
     public AssetSetter setter = new AssetSetter(this);
@@ -95,7 +94,7 @@ public class GamePanel extends JPanel {
 
         for (FoodObject object : foodObject) {
             if (object != null) {
-                object.draw(g, this);
+                object.draw(g);
             }
         }
 

@@ -1,6 +1,5 @@
 package Variables;
 
-import Game.GamePanel;
 import Panels.resource.MainMenu;
 
 import javax.imageio.ImageIO;
@@ -13,6 +12,8 @@ import java.net.URISyntaxException;
 
 public class Vars {
 
+    public static short tileSize;
+
     public static boolean printFPS = true;
     public static boolean gameRunning;
     public static boolean javaIsShit;
@@ -20,11 +21,7 @@ public class Vars {
     public Vars() {
         refresh();
     }
-    public static final int screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    public static final int screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-    private static final double widthScale = (double) screenWidth / 1920;
-    private static final double heightScale = (double) screenHeight / 1080;
-    private static final double screenScale = (double) ((screenWidth + screenHeight) / 2) / 1500;
+
     public static int getScreenWidthScaled() {
         return (int) (screenWidth * getWidthScale());
     }
@@ -82,7 +79,20 @@ public class Vars {
     public static boolean optionsPressed;
     public static boolean codeIsWritten;
 
+    public static int screenWidth;
+    public static int screenHeight;
+    private static double widthScale;
+    private static double heightScale;
+    private static double screenScale;
+
     public static void refresh() {
+        screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        widthScale = (double) screenWidth / 1920;
+        heightScale = (double) screenHeight / 1080;
+        screenScale = (double) ((screenWidth + screenHeight) / 2) / 1500;
+        tileSize = (short) (60 * getScreenScale());
+
         if (!bossMode) {
             setString(disabledHamburger, disabledBacon, disabledSteak, disabledFrenchFries, disabledPizza);
         } else {

@@ -36,5 +36,7 @@ public class Llama {
         optionsPressed = false;
         isJavaGay = false;
         codeIsWritten = false;
+
+        refresh();
     }
 }

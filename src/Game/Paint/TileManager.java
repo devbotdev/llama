@@ -2,13 +2,14 @@ package Game.Paint;
 
 import Game.Characters.Entity;
 import Game.GamePanel;
+import com.sun.source.tree.IfTree;
 
 import javax.imageio.ImageIO;
 
 import java.awt.*;
 import java.io.*;
 
-import static Variables.Vars.directory;
+import static Variables.Vars.*;
 
 public class TileManager {
     private int col, row, x, y;
@@ -18,26 +19,27 @@ public class TileManager {
     protected String[] numbers;
     private final GamePanel gp;
     protected Tile[] tile;
+    private int index;
 
     private int entityLeftWorldX, entityRightWorldX, entityTopWorldY, entityBottomWorldY,
             entityCol, entityRow, entityLeftCol, entityRightCol, entityTopRow, entityBottomRow,
             tileNum0;
 
     public boolean movementAllowed(Entity e, int b) {
-        e.playerSpeedI = (int) e.playerSpeed;
+        e.entitySpeedI = (int) e.entitySpeed;
 
-        entityLeftWorldX = Entity.playerX - e.playerSpeedI;
-        entityRightWorldX = (int) (Entity.playerX + e.size + e.playerSpeed - 1 * e.playerSpeedI);
-        entityTopWorldY = Entity.playerY - e.playerSpeedI;
-        entityBottomWorldY = (int) (Entity.playerY + e.size + e.playerSpeed - 1 * e.playerSpeedI);
+        entityLeftWorldX = (int) (Entity.entityX - e.entitySpeedI + (1 * getScreenScale()));
+        entityRightWorldX = (int) (Entity.entityX + e.size + e.entitySpeed - (2 * getScreenScale()));
+        entityTopWorldY = Entity.entityY - e.entitySpeedI;
+        entityBottomWorldY = (int) (Entity.entityY + e.size + e.entitySpeed - (4 * getScreenScale()));
 
-        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / gp.tileSize;
-        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / gp.tileSize;
+        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSize;
+        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSize;
 
-        entityLeftCol = entityLeftWorldX / gp.tileSize;
-        entityRightCol = entityRightWorldX / gp.tileSize;
-        entityTopRow = entityTopWorldY / gp.tileSize;
-        entityBottomRow = entityBottomWorldY / gp.tileSize;
+        entityLeftCol = entityLeftWorldX / tileSize;
+        entityRightCol = entityRightWorldX / tileSize;
+        entityTopRow = entityTopWorldY / tileSize;
+        entityBottomRow = entityBottomWorldY / tileSize;
 
         if (b == 0) {
             tileNum0 = mapTile[entityCol][entityTopRow];
@@ -55,21 +57,52 @@ public class TileManager {
         return true;
     }
 
+    public void checkObject(Entity e, boolean player) {
+        index = 999;
+
+        if (!player) return;
+
+        for (int i = 0; i < gp.foodObject.length; i++) {
+            if (gp.foodObject[i] == null) continue;
+            e.solidArea.x += e.entityX;
+            e.solidArea.y += e.entityY;
+            gp.foodObject[i].solidArea.x += gp.foodObject[i].objectX;
+            gp.foodObject[i].solidArea.y += gp.foodObject[i].objectY;
+            e.solidArea.y -= (int) e.entitySpeed;
+
+            if (e.solidArea.intersects(gp.foodObject[i].solidArea)) {
+                pickUpObject(i);
+            }
+            e.solidArea.x = e.solidAreaDefaultX;
+            e.solidArea.y = e.solidAreaDefaultY;
+            if (gp.foodObject[i].image == null) continue;
+            gp.foodObject[i].solidArea.x = gp.foodObject[i].solidADX;
+            gp.foodObject[i].solidArea.y = gp.foodObject[i].solidADY;
+        }
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            gp.foodObject[i].image = null;
+            gp.orjeli.fatnessLevel += 0.015F;
+        }
+    }
+
     public boolean noMovementAllowed(Entity e, int b) {
-        e.playerSpeedI = (int) e.playerSpeed;
+        e.entitySpeedI = (int) e.entitySpeed;
 
-        entityLeftWorldX = Entity.playerX;
-        entityRightWorldX = (Entity.playerX + e.size - 2);
-        entityTopWorldY = Entity.playerY;
-        entityBottomWorldY = (Entity.playerY + e.size - 2);
+        entityLeftWorldX = Entity.entityX;
+        entityRightWorldX = (Entity.entityX + e.size - 2);
+        entityTopWorldY = Entity.entityY;
+        entityBottomWorldY = (Entity.entityY + e.size - 2);
 
-        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / gp.tileSize;
-        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / gp.tileSize;
+        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSize;
+        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSize;
 
-        entityLeftCol = entityLeftWorldX / gp.tileSize;
-        entityRightCol = entityRightWorldX / gp.tileSize;
-        entityTopRow = entityTopWorldY / gp.tileSize;
-        entityBottomRow = entityBottomWorldY / gp.tileSize;
+        entityLeftCol = entityLeftWorldX / tileSize;
+        entityRightCol = entityRightWorldX / tileSize;
+        entityTopRow = entityTopWorldY / tileSize;
+        entityBottomRow = entityBottomWorldY / tileSize;
 
         if (b == 0) {
             tileNum0 = mapTile[entityCol][entityTopRow];
@@ -150,15 +183,15 @@ public class TileManager {
         while (col < gp.maxCol && row < gp.maxRow) {
             tileNum = mapTile[col][row];
 
-            g.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
+            g.drawImage(tile[tileNum].image, x, y, tileSize, tileSize, null);
             col++;
-            x += gp.tileSize;
+            x += tileSize;
 
             if (col == gp.maxCol) {
                 col = 0;
                 x = 0;
                 row++;
-                y += gp.tileSize;
+                y += tileSize;
             }
         }
     }

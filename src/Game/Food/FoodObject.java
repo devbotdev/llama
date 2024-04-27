@@ -1,17 +1,25 @@
 package Game.Food;
 
-import Game.GamePanel;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
+import static Variables.Vars.tileSize;
 
 public class FoodObject {
 
     public BufferedImage image;
     public String name;
     public int objectX, objectY;
+    public Rectangle solidArea;
+    public int solidADX, solidADY;
 
-    public void draw(Graphics2D g, GamePanel gp) {
-        g.drawImage(image, objectX, objectY, gp.tileSize, gp.tileSize, null);
+    public FoodObject() {
+        solidArea = new Rectangle(0, 0, tileSize, tileSize);
+        this.solidADX = this.solidArea.x;
+        this.solidADY = this.solidArea.y;
+    }
+
+    public void draw(Graphics2D g) {
+        g.drawImage(image, objectX, objectY, tileSize, tileSize, null);
     }
 }
