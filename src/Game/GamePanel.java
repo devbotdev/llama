@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
     private JFrame frame;
     private Graphics2D g;
     public final Pause pause = new Pause(this);
-    public FoodObject[] foodObject = new FoodObject[10];
+    public FoodObject[] foodObject = new FoodObject[19];
     public AssetSetter setter = new AssetSetter(this);
     public final ControlsHandler handler;
 

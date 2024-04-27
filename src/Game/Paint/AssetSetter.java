@@ -14,28 +14,22 @@ public class AssetSetter {
     }
 
     public void set() {
-        gp.foodObject[0] = new Hamburger();
-        gp.foodObject[0].objectX = 10 * tileSize;
-        gp.foodObject[0].objectY = 10 * tileSize;
+        setFood(0, new Hamburger(), 10, 10);
 
-        gp.foodObject[1] = new Bacon();
-        gp.foodObject[1].objectX = 11 * tileSize;
-        gp.foodObject[1].objectY = 10 * tileSize;
+        setFood(1, new Bacon(), 11, 10);
 
-        gp.foodObject[2] = new Steak();
-        gp.foodObject[2].objectX = 12 * tileSize;
-        gp.foodObject[2].objectY = 10 * tileSize;
+        setFood(2, new Steak(), 12, 10);
 
-        gp.foodObject[3] = new FrenchFries();
-        gp.foodObject[3].objectX = 13 * tileSize;
-        gp.foodObject[3].objectY = 10 * tileSize;
+        setFood(3, new FrenchFries(), 13, 10);
 
-        gp.foodObject[4] = new Pizza();
-        gp.foodObject[4].objectX = 14 * tileSize;
-        gp.foodObject[4].objectY = 10 * tileSize;
+        setFood(4, new Pizza(), 14, 10);
 
-        gp.foodObject[5] = new Dhall();
-        gp.foodObject[5].objectX = 15 * tileSize;
-        gp.foodObject[5].objectY = 10 * tileSize;
+        setFood(5, new Dhall(), 15, 10);
+    }
+
+    private void setFood(int i, FoodObject o, int objectX, int objectY) {
+        gp.foodObject[i] = o;
+        gp.foodObject[i].objectX = objectX * tileSize;
+        gp.foodObject[i].objectY = objectY * tileSize;
     }
 }
