@@ -1,7 +1,7 @@
 package Game;
 
 import Game.Characters.Orjeli;
-import Game.Food.FoodObject;
+import Game.Object.Management.Object;
 import Game.Paint.AssetSetter;
 import Game.Paint.TileManager;
 import Panels.options.Options;
@@ -23,9 +23,11 @@ public class GamePanel extends JPanel {
     private JFrame frame;
     private Graphics2D g;
     public final Pause pause = new Pause(this);
-    public FoodObject[] foodObject = new FoodObject[19];
+    public Object[] object = new Object[19];
     public AssetSetter setter = new AssetSetter(this);
     public final ControlsHandler handler;
+
+    public int map;
 
     public GamePanel() {
         orjeli = new Orjeli(this);
@@ -39,6 +41,9 @@ public class GamePanel extends JPanel {
 
     public void setupGame() {
         setter.set();
+
+        orjeli.keysGathered = 0;
+        map = 0;
     }
 
     public void startGame(Options o) {
@@ -91,8 +96,7 @@ public class GamePanel extends JPanel {
         tileManager.draw(g);
 
         // Foods
-
-        for (FoodObject object : foodObject) {
+        for (Object object : object) {
             if (object != null) {
                 object.draw(g);
             }

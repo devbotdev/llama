@@ -2,7 +2,9 @@ package Game.Characters;
 
 import Game.ControlsHandler;
 import Game.GamePanel;
+import Game.Object.Key;
 import Game.Run;
+import Variables.Vars;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,18 +14,18 @@ import static Variables.Vars.*;
 public class Orjeli extends Entity {
 
     private final GamePanel gp;
+    public short keysGathered;
+    public boolean down;
 
     public Orjeli(GamePanel gp) {
         this.gp = gp;
-        this.setDefaultValues();
-
         this.solidArea = new Rectangle();
         this.solidArea.x = 8;
         this.solidArea.y = 16;
         this.solidAreaDefaultX = this.solidArea.x;
         this.solidAreaDefaultY = this.solidArea.y;
-        this.solidArea.width = 32;
-        this.solidArea.height = 32;
+
+        this.setDefaultValues();
     }
 
     public void setDefaultValues() {
@@ -34,15 +36,24 @@ public class Orjeli extends Entity {
         sizeYI = (short) (60 * getHeightScale());
         sizeXI = (short) (60 * getWidthScale());
 
+        entityY = screenHeight / 2 - tileSize / 2;
+
+        setInitalPosition();
+
         updateFatness();
 
-        entityY = (int) (100 * getHeightScale());
-        entityX = (int) (100 * getWidthScale());
         entitySpeedF = 6 / (Run.FPS / 60);
+    }
+
+    public void setInitalPosition() {
+        entityX = (int) (92 * getWidthScale());
     }
 
     public void updateFatness() {
         size = (short) (sizeI * fatnessLevel);
+
+        this.solidArea.width = (int) (size / 1.5);
+        this.solidArea.height = (int) (size / 1.5);
 
         setPortrait();
     }
@@ -53,7 +64,7 @@ public class Orjeli extends Entity {
 
         gp.orjeli.movingAllowed();
 
-        gp.tileManager.checkObject(this, true);
+        gp.tileManager.om.checkObject(this, true);
     }
 
     private ImageIcon portrait;
@@ -85,14 +96,25 @@ public class Orjeli extends Entity {
             entityX += (int) entitySpeed;
         }
 
-        if (entityY <= (tileSize - 1)) entityY += 1;
-        if (entityY >= (screenHeight - tileSize + 1)) entityY -= 1;
-        if (entityX <= (tileSize - 1)) entityX += 1;
-        if (entityY >= (screenWidth - tileSize + 1)) entityX -= 1;
-
         if (gp.tileManager.noMovementAllowed(this, 0)) entityY += 1;
         if (gp.tileManager.noMovementAllowed(this, 1)) entityY -= 1;
         if (gp.tileManager.noMovementAllowed(this, 2)) entityX += 1;
         if (gp.tileManager.noMovementAllowed(this, 3)) entityX -= 1;
+    }
+
+    public void a() {
+        gp.map++;
+
+        gp.tileManager.loadMap("map" + gp.map + ".txt");
+    }
+
+    public void nextLevel() {
+        gp.tileManager.reDoor();
+
+        if (down) {
+            down = false;
+            a();
+            setInitalPosition();
+        }
     }
 }

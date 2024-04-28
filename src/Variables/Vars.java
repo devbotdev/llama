@@ -10,15 +10,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class Vars {
+public record Vars() {
 
     public static short tileSize;
-
     public static boolean printFPS = true;
     public static boolean gameRunning;
     public static boolean javaIsShit;
     public static boolean isJavaGay;
-    public Vars() {
+    public static final byte numberOfMaps = 2;
+
+    public Vars {
         refresh();
     }
 
@@ -161,6 +162,7 @@ public class Vars {
         exec(path.getPath());
         System.exit(0);
     }
+
     private static void exec(String path) throws IOException {
         String javaHome = System.getProperty("java.home");
         String javaBin = javaHome +

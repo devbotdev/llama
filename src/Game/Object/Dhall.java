@@ -1,4 +1,6 @@
-package Game.Food;
+package Game.Object;
+
+import Game.Object.Management.Object;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -6,15 +8,14 @@ import java.io.IOException;
 
 import static Variables.Vars.directory;
 
-public class Pizza extends FoodObject {
+public class Dhall extends Object {
 
-    public Pizza() {
-        name = "pizza";
+    public Dhall() {
+        name = "dhall";
         try {
-            image = ImageIO.read(new File(directory + "\\images\\4.png"));
+            image = ImageIO.read(new File(directory + "\\images\\5.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

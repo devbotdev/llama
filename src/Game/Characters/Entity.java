@@ -17,6 +17,5 @@ public class Entity {
     public Rectangle solidArea;
 
     public int solidAreaDefaultX;
-
     public int solidAreaDefaultY;
 }
