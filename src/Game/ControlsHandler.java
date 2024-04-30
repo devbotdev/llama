@@ -1,7 +1,5 @@
 package Game;
 
-import Panels.pause.Pause;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

@@ -9,6 +9,9 @@ import Panels.pause.Pause;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import static Variables.Vars.*;
 
@@ -23,9 +26,10 @@ public class GamePanel extends JPanel {
     private JFrame frame;
     private Graphics2D g;
     public final Pause pause = new Pause(this);
-    public Object[] object = new Object[19];
-    public AssetSetter setter = new AssetSetter(this);
+    public ArrayList<Object> object;
+    public AssetSetter setter;
     public final ControlsHandler handler;
+    public boolean renderItems = true;
 
     public int map;
 
@@ -40,7 +44,7 @@ public class GamePanel extends JPanel {
     }
 
     public void setupGame() {
-        setter.set();
+        setter = new AssetSetter(this);
 
         orjeli.keysGathered = 0;
         map = 0;
@@ -96,10 +100,14 @@ public class GamePanel extends JPanel {
         tileManager.draw(g);
 
         // Foods
-        for (Object object : object) {
-            if (object != null) {
-                object.draw(g);
-            }
+        if (renderItems) {
+            try {
+                for (Object object : object) {
+                    if (object != null) {
+                        object.draw(g);
+                    }
+                }
+            }catch (Exception ignored) {}
         }
 
         orjeli.draw(g);

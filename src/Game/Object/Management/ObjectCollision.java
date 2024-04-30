@@ -16,34 +16,34 @@ public class ObjectCollision {
 //        index = 999;
         if (!player) return;
 
-        for (int i = 0; i < gp.object.length; i++) {
-            if (gp.object[i] == null) continue;
+        for (int i = 0; i < gp.object.size(); i++) {
+            if (gp.object.get(i) == null) continue;
             e.solidArea.x += e.entityX;
             e.solidArea.y += e.entityY;
-            gp.object[i].solidArea.x += gp.object[i].objectX;
-            gp.object[i].solidArea.y += gp.object[i].objectY;
+            gp.object.get(i).solidArea.x += gp.object.get(i).objectX;
+            gp.object.get(i).solidArea.y += gp.object.get(i).objectY;
             e.solidArea.y -= (int) e.entitySpeed;
 
-            if (e.solidArea.intersects(gp.object[i].solidArea)) {
+            if (e.solidArea.intersects(gp.object.get(i).solidArea)) {
                 pickUpObject(i);
             }
             e.solidArea.x = e.solidAreaDefaultX;
             e.solidArea.y = e.solidAreaDefaultY;
-            if (gp.object[i].image == null) continue;
-            gp.object[i].solidArea.x = gp.object[i].solidADX;
-            gp.object[i].solidArea.y = gp.object[i].solidADY;
+            if (gp.object.get(i).image == null) continue;
+            gp.object.get(i).solidArea.x = gp.object.get(i).solidADX;
+            gp.object.get(i).solidArea.y = gp.object.get(i).solidADY;
         }
     }
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            if (gp.object[i].getClass() == Key.class) {
+            if (gp.object.get(i).getClass() == Key.class) {
                 gp.orjeli.keysGathered++;
                 System.out.println(gp.orjeli.keysGathered);
             }
 
-            gp.object[i].image = null;
-            if (gp.object[i].isFood) gp.orjeli.fatnessLevel += 0.015F;
+            gp.object.get(i).image = null;
+            if (gp.object.get(i).isFood) gp.orjeli.fatnessLevel += 0.015F;
         }
     }
 }

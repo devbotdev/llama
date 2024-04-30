@@ -1,7 +1,5 @@
 package Game;
 
-import Variables.Vars;
-
 import static Variables.Vars.*;
 
 public class Run implements Runnable {
@@ -28,7 +26,7 @@ public class Run implements Runnable {
         timer = 0L;
         drawCount = 0;
         while (gameThread != null) {
-            if (!gameRunning) continue;
+            if (!gameRunning || gp.orjeli.down) continue;
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
             timer += currentTime - lastTime;
@@ -51,15 +49,22 @@ public class Run implements Runnable {
     public void update() {
         gp.orjeli.update();
 
+        if (gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width > 1832 * getWidthScale() &&
+                gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width < (1832 + gp.orjeli.entitySpeed) * getWidthScale()) {
+            if (gp.setter.isLoad()) {
+                gp.setter.newObjects();
+            }
+        }
+
         if (gp.map >= numberOfMaps && gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width >= 1887 * getWidthScale()) {
             gp.orjeli.entityX -= (int) gp.orjeli.entitySpeed;
             return;
         }
 
         if (gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width >= 1888 * getWidthScale()) {
-            System.out.println(gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width);
             gp.orjeli.down = true;
             gp.orjeli.nextLevel();
+            gp.orjeli.up = false;
         }
     }
 }

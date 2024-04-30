@@ -26,8 +26,18 @@ public class TileManager {
     private BufferedReader br;
     private Tile tile2;
 
+    public Rectangle rectangle;
+    public int solidAreaDefaultX;
+    public int solidAreaDefaultY;
+
     public TileManager(GamePanel gp) {
         this.gp = gp;
+
+        rectangle = new Rectangle();
+        rectangle.x = 8;
+        rectangle.y = 16;
+        this.solidAreaDefaultX = this.rectangle.x;
+        this.solidAreaDefaultY = this.rectangle.y;
 
         tile = new Tile[3];
 
@@ -38,6 +48,19 @@ public class TileManager {
         om = new ObjectCollision(this.gp);
 
         loadMap("map0.txt");
+    }
+
+    private void removeDoor(Orjeli e, int tileNum0) {
+        if (tile[tileNum0] == tile[2]) {
+            if (e.keysGathered > 0) {
+                e.keysGathered--;
+                tile[2] = tile[0];
+            }
+        }
+    }
+
+    public void reDoor() {
+        tile[2] = tile2;
     }
 
     private int entityLeftWorldX, entityRightWorldX, entityTopWorldY, entityBottomWorldY,
@@ -89,19 +112,6 @@ public class TileManager {
         return true;
     }
 
-    private void removeDoor(Orjeli e, int tileNum0) {
-        if (tile[tileNum0] == tile[2]) {
-            if (e.keysGathered > 0) {
-                e.keysGathered--;
-                tile[2] = tile[0];
-            }
-        }
-    }
-
-    public void reDoor() {
-        tile[2] = tile2;
-    }
-
     public boolean noMovementAllowed(Entity e, int b) {
         e.entitySpeedI = (int) e.entitySpeed;
 
@@ -136,6 +146,7 @@ public class TileManager {
 
     public void loadMap(String s) {
         killMap();
+        System.out.println(s);
 
         map = new File(directory + "\\images\\maps\\" + s);
 

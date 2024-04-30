@@ -2,9 +2,7 @@ package Game.Characters;
 
 import Game.ControlsHandler;
 import Game.GamePanel;
-import Game.Object.Key;
 import Game.Run;
-import Variables.Vars;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +13,7 @@ public class Orjeli extends Entity {
 
     private final GamePanel gp;
     public short keysGathered;
-    public boolean down;
+    public boolean down, up;
 
     public Orjeli(GamePanel gp) {
         this.gp = gp;
@@ -65,6 +63,28 @@ public class Orjeli extends Entity {
         gp.orjeli.movingAllowed();
 
         gp.tileManager.om.checkObject(this, true);
+
+        fuckingTiles();
+    }
+
+    private void fuckingTiles() {
+        if (solidArea.intersects(gp.tileManager.rectangle)) {
+            System.out.println(12222);
+            if (direction == 0) {
+                entityY += (int) entitySpeed;
+            } else if (direction == 1) {
+                entityY -= (int) entitySpeed;
+            } else if (direction == 2) {
+                entityX += (int) entitySpeed;
+            } else if (direction == 3) {
+                entityX -= (int) entitySpeed;
+            }
+        }
+
+      if (gp.tileManager.noMovementAllowed(this, 0)) entityY += (int) entitySpeed;
+//        if (gp.tileManager.noMovementAllowed(this, 1)) entityY -= (int) entitySpeed;
+//        if (gp.tileManager.noMovementAllowed(this, 2)) entityX += (int) entitySpeed;
+//        if (gp.tileManager.noMovementAllowed(this, 3)) entityX -= (int) entitySpeed;
     }
 
     private ImageIcon portrait;
@@ -95,11 +115,6 @@ public class Orjeli extends Entity {
             direction = 3;
             entityX += (int) entitySpeed;
         }
-
-        if (gp.tileManager.noMovementAllowed(this, 0)) entityY += 1;
-        if (gp.tileManager.noMovementAllowed(this, 1)) entityY -= 1;
-        if (gp.tileManager.noMovementAllowed(this, 2)) entityX += 1;
-        if (gp.tileManager.noMovementAllowed(this, 3)) entityX -= 1;
     }
 
     public void a() {
@@ -109,12 +124,12 @@ public class Orjeli extends Entity {
     }
 
     public void nextLevel() {
-        gp.tileManager.reDoor();
-
         if (down) {
-            down = false;
             a();
             setInitalPosition();
+            gp.tileManager.reDoor();
+            gp.setter.setArray();
         }
+        down = false;
     }
 }
