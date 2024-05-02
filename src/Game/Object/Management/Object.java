@@ -1,12 +1,10 @@
 package Game.Object.Management;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import static Variables.Vars.tileSize;
+import static Variables.Vars.tileSizeX;
+import static Variables.Vars.tileSizeY;
 
 public class Object {
 
@@ -18,7 +16,7 @@ public class Object {
     public boolean isFood;
 
     public Object() {
-        solidArea = new Rectangle(0, 0, tileSize, tileSize);
+        solidArea = new Rectangle(0, 0, tileSizeX, tileSizeY);
         this.solidADX = this.solidArea.x;
         this.solidADY = this.solidArea.y;
 
@@ -26,7 +24,7 @@ public class Object {
     }
 
     public void draw(Graphics2D g) {
-        g.drawImage(image, objectX, objectY, tileSize, tileSize, null);
+        g.drawImage(image, objectX, objectY, tileSizeX, tileSizeX, null);
     }
 
     public void setImage() {

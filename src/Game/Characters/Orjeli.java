@@ -34,7 +34,7 @@ public class Orjeli extends Entity {
         sizeYI = (short) (60 * getHeightScale());
         sizeXI = (short) (60 * getWidthScale());
 
-        entityY = screenHeight / 2 - tileSize / 2;
+        entityY = screenHeight / 2 - tileSizeY / 2;
 
         setInitalPosition();
 

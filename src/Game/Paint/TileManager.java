@@ -75,13 +75,13 @@ public class TileManager {
         entityTopWorldY = Entity.entityY - e.entitySpeedI;
         entityBottomWorldY = (int) (Entity.entityY + e.size + e.entitySpeed - (4 * getScreenScale()));
 
-        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSize;
-        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSize;
+        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSizeX;
+        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeX;
 
-        entityLeftCol = entityLeftWorldX / tileSize;
-        entityRightCol = entityRightWorldX / tileSize;
-        entityTopRow = entityTopWorldY / tileSize;
-        entityBottomRow = entityBottomWorldY / tileSize;
+        entityLeftCol = entityLeftWorldX / tileSizeX;
+        entityRightCol = entityRightWorldX / tileSizeX;
+        entityTopRow = entityTopWorldY / tileSizeX;
+        entityBottomRow = entityBottomWorldY / tileSizeX;
 
         if (b == 0) {
             if (e.entityY <= 10) return false;
@@ -120,13 +120,13 @@ public class TileManager {
         entityTopWorldY = Entity.entityY;
         entityBottomWorldY = (Entity.entityY + e.size - 2);
 
-        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSize;
-        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSize;
+        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSizeX;
+        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeX;
 
-        entityLeftCol = entityLeftWorldX / tileSize;
-        entityRightCol = entityRightWorldX / tileSize;
-        entityTopRow = entityTopWorldY / tileSize;
-        entityBottomRow = entityBottomWorldY / tileSize;
+        entityLeftCol = entityLeftWorldX / tileSizeX;
+        entityRightCol = entityRightWorldX / tileSizeX;
+        entityTopRow = entityTopWorldY / tileSizeX;
+        entityBottomRow = entityBottomWorldY / tileSizeX;
 
         if (b == 0) {
             tileNum0 = mapTile[entityCol][entityTopRow];
@@ -224,16 +224,16 @@ public class TileManager {
         while (col < gp.maxCol && row < gp.maxRow) {
             tileNum = mapTile[col][row];
 
-            if (tile[tileNum].transparentBackground) g.drawImage(tile[0].image, x, y, tileSize, tileSize, null);
-            g.drawImage(tile[tileNum].image, x, y, tileSize, tileSize, null);
+            if (tile[tileNum].transparentBackground) g.drawImage(tile[0].image, x, y, tileSizeX, tileSizeX, null);
+            g.drawImage(tile[tileNum].image, x, y, tileSizeX, tileSizeX, null);
             col++;
-            x += tileSize;
+            x += tileSizeX;
 
             if (col == gp.maxCol) {
                 col = 0;
                 x = 0;
                 row++;
-                y += tileSize;
+                y += tileSizeX;
             }
         }
     }

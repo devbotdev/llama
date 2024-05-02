@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 
 public record Vars() {
 
-    public static short tileSize;
+    public static short tileSizeX, tileSizeY;
     public static boolean printFPS = true;
     public static boolean gameRunning;
     public static boolean javaIsShit;
@@ -92,7 +92,9 @@ public record Vars() {
         widthScale = (double) screenWidth / 1920;
         heightScale = (double) screenHeight / 1080;
         screenScale = (double) ((screenWidth + screenHeight) / 2) / 1500;
-        tileSize = (short) (60 * getScreenScale());
+        tileSizeX = (short) (60 * getWidthScale());
+        tileSizeY = (short) (60 * getHeightScale());
+
 
         if (!bossMode) {
             setString(disabledHamburger, disabledBacon, disabledSteak, disabledFrenchFries, disabledPizza);

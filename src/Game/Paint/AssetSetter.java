@@ -7,7 +7,7 @@ import Game.GamePanel;
 import java.util.ArrayList;
 
 import static Variables.Vars.foodType;
-import static Variables.Vars.tileSize;
+import static Variables.Vars.tileSizeX;
 
 public class AssetSetter {
 
@@ -61,8 +61,8 @@ public class AssetSetter {
 
     private void setObject(Object o, int objectX, int objectY) {
         gp.object.add(i, o);
-        gp.object.get(i).objectX = objectX * tileSize;
-        gp.object.get(i).objectY = objectY * tileSize;
+        gp.object.get(i).objectX = objectX * tileSizeX;
+        gp.object.get(i).objectY = objectY * tileSizeX;
         i++;
     }
 
@@ -74,8 +74,8 @@ public class AssetSetter {
 
     private void setKeys(int objectX, int objectY) {
         this.object.add(i, new Key());
-        this.object.get(i).objectX = objectX * tileSize;
-        this.object.get(i).objectY = objectY * tileSize;
+        this.object.get(i).objectX = objectX * tileSizeX;
+        this.object.get(i).objectY = objectY * tileSizeX;
         i++;
     }
 
@@ -91,15 +91,15 @@ public class AssetSetter {
         } else if (foodType == 4) {
             this.object.add(i, new Pizza());
         }
-        this.object.get(i).objectX = objectX * tileSize;
-        this.object.get(i).objectY = objectY * tileSize;
+        this.object.get(i).objectX = objectX * tileSizeX;
+        this.object.get(i).objectY = objectY * tileSizeX;
         i++;
     }
 
     private void setObject(int i, Object o, int objectX, int objectY) {
         gp.object.add(i, o);
-        gp.object.get(i).objectX = objectX * tileSize;
-        gp.object.get(i).objectY = objectY * tileSize;
+        gp.object.get(i).objectX = objectX * tileSizeX;
+        gp.object.get(i).objectY = objectY * tileSizeX;
     }
 
     public void setLoad(boolean load) {
