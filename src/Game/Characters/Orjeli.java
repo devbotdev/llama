@@ -64,27 +64,6 @@ public class Orjeli extends Entity {
 
         gp.tileManager.om.checkObject(this, true);
 
-        fuckingTiles();
-    }
-
-    private void fuckingTiles() {
-        if (solidArea.intersects(gp.tileManager.rectangle)) {
-            System.out.println(12222);
-            if (direction == 0) {
-                entityY += (int) entitySpeed;
-            } else if (direction == 1) {
-                entityY -= (int) entitySpeed;
-            } else if (direction == 2) {
-                entityX += (int) entitySpeed;
-            } else if (direction == 3) {
-                entityX -= (int) entitySpeed;
-            }
-        }
-
-      if (gp.tileManager.noMovementAllowed(this, 0)) entityY += (int) entitySpeed;
-//        if (gp.tileManager.noMovementAllowed(this, 1)) entityY -= (int) entitySpeed;
-//        if (gp.tileManager.noMovementAllowed(this, 2)) entityX += (int) entitySpeed;
-//        if (gp.tileManager.noMovementAllowed(this, 3)) entityX -= (int) entitySpeed;
     }
 
     private ImageIcon portrait;
@@ -99,21 +78,29 @@ public class Orjeli extends Entity {
     }
 
     public void movingAllowed() {
-        if (ControlsHandler.upPressed && gp.tileManager.movementAllowed(this, 0)) {
+        if (gp.handler.upPressed) {
             direction = 0;
-            entityY -= (int) entitySpeed;
+            if (gp.tileManager.movementAllowed(this, 0)) {
+                entityY -= (int) entitySpeed;
+            }
         }
-        if (ControlsHandler.downPressed && gp.tileManager.movementAllowed(this, 1)) {
+        if (gp.handler.downPressed) {
             direction = 1;
-            entityY += (int) entitySpeed;
+            if (gp.tileManager.movementAllowed(this, 1)) {
+                entityY += (int) entitySpeed;
+            }
         }
-        if (ControlsHandler.leftPressed && gp.tileManager.movementAllowed(this, 2)) {
+        if (gp.handler.leftPressed) {
             direction = 2;
-            entityX -= (int) entitySpeed;
+            if (gp.tileManager.movementAllowed(this, 2)) {
+                entityX -= (int) entitySpeed;
+            }
         }
-        if (ControlsHandler.rightPressed && gp.tileManager.movementAllowed(this, 3)) {
+        if (gp.handler.rightPressed) {
             direction = 3;
-            entityX += (int) entitySpeed;
+            if (gp.tileManager.movementAllowed(this, 3)) {
+                entityX += (int) entitySpeed;
+            }
         }
     }
 

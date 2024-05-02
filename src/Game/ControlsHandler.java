@@ -7,7 +7,7 @@ import static Variables.Vars.gameRunning;
 
 public class ControlsHandler implements KeyListener {
     public static int a, b;
-    public static boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed;
     private GamePanel gp;
 
     public ControlsHandler(GamePanel gp) {
@@ -29,13 +29,13 @@ public class ControlsHandler implements KeyListener {
         }
 
         if (ControlsHandler.a == KeyEvent.VK_W || ControlsHandler.a == KeyEvent.VK_UP)
-            ControlsHandler.upPressed = true;
+            upPressed = true;
         else if (ControlsHandler.a == KeyEvent.VK_S || ControlsHandler.a == KeyEvent.VK_DOWN)
-            ControlsHandler.downPressed = true;
+            downPressed = true;
         else if (ControlsHandler.a == KeyEvent.VK_A || ControlsHandler.a == KeyEvent.VK_LEFT)
-            ControlsHandler.leftPressed = true;
+            leftPressed = true;
         else if (ControlsHandler.a == KeyEvent.VK_D || ControlsHandler.a == KeyEvent.VK_RIGHT)
-            ControlsHandler.rightPressed = true;
+            rightPressed = true;
     }
 
     @Override
@@ -45,12 +45,12 @@ public class ControlsHandler implements KeyListener {
         b = event.getKeyCode();
 
         if (ControlsHandler.b == KeyEvent.VK_W || ControlsHandler.b == KeyEvent.VK_UP)
-            ControlsHandler.upPressed = false;
+            upPressed = false;
         else if (ControlsHandler.b == KeyEvent.VK_S || ControlsHandler.b == KeyEvent.VK_DOWN)
-            ControlsHandler.downPressed = false;
+            downPressed = false;
         else if (ControlsHandler.b == KeyEvent.VK_A || ControlsHandler.b == KeyEvent.VK_LEFT)
-            ControlsHandler.leftPressed = false;
+            leftPressed = false;
         else if (ControlsHandler.b == KeyEvent.VK_D || ControlsHandler.b == KeyEvent.VK_RIGHT)
-            ControlsHandler.rightPressed = false;
+            rightPressed = false;
     }
 }

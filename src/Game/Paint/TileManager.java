@@ -65,15 +65,28 @@ public class TileManager {
 
     private int entityLeftWorldX, entityRightWorldX, entityTopWorldY, entityBottomWorldY,
             entityCol, entityRow, entityLeftCol, entityRightCol, entityTopRow, entityBottomRow,
-            tileNum0;
+            tileNum0, tileNum1;
 
     public boolean movementAllowed(Entity e, int b) {
+        if (b == 0 && e.entityY <= 10 * getHeightScale()) {
+            return false;
+        }
+        if (b == 1 && e.entityY >= (screenHeight - 10) * getHeightScale()) {
+            return false;
+        }
+        if (b == 2 && e.entityX <= 10 * getWidthScale()) {
+            return false;
+        }
+        if (b == 3 && e.entityX >= (screenWidth - 10) * getWidthScale()) {
+            return false;
+        }
+
         e.entitySpeedI = (int) e.entitySpeed;
 
-        entityLeftWorldX = (int) (Entity.entityX - e.entitySpeedI + (1 * getScreenScale()));
-        entityRightWorldX = (int) (Entity.entityX + e.size + e.entitySpeed - (2 * getScreenScale()));
-        entityTopWorldY = Entity.entityY - e.entitySpeedI;
-        entityBottomWorldY = (int) (Entity.entityY + e.size + e.entitySpeed - (4 * getScreenScale()));
+        entityLeftWorldX =  Entity.entityX - (int) (2 * getWidthScale());
+        entityRightWorldX = (Entity.entityX + e.size);
+        entityTopWorldY = Entity.entityY + (int) (-4 * getHeightScale());
+        entityBottomWorldY = (Entity.entityY + e.size) + (int) (1 * getHeightScale());
 
         entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSizeX;
         entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeY;
@@ -83,65 +96,72 @@ public class TileManager {
         entityTopRow = entityTopWorldY / tileSizeY;
         entityBottomRow = entityBottomWorldY / tileSizeY;
 
-        if (b == 0) {
-            if (e.entityY <= 10) return false;
-
+        return notSingular((Orjeli) e) && singular((Orjeli) e);
+    }
+    private boolean singular(Orjeli e) {
+        if (gp.handler.upPressed) {
             tileNum0 = mapTile[entityCol][entityTopRow];
-            removeDoor((Orjeli) e, tileNum0);
-            return !tile[tileNum0].collision;
-        } else if (b == 1) {
-            if (e.entityY >= screenHeight - 10) return false;
 
+            removeDoor(e, tileNum0);
+
+            return !tile[tileNum0].collision;
+        }
+        if (gp.handler.downPressed) {
             tileNum0 = mapTile[entityCol][entityBottomRow];
-            removeDoor((Orjeli) e, tileNum0);
-            return !tile[tileNum0].collision;
-        } else if (b == 2) {
-            if (e.entityX <= 10) return false;
 
-            tileNum0 = mapTile[entityLeftCol][entityRow];
-            removeDoor((Orjeli) e, tileNum0);
+            removeDoor(e, tileNum0);
+
             return !tile[tileNum0].collision;
-        } else if (b == 3) {
-            if (e.entityX >= screenWidth - 10) return false;
-            if (gp.orjeli.down) return false;
+        }
+        if (gp.handler.leftPressed) {
+            tileNum0 = mapTile[entityLeftCol][entityRow];
+
+            removeDoor(e, tileNum0);
+
+            return !tile[tileNum0].collision;
+        }
+        if (gp.handler.rightPressed) {
+            if (gp.orjeli.down) return true;
 
             tileNum0 = mapTile[entityRightCol][entityRow];
-            removeDoor((Orjeli) e, tileNum0);
+
+            removeDoor(e, tileNum0);
+
             return !tile[tileNum0].collision;
         }
         return true;
     }
 
-    public boolean noMovementAllowed(Entity e, int b) {
-        e.entitySpeedI = (int) e.entitySpeed;
+    private boolean notSingular(Orjeli e) {
+        if (gp.handler.upPressed && gp.handler.leftPressed) {
+            tileNum0 = mapTile[entityLeftCol][entityTopRow];
 
-        entityLeftWorldX = Entity.entityX;
-        entityRightWorldX = (Entity.entityX + e.size - 2);
-        entityTopWorldY = Entity.entityY;
-        entityBottomWorldY = (Entity.entityY + e.size - 2);
+            removeDoor(e, tileNum0);
 
-        entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSizeX;
-        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeY;
-
-        entityLeftCol = entityLeftWorldX / tileSizeX;
-        entityRightCol = entityRightWorldX / tileSizeX;
-        entityTopRow = entityTopWorldY / tileSizeY;
-        entityBottomRow = entityBottomWorldY / tileSizeY;
-
-        if (b == 0) {
-            tileNum0 = mapTile[entityCol][entityTopRow];
-            return tile[tileNum0].collision;
-        } else if (b == 1) {
-            tileNum0 = mapTile[entityCol][entityBottomRow];
-            return tile[tileNum0].collision;
-        } else if (b == 2) {
-            tileNum0 = mapTile[entityLeftCol][entityRow];
-            return tile[tileNum0].collision;
-        } else if (b == 3) {
-            tileNum0 = mapTile[entityRightCol][entityRow];
-            return tile[tileNum0].collision;
+            return !tile[tileNum0].collision;
         }
-        return false;
+        if (gp.handler.downPressed && gp.handler.leftPressed) {
+            tileNum0 = mapTile[entityLeftCol][entityBottomRow];
+
+            removeDoor(e, tileNum0);
+
+            return !tile[tileNum0].collision;
+        }
+        if (gp.handler.rightPressed && gp.handler.downPressed) {
+            tileNum0 = mapTile[entityRightCol][entityBottomRow];
+
+            removeDoor(e, tileNum0);
+
+            return !tile[tileNum0].collision;
+        }
+        if (gp.handler.rightPressed && gp.handler.upPressed) {
+            tileNum0 = mapTile[entityRightCol][entityTopRow];
+
+            removeDoor(e, tileNum0);
+
+            return !tile[tileNum0].collision;
+        }
+        return true;
     }
 
     public void loadMap(String s) {

@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public record Vars() {
+public class Vars {
 
     public static short tileSizeX, tileSizeY;
     public static boolean printFPS = true;
@@ -19,7 +19,7 @@ public record Vars() {
     public static boolean isJavaGay;
     public static final byte numberOfMaps = 2;
 
-    public Vars {
+    public Vars() {
         refresh();
     }
 

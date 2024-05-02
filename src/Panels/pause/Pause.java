@@ -41,10 +41,10 @@ public class Pause {
 
     private void play() {
         gameRunning = true;
-        ControlsHandler.upPressed = false;
-        ControlsHandler.downPressed = false;
-        ControlsHandler.leftPressed = false;
-        ControlsHandler.rightPressed = false;
+        gp.handler.upPressed = false;
+        gp.handler.downPressed = false;
+        gp.handler.leftPressed = false;
+        gp.handler.rightPressed = false;
 
         setPanel();
 
