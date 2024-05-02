@@ -112,9 +112,9 @@ public record Vars() {
             pauseMenuImageString = enabledHamburger;
         } else if (foodType == 1) {
             pauseMenuImageString = enabledBacon;
-        } else if (Vars.foodType == 2) {
+        } else if (foodType == 2) {
             pauseMenuImageString = enabledSteak;
-        } else if (Vars.foodType == 3) {
+        } else if (foodType == 3) {
             pauseMenuImageString = enabledFrenchFries;
         } else if (foodType == 4) {
             pauseMenuImageString = enabledPizza;
