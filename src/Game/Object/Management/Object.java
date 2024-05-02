@@ -24,7 +24,7 @@ public class Object {
     }
 
     public void draw(Graphics2D g) {
-        g.drawImage(image, objectX, objectY, tileSizeX, tileSizeX, null);
+        g.drawImage(image, objectX, objectY, tileSizeX, tileSizeY, null);
     }
 
     public void setImage() {

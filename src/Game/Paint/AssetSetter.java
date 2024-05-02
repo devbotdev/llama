@@ -6,8 +6,7 @@ import Game.GamePanel;
 
 import java.util.ArrayList;
 
-import static Variables.Vars.foodType;
-import static Variables.Vars.tileSizeX;
+import static Variables.Vars.*;
 
 public class AssetSetter {
 
@@ -62,7 +61,7 @@ public class AssetSetter {
     private void setObject(Object o, int objectX, int objectY) {
         gp.object.add(i, o);
         gp.object.get(i).objectX = objectX * tileSizeX;
-        gp.object.get(i).objectY = objectY * tileSizeX;
+        gp.object.get(i).objectY = objectY * tileSizeY;
         i++;
     }
 
@@ -75,7 +74,7 @@ public class AssetSetter {
     private void setKeys(int objectX, int objectY) {
         this.object.add(i, new Key());
         this.object.get(i).objectX = objectX * tileSizeX;
-        this.object.get(i).objectY = objectY * tileSizeX;
+        this.object.get(i).objectY = objectY * tileSizeY;
         i++;
     }
 
@@ -92,14 +91,14 @@ public class AssetSetter {
             this.object.add(i, new Pizza());
         }
         this.object.get(i).objectX = objectX * tileSizeX;
-        this.object.get(i).objectY = objectY * tileSizeX;
+        this.object.get(i).objectY = objectY * tileSizeY;
         i++;
     }
 
     private void setObject(int i, Object o, int objectX, int objectY) {
         gp.object.add(i, o);
         gp.object.get(i).objectX = objectX * tileSizeX;
-        gp.object.get(i).objectY = objectY * tileSizeX;
+        gp.object.get(i).objectY = objectY * tileSizeY;
     }
 
     public void setLoad(boolean load) {

@@ -76,12 +76,12 @@ public class TileManager {
         entityBottomWorldY = (int) (Entity.entityY + e.size + e.entitySpeed - (4 * getScreenScale()));
 
         entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSizeX;
-        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeX;
+        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeY;
 
         entityLeftCol = entityLeftWorldX / tileSizeX;
         entityRightCol = entityRightWorldX / tileSizeX;
-        entityTopRow = entityTopWorldY / tileSizeX;
-        entityBottomRow = entityBottomWorldY / tileSizeX;
+        entityTopRow = entityTopWorldY / tileSizeY;
+        entityBottomRow = entityBottomWorldY / tileSizeY;
 
         if (b == 0) {
             if (e.entityY <= 10) return false;
@@ -121,12 +121,12 @@ public class TileManager {
         entityBottomWorldY = (Entity.entityY + e.size - 2);
 
         entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSizeX;
-        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeX;
+        entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeY;
 
         entityLeftCol = entityLeftWorldX / tileSizeX;
         entityRightCol = entityRightWorldX / tileSizeX;
-        entityTopRow = entityTopWorldY / tileSizeX;
-        entityBottomRow = entityBottomWorldY / tileSizeX;
+        entityTopRow = entityTopWorldY / tileSizeY;
+        entityBottomRow = entityBottomWorldY / tileSizeY;
 
         if (b == 0) {
             tileNum0 = mapTile[entityCol][entityTopRow];
@@ -224,8 +224,8 @@ public class TileManager {
         while (col < gp.maxCol && row < gp.maxRow) {
             tileNum = mapTile[col][row];
 
-            if (tile[tileNum].transparentBackground) g.drawImage(tile[0].image, x, y, tileSizeX, tileSizeX, null);
-            g.drawImage(tile[tileNum].image, x, y, tileSizeX, tileSizeX, null);
+            if (tile[tileNum].transparentBackground) g.drawImage(tile[0].image, x, y, tileSizeX, tileSizeY, null);
+            g.drawImage(tile[tileNum].image, x, y, tileSizeX, tileSizeY, null);
             col++;
             x += tileSizeX;
 
@@ -233,7 +233,7 @@ public class TileManager {
                 col = 0;
                 x = 0;
                 row++;
-                y += tileSizeX;
+                y += tileSizeY;
             }
         }
     }

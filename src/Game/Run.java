@@ -49,14 +49,15 @@ public class Run implements Runnable {
     public void update() {
         gp.orjeli.update();
 
-        if (gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width > 1832 * getWidthScale() &&
-                gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width < (1832 + gp.orjeli.entitySpeed) * getWidthScale()) {
+        if (gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width > screenWidth - (68 * getWidthScale()) &&
+                gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width < (screenWidth - (68 * getWidthScale())
+                        + gp.orjeli.entitySpeed * getWidthScale())) {
             if (gp.setter.isLoad()) {
                 gp.setter.newObjects();
             }
         }
 
-        if (gp.map >= numberOfMaps && gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width >= 1887 * getWidthScale()) {
+        if (gp.map >= numberOfMaps && gp.orjeli.entityX - gp.orjeli.solidArea.x + gp.orjeli.solidArea.width >= screenWidth - 13  * getWidthScale()) {
             gp.orjeli.entityX -= (int) gp.orjeli.entitySpeed;
             return;
         }
