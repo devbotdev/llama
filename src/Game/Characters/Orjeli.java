@@ -1,6 +1,5 @@
 package Game.Characters;
 
-import Game.ControlsHandler;
 import Game.GamePanel;
 import Game.Run;
 
@@ -63,7 +62,6 @@ public class Orjeli extends Entity {
         gp.orjeli.movingAllowed();
 
         gp.tileManager.om.checkObject(this, true);
-
     }
 
     private ImageIcon portrait;

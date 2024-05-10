@@ -40,6 +40,8 @@ public class AssetSetter {
         gp.object.clear();
 
         i = 0;
+// Fix lamaj law bulding
+//        setObject(new Mosque(), 10, 7);
 
         setObject(10, 10);
 
@@ -79,6 +81,7 @@ public class AssetSetter {
     }
 
     private void setObject(int objectX, int objectY) {
+
         if (foodType == 0) {
             this.object.add(i, new Hamburger());
         } else if (foodType == 1) {
