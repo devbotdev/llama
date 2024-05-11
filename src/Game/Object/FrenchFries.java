@@ -11,7 +11,7 @@ import static Variables.Vars.directory;
 public class FrenchFries extends Object {
 
     public FrenchFries() {
-        name = "bacon";
+        name = "frenchfries";
         try {
             image = ImageIO.read(new File(directory + "\\images\\3.png"));
         } catch (IOException e) {

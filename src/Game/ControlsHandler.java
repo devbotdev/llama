@@ -3,12 +3,10 @@ package Game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static Variables.Vars.gameRunning;
-
 public class ControlsHandler implements KeyListener {
     public static int a, b;
     public boolean upPressed, downPressed, leftPressed, rightPressed;
-    private GamePanel gp;
+    private final GamePanel gp;
 
     public ControlsHandler(GamePanel gp) {
         this.gp = gp;
@@ -20,7 +18,7 @@ public class ControlsHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent event) {
-        if (!gameRunning) return;
+        if (!gp.gameRunning) return;
 
         a = event.getKeyCode();
 
@@ -40,7 +38,7 @@ public class ControlsHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent event) {
-        if (!gameRunning) return;
+        if (!gp.gameRunning) return;
 
         b = event.getKeyCode();
 

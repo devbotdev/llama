@@ -14,7 +14,6 @@ public class Vars {
 
     public static short tileSizeX, tileSizeY;
     public static boolean printFPS = true;
-    public static boolean gameRunning;
     public static boolean javaIsShit;
     public static boolean isJavaGay;
     public static final byte numberOfMaps = 2;
@@ -136,19 +135,6 @@ public class Vars {
     }
     public static void toggleMenu(boolean b) {
         frame.setVisible(b);
-    }
-
-    public static void setPanelEnabled(JFrame panel, Boolean isEnabled) {
-        panel.setEnabled(isEnabled);
-
-        Component[] components = panel.getComponents();
-
-        for (Component component : components) {
-            if (component instanceof JFrame) {
-                setPanelEnabled((JFrame) component, isEnabled);
-            }
-            component.setEnabled(isEnabled);
-        }
     }
 
     private static final File path;

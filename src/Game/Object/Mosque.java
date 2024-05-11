@@ -11,7 +11,7 @@ import static Variables.Vars.directory;
 public class Mosque extends Object {
 
     public Mosque() {
-        name = "xhami";
+        name = "mosque";
         try {
             image = ImageIO.read(new File(directory + "\\images\\mosque.png"));
         } catch (IOException e) {

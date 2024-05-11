@@ -2,16 +2,14 @@ package Game;
 
 import Game.Characters.Orjeli;
 import Game.Object.Management.Object;
-import Game.Paint.AssetSetter;
+import Game.Object.Management.AssetSetter;
 import Game.Paint.TileManager;
 import Panels.options.Options;
 import Panels.pause.Pause;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import static Variables.Vars.*;
 
@@ -21,7 +19,6 @@ public class GamePanel extends JPanel {
     public Orjeli orjeli;
     public TileManager tileManager;
     private Run run;
-    private int e;
     public boolean pausePressed;
     private JFrame frame;
     private Graphics2D g;
@@ -30,6 +27,7 @@ public class GamePanel extends JPanel {
     public AssetSetter setter;
     public final ControlsHandler handler;
     public boolean renderItems = true;
+    public boolean gameRunning;
 
     public int map;
 

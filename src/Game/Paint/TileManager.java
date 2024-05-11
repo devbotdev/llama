@@ -65,25 +65,29 @@ public class TileManager {
 
     private int entityLeftWorldX, entityRightWorldX, entityTopWorldY, entityBottomWorldY,
             entityCol, entityRow, entityLeftCol, entityRightCol, entityTopRow, entityBottomRow,
-            tileNum0, tileNum1;
+            tileNum0;
 
-    public boolean movementAllowed(Entity e, int b) {
+    private byte b;
+
+    public boolean movementAllowed(Entity e) {
+        b = e.direction;
+
         if (b == 0 && e.entityY <= 10 * getHeightScale()) {
             return false;
         }
-        if (b == 1 && e.entityY >= (screenHeight - 10) * getHeightScale()) {
+        if (b == 1 && e.entityY + e.size >= (screenHeight - 4) * getHeightScale()) {
             return false;
         }
         if (b == 2 && e.entityX <= 10 * getWidthScale()) {
             return false;
         }
-        if (b == 3 && e.entityX >= (screenWidth - 10) * getWidthScale()) {
+        if (b == 3 && e.entityX + e.size >= (screenWidth - 4) * getWidthScale()) {
             return false;
         }
 
         e.entitySpeedI = (int) e.entitySpeed;
 
-        entityLeftWorldX =  Entity.entityX - (int) (2 * getWidthScale());
+        entityLeftWorldX = Entity.entityX - (int) (2 * getWidthScale());
         entityRightWorldX = (Entity.entityX + e.size);
         entityTopWorldY = Entity.entityY + (int) (-4 * getHeightScale());
         entityBottomWorldY = (Entity.entityY + e.size) + (int) (1 * getHeightScale());
@@ -96,70 +100,44 @@ public class TileManager {
         entityTopRow = entityTopWorldY / tileSizeY;
         entityBottomRow = entityBottomWorldY / tileSizeY;
 
-        return notSingular((Orjeli) e) && singular((Orjeli) e);
-    }
-    private boolean singular(Orjeli e) {
-        if (gp.handler.upPressed) {
-            tileNum0 = mapTile[entityCol][entityTopRow];
-
-            removeDoor(e, tileNum0);
-
-            return !tile[tileNum0].collision;
-        }
-        if (gp.handler.downPressed) {
-            tileNum0 = mapTile[entityCol][entityBottomRow];
-
-            removeDoor(e, tileNum0);
-
-            return !tile[tileNum0].collision;
-        }
-        if (gp.handler.leftPressed) {
-            tileNum0 = mapTile[entityLeftCol][entityRow];
-
-            removeDoor(e, tileNum0);
-
-            return !tile[tileNum0].collision;
-        }
-        if (gp.handler.rightPressed) {
-            if (gp.orjeli.down) return true;
-
-            tileNum0 = mapTile[entityRightCol][entityRow];
-
-            removeDoor(e, tileNum0);
-
-            return !tile[tileNum0].collision;
-        }
-        return true;
+        return singular((Orjeli) e, b);
     }
 
-    private boolean notSingular(Orjeli e) {
-        if (gp.handler.upPressed && gp.handler.leftPressed) {
-            tileNum0 = mapTile[entityLeftCol][entityTopRow];
+    private boolean singular(Orjeli e, int a) {
+        if (a == 0) {
+            if (gp.handler.upPressed) {
+                tileNum0 = mapTile[entityCol][entityTopRow];
 
-            removeDoor(e, tileNum0);
+                removeDoor(e, tileNum0);
 
-            return !tile[tileNum0].collision;
-        }
-        if (gp.handler.downPressed && gp.handler.leftPressed) {
-            tileNum0 = mapTile[entityLeftCol][entityBottomRow];
+                return !tile[tileNum0].collision;
+            }
+        } else if (a == 1) {
+            if (gp.handler.downPressed) {
+                tileNum0 = mapTile[entityCol][entityBottomRow];
 
-            removeDoor(e, tileNum0);
+                removeDoor(e, tileNum0);
 
-            return !tile[tileNum0].collision;
-        }
-        if (gp.handler.rightPressed && gp.handler.downPressed) {
-            tileNum0 = mapTile[entityRightCol][entityBottomRow];
+                return !tile[tileNum0].collision;
+            }
+        } else if (a == 2) {
+            if (gp.handler.leftPressed) {
+                tileNum0 = mapTile[entityLeftCol][entityRow];
 
-            removeDoor(e, tileNum0);
+                removeDoor(e, tileNum0);
 
-            return !tile[tileNum0].collision;
-        }
-        if (gp.handler.rightPressed && gp.handler.upPressed) {
-            tileNum0 = mapTile[entityRightCol][entityTopRow];
+                return !tile[tileNum0].collision;
+            }
+        } else if (a == 3) {
+            if (gp.handler.rightPressed) {
+                if (gp.orjeli.down) return true;
 
-            removeDoor(e, tileNum0);
+                tileNum0 = mapTile[entityRightCol][entityRow];
 
-            return !tile[tileNum0].collision;
+                removeDoor(e, tileNum0);
+
+                return !tile[tileNum0].collision;
+            }
         }
         return true;
     }

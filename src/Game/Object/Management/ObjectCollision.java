@@ -3,6 +3,7 @@ package Game.Object.Management;
 import Game.Characters.Entity;
 import Game.GamePanel;
 import Game.Object.Key;
+import Game.Object.Mosque;
 
 public class ObjectCollision {
 
@@ -13,7 +14,6 @@ public class ObjectCollision {
     }
 
     public void checkObject(Entity e, boolean player) {
-//        index = 999;
         if (!player) return;
 
         for (int i = 0; i < gp.object.size(); i++) {
@@ -44,6 +44,9 @@ public class ObjectCollision {
 
             gp.object.get(i).image = null;
             if (gp.object.get(i).isFood) gp.orjeli.fatnessLevel += 0.015F;
+            if (gp.object.get(i) instanceof Mosque) {
+                gp.orjeli.fatnessLevel += 1F;
+            }
         }
     }
 }

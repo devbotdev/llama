@@ -78,39 +78,38 @@ public class Orjeli extends Entity {
     public void movingAllowed() {
         if (gp.handler.upPressed) {
             direction = 0;
-            if (gp.tileManager.movementAllowed(this, 0)) {
+            if (gp.tileManager.movementAllowed(this)) {
                 entityY -= (int) entitySpeed;
             }
         }
         if (gp.handler.downPressed) {
             direction = 1;
-            if (gp.tileManager.movementAllowed(this, 1)) {
+            if (gp.tileManager.movementAllowed(this)) {
                 entityY += (int) entitySpeed;
             }
         }
         if (gp.handler.leftPressed) {
             direction = 2;
-            if (gp.tileManager.movementAllowed(this, 2)) {
+            if (gp.tileManager.movementAllowed(this)) {
                 entityX -= (int) entitySpeed;
             }
         }
         if (gp.handler.rightPressed) {
             direction = 3;
-            if (gp.tileManager.movementAllowed(this, 3)) {
+            if (gp.tileManager.movementAllowed(this)) {
                 entityX += (int) entitySpeed;
             }
         }
     }
 
-    public void a() {
-        gp.map++;
-
+    public void loadMap() {
         gp.tileManager.loadMap("map" + gp.map + ".txt");
     }
 
     public void nextLevel() {
-        if (down) {
-            a();
+        if (gp.map < numberOfMaps) {
+            gp.map++;
+            loadMap();
             setInitalPosition();
             gp.tileManager.reDoor();
             gp.setter.setArray();

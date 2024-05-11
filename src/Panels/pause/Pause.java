@@ -1,17 +1,18 @@
 package Panels.pause;
 
-import Game.ControlsHandler;
 import Game.GamePanel;
 
 import javax.swing.*;
+
+import java.awt.*;
 
 import static Variables.Vars.*;
 
 public class Pause {
 
     protected JFrame pause = new JFrame("Pause Menu");
-    private PausePanel panel;
-    private JFrame pauseB = new JFrame("P");
+    private final PausePanel panel;
+    private final JFrame pauseB = new JFrame("P");
     protected JLabel image = new JLabel(pauseMenuImage);
     protected GamePanel gp;
 
@@ -22,9 +23,8 @@ public class Pause {
 
     public void pause(boolean visible) {
         optionsPressed = visible;
-
         if (visible) {
-            gameRunning = false;
+            gp.gameRunning = false;
 
             setFrame(pauseB);
             setFrame(pause);
@@ -37,10 +37,12 @@ public class Pause {
             pauseB.setVisible(true);
             pause.setVisible(true);
         } else play();
+
+        System.out.println(optionsPressed);
     }
 
     private void play() {
-        gameRunning = true;
+        gp.gameRunning = true;
         gp.handler.upPressed = false;
         gp.handler.downPressed = false;
         gp.handler.leftPressed = false;
@@ -81,5 +83,18 @@ public class Pause {
 
     public PausePanel getPausePanel() {
         return gp.pause.panel;
+    }
+
+    public void setPanelEnabled(JFrame panel, Boolean isEnabled) {
+        panel.setEnabled(isEnabled);
+
+        Component[] components = panel.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JFrame) {
+                setPanelEnabled((JFrame) component, isEnabled);
+            }
+            component.setEnabled(isEnabled);
+        }
     }
 }
