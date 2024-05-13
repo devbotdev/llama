@@ -4,12 +4,20 @@ import java.awt.*;
 import static Variables.Vars.*;
 
 public class Llama {
+
     public static void main(String[] args) {
+        System.out.println(directory);
+
         setVariables();
 
-        System.out.println(getScreenScale());
-        System.out.println(getHeightScale());
-        System.out.println(getWidthScale());
+        debug = true;
+
+        if (debug) {
+            System.out.println(getScreenScale());
+            System.out.println(getHeightScale());
+            System.out.println(getWidthScale());
+            System.out.println(screenHeight + ", " + screenWidth);
+        }
 
         createGUI("Orjel Lamaj Type Game");
 
@@ -17,6 +25,7 @@ public class Llama {
 
         frame.setVisible(true);
     }
+
     public static void createGUI(String title) {
         frame = new JFrame(title);
         frame.setLayout(new BorderLayout());

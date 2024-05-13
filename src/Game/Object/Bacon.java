@@ -13,7 +13,7 @@ public class Bacon extends Object {
     public Bacon() {
         name = "bacon";
         try {
-            image = ImageIO.read(new File(directory + "\\images\\1.png"));
+            image = ImageIO.read(new File(directory + "\\game_resources\\1.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

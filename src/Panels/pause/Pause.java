@@ -26,6 +26,8 @@ public class Pause {
         if (visible) {
             gp.gameRunning = false;
 
+            gp.sound.pause();
+
             setFrame(pauseB);
             setFrame(pause);
 
@@ -43,6 +45,9 @@ public class Pause {
 
     private void play() {
         gp.gameRunning = true;
+
+        gp.sound.resume();
+
         gp.handler.upPressed = false;
         gp.handler.downPressed = false;
         gp.handler.leftPressed = false;

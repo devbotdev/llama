@@ -6,6 +6,7 @@ import Game.Object.Management.AssetSetter;
 import Game.Paint.TileManager;
 import Panels.options.Options;
 import Panels.pause.Pause;
+import Variables.Sound;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,13 +29,14 @@ public class GamePanel extends JPanel {
     public final ControlsHandler handler;
     public boolean renderItems = true;
     public boolean gameRunning;
-
     public int map;
+    public final Sound sound;
 
     public GamePanel() {
         orjeli = new Orjeli(this);
         handler = new ControlsHandler(this);
         tileManager = new TileManager(this);
+        sound = new Sound();
         addKeyListener(handler);
         setOpaque(true);
         setFocusable(true);
@@ -49,6 +51,9 @@ public class GamePanel extends JPanel {
     }
 
     public void startGame(Options o) {
+        sound.setFile((byte) 0, -10);
+        sound.play();
+
         o.panel.setGamePanel(this);
 
         gameRunning = true;

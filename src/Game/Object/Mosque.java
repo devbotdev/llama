@@ -13,7 +13,7 @@ public class Mosque extends Object {
     public Mosque() {
         name = "mosque";
         try {
-            image = ImageIO.read(new File(directory + "\\images\\mosque.png"));
+            image = ImageIO.read(new File(directory + "\\game_resources\\mosque.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

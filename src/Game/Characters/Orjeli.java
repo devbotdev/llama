@@ -67,7 +67,7 @@ public class Orjeli extends Entity {
     private ImageIcon portrait;
 
     public void setPortrait() {
-        portrait = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "\\src\\images\\file.png")
+        portrait = new ImageIcon(new ImageIcon(directory + "\\game_resources\\file.png")
                 .getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH));
     }
 

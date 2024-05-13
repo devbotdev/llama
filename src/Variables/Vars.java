@@ -12,6 +12,8 @@ import java.net.URISyntaxException;
 
 public class Vars {
 
+    public static boolean debug;
+
     public static short tileSizeX, tileSizeY;
     public static boolean printFPS = true;
     public static boolean javaIsShit;
@@ -60,7 +62,7 @@ public class Vars {
 
     static {
         try {
-            home = ImageIO.read(new File(directory + "\\images\\Home.png"));
+            home = ImageIO.read(new File(directory + "\\game_resources\\Home.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

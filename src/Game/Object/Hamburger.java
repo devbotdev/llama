@@ -13,7 +13,7 @@ public class Hamburger extends Object {
     public Hamburger() {
         name = "hamburger";
         try {
-            image = ImageIO.read(new File(directory + "\\images\\0.png"));
+            image = ImageIO.read(new File(directory + "\\game_resources\\0.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,7 +13,7 @@ public class Key extends Object {
     private final File file;
 
     public Key() {
-        file = new File(directory + "\\images\\key.png");
+        file = new File(directory + "\\game_resources\\key.png");
         name = "key";
         isFood = false;
         try {

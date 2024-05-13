@@ -13,7 +13,7 @@ public class Pizza extends Object {
     public Pizza() {
         name = "pizza";
         try {
-            image = ImageIO.read(new File(directory + "\\images\\4.png"));
+            image = ImageIO.read(new File(directory + "\\game_resources\\4.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

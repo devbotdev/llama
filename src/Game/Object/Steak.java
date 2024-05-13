@@ -13,7 +13,7 @@ public class Steak extends Object {
     public Steak() {
         name = "steak";
         try {
-            image = ImageIO.read(new File(directory + "\\images\\2.png"));
+            image = ImageIO.read(new File(directory + "\\game_resources\\2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

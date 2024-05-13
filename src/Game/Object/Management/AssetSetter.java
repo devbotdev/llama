@@ -3,6 +3,7 @@ package Game.Object.Management;
 import Game.Object.*;
 import Game.GamePanel;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import static Variables.Vars.*;
@@ -104,11 +105,9 @@ public class AssetSetter {
     }
 
     private void setObject(Class<?> cl, int objectX, int objectY) {
-        if (cl == Key.class) {
-            this.object.add(i, new Key());
-        } else if (cl == Mosque.class) {
-            this.object.add(i, new Mosque());
-        }
+        try {
+            this.object.add(i, (Object) cl.getDeclaredConstructor().newInstance());
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ignored) {}
         this.object.get(i).objectX = objectX * tileSizeX;
         this.object.get(i).objectY = objectY * tileSizeY;
         i++;

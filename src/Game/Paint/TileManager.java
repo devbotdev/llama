@@ -75,14 +75,23 @@ public class TileManager {
         if (b == 0 && e.entityY <= 10 * getHeightScale()) {
             return false;
         }
-        if (b == 1 && e.entityY + e.size >= (screenHeight - 4) * getHeightScale()) {
+        if (b == 1 && e.entityY + e.size >= (screenHeight - 4 * getHeightScale())) {
             return false;
         }
         if (b == 2 && e.entityX <= 10 * getWidthScale()) {
             return false;
         }
-        if (b == 3 && e.entityX + e.size >= (screenWidth - 4) * getWidthScale()) {
+        if (b == 3 && e.entityX + e.size >= (screenWidth - 4 * getWidthScale())) {
             return false;
+        }
+
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) <= 44 || gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1859 * getWidthScale()) {
+            if (b == 0 && gp.orjeli.entityY - (gp.orjeli.solidArea.y) <= 465 * getHeightScale()) {
+                return false;
+            }
+            if (b == 1 && gp.orjeli.entityY - (gp.orjeli.solidArea.y) + gp.orjeli.size >= 584 * getHeightScale()) {
+                return false;
+            }
         }
 
         e.entitySpeedI = (int) e.entitySpeed;
@@ -146,7 +155,7 @@ public class TileManager {
         killMap();
         System.out.println(s);
 
-        map = new File(directory + "\\images\\maps\\" + s);
+        map = new File(directory + "\\game_resources\\maps\\" + s);
 
         try {
             br = new BufferedReader(new FileReader(map));
@@ -210,7 +219,7 @@ public class TileManager {
     }
 
     private BufferedImage getTile(String s) throws IOException {
-        return ImageIO.read(new File(directory + "\\images\\" + s));
+        return ImageIO.read(new File(directory + "\\game_resources\\" + s));
     }
 
     public void draw(Graphics2D g) {
