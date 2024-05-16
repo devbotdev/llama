@@ -44,13 +44,14 @@ public class Run implements Runnable {
             }
             if (timer >= 1000000000) {
                 if (printFPS) System.out.println(drawCount);
+                updateSecond();
                 drawCount = 0;
                 timer = 0L;
             }
         }
     }
 
-    public void update() {
+    private void update() {
         gp.orjeli.update();
 
         if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1899 * getWidthScale()) {
@@ -64,5 +65,9 @@ public class Run implements Runnable {
             gp.orjeli.nextLevel();
             gp.orjeli.up = false;
         }
+    }
+
+    private void updateSecond() {
+        gp.orjeli.timePassedForCooldown++;
     }
 }

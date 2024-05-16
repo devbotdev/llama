@@ -2,6 +2,8 @@ package Panels.resource;
 
 import Game.GamePanel;
 import Panels.options.Options;
+import Variables.Sound;
+import Variables.SoundType.SoundType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,18 +13,21 @@ import java.awt.event.ActionListener;
 import static Variables.Vars.*;
 
 public class MainMenu extends JPanel implements ActionListener {
+
     private static JButton playButton, optionsButton, quitButton;
     private static boolean exitPressed = false;
     private static Object button;
     private Graphics g;
     private GamePanel gp;
     private GridBagConstraints gbc;
+    public final Sound sound;
 
     public static Options o;
 
     public MainMenu() {
-
         o = new Options();
+        sound = new Sound();
+        sound.setFile(SoundType.MUSIC, (byte) 0, Sound.getVolume(SoundType.MUSIC));
 
         refresh();
 

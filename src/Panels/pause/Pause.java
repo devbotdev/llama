@@ -1,6 +1,7 @@
 package Panels.pause;
 
 import Game.GamePanel;
+import Variables.SoundType.SoundType;
 
 import javax.swing.*;
 
@@ -26,7 +27,7 @@ public class Pause {
         if (visible) {
             gp.gameRunning = false;
 
-            gp.sound.pause();
+            buttons.sound.pause(SoundType.MUSIC);
 
             setFrame(pauseB);
             setFrame(pause);
@@ -46,7 +47,7 @@ public class Pause {
     private void play() {
         gp.gameRunning = true;
 
-        gp.sound.resume();
+        buttons.sound.resume(SoundType.MUSIC);
 
         gp.handler.upPressed = false;
         gp.handler.downPressed = false;

@@ -13,6 +13,8 @@ public class Orjeli extends Entity {
     private final GamePanel gp;
     public short keysGathered;
     public boolean down, up;
+    private final int fatnessCooldown = 60;
+    public short timePassedForCooldown;
 
     public Orjeli(GamePanel gp) {
         this.gp = gp;
@@ -25,7 +27,9 @@ public class Orjeli extends Entity {
         this.setDefaultValues();
     }
 
-    public void setDefaultValues() {
+    private void setDefaultValues() {
+        timePassedForCooldown = 0;
+
         fatnessLevel = 1.0F;
         fatnessLevel = (float) (fatnessLevel * getScreenScale());
 
@@ -47,6 +51,14 @@ public class Orjeli extends Entity {
     }
 
     public void updateFatness() {
+        if (fatnessLevel == 0) {
+        }
+
+        if (timePassedForCooldown >= fatnessCooldown) {
+            timePassedForCooldown = 0;
+            fatnessLevel -= 0.015F;
+        }
+
         size = (short) (sizeI * fatnessLevel);
 
         this.solidArea.width = (int) (size / 1.5);
@@ -102,7 +114,7 @@ public class Orjeli extends Entity {
         }
     }
 
-    public void loadMap() {
+    private void loadMap() {
         gp.tileManager.loadMap("map" + gp.map + ".txt");
     }
 

@@ -45,7 +45,7 @@ public class ObjectCollision {
             gp.object.get(i).image = null;
             if (gp.object.get(i).isFood) gp.orjeli.fatnessLevel += 0.015F;
             if (gp.object.get(i) instanceof Mosque) {
-                gp.orjeli.fatnessLevel += 1F;
+                gp.orjeli.fatnessLevel += 0.3F;
             }
         }
     }

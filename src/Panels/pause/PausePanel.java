@@ -18,7 +18,6 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
     private final JButton menu, resume, options;
     private Object object;
     private int e;
-
     private GamePanel gp;
 
     public PausePanel(GamePanel gp) {

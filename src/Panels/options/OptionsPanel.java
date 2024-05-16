@@ -8,47 +8,53 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static Panels.options.SoundFrame.soundPressed;
 import static Variables.Vars.getDimension;
 import static Variables.Vars.*;
 
 public class OptionsPanel extends JPanel implements ActionListener {
 
     private Object button;
-    private final JButton food, bossModeButton, exit;
-    private final JLabel foodLabel = new JLabel("Food Type");
+    private final JButton food, bossModeButton, exit, sound;
+    private final JLabel foodLabel;
     private GamePanel gp;
+    protected final GridLayout gridLayout;
+    private final Options options;
 
-    public OptionsPanel() {
-        setLayout(new GridBagLayout());
+    public OptionsPanel(Options options) {
+        this.options = options;
+
+        gridLayout = new GridLayout(5, 1);
+        setLayout(gridLayout);
+
+        setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         setOpaque(true);
         setBackground(Color.WHITE);
 
+        foodLabel = new JLabel("Food Type", JLabel.CENTER);
+
         food = new JButton("Hamburger");
         exit = new JButton("Exit");
         bossModeButton = new JButton();
+        sound = new JButton("Sound");
 
         food.setBackground(Color.WHITE);
         exit.setBackground(Color.WHITE);
         bossModeButton.setBackground(Color.WHITE);
+        sound.setBackground(Color.WHITE);
 
         food.setPreferredSize(getDimension());
         exit.setPreferredSize(getDimension());
         bossModeButton.setPreferredSize(getDimension());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipadx = 20;
-        gbc.ipady = 20;
+        sound.setPreferredSize(getDimension());
 
         refresh();
-
         food.setFont(getMenuFont());
         exit.setFont(getMenuFont());
         bossModeButton.setFont(getMenuFont());
         foodLabel.setFont(getMenuFont());
+        sound.setFont(getMenuFont());
 
         if (bossMode) {
             bossModeButton.setText("Boss Mode: Orielbisha");
@@ -57,16 +63,15 @@ public class OptionsPanel extends JPanel implements ActionListener {
         }
 
         add(foodLabel);
-        gbc.gridy++;
-        add(food, gbc);
-        gbc.gridy++;
-        add(bossModeButton, gbc);
-        gbc.gridy++;
-        add(exit, gbc);
+        add(food);
+        add(bossModeButton);
+        add(sound);
+        add(exit);
 
         food.addActionListener(this);
         exit.addActionListener(this);
         bossModeButton.addActionListener(this);
+        sound.addActionListener(this);
     }
 
     public void setGamePanel(GamePanel gp) {
@@ -77,6 +82,10 @@ public class OptionsPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         button = e.getSource();
         refresh();
+
+        if (button == sound) {
+            options.soundFrame.soundFrame(true);
+        }
 
         if (button == food && !gameStarted) {
             if (foodType == 0) {

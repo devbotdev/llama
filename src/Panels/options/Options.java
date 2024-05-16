@@ -6,46 +6,38 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import static Variables.Vars.*;
+import static javax.swing.SwingUtilities.getRootPane;
 
-public class Options implements KeyListener {
+public class Options extends JWindow{
 
-    protected final JFrame options;
     public final OptionsPanel panel;
-    private int e;
+    protected final SoundFrame soundFrame;
 
     public Options() {
-        options = new JFrame("Options");
-        panel = new OptionsPanel();
+        super();
+        soundFrame = new SoundFrame(this);
+        panel = new OptionsPanel(this);
     }
 
     public void optionsMenu(boolean visible) {
         optionsPressed = visible;
 
-        options.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        options.setSize((int) (500 * getWidthScale()), (int) (300 * getHeightScale()));
-        options.setLocationRelativeTo(null);
+        getRootPane().setBorder(BorderFactory.createEtchedBorder(Color.LIGHT_GRAY, Color.DARK_GRAY));
+
+        setSize((int) (500 * getWidthScale()), (int) (400 * getHeightScale()));
+        setLocationRelativeTo(null);
 
         if (optionsPressed) {
-            options.setLayout(new BorderLayout());
-            options.add(panel);
-            options.setVisible(true);
+            setLayout(new BorderLayout());
+            add(panel);
+            setVisible(true);
         } else {
-            options.remove(panel);
-            options.setVisible(false);
+            remove(panel);
+            setVisible(false);
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent event) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent event) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent event) {
-
+    public void hideOptions(boolean vis) {
+        setVisible(!vis);
     }
 }

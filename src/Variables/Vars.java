@@ -3,6 +3,7 @@ package Variables;
 import Panels.resource.MainMenu;
 
 import javax.imageio.ImageIO;
+import javax.lang.model.type.NullType;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,7 +14,6 @@ import java.net.URISyntaxException;
 public class Vars {
 
     public static boolean debug;
-
     public static short tileSizeX, tileSizeY;
     public static boolean printFPS = true;
     public static boolean javaIsShit;
@@ -22,13 +22,6 @@ public class Vars {
 
     public Vars() {
         refresh();
-    }
-
-    public static int getScreenWidthScaled() {
-        return (int) (screenWidth * getWidthScale());
-    }
-    public static int getScreenHeightScaled() {
-        return (int) (screenHeight * getHeightScale());
     }
 
     public static double getScreenScale() {
@@ -74,7 +67,7 @@ public class Vars {
     public final static MainMenu buttons = new MainMenu();
     private static Dimension dimension;
     private static Dimension inGameButtonDimension;
-    private static Font menuFont;
+    private static Font menuFont, smallFont;
     public static int foodType;
     public static boolean bossMode;
     public static boolean gameStarted;
@@ -103,7 +96,13 @@ public class Vars {
             setString(enabledHamburger, enabledBacon, enabledSteak, enabledFrenchFries, enabledPizza);
         }
 
+        menuFont = null;
+        dimension = null;
+        inGameButtonDimension = null;
+        pauseMenuImage = null;
+
         menuFont = new Font("Serif", Font.BOLD, (int) (25 * getScreenScale()));
+        smallFont = new Font("Serif", Font.BOLD, (int) (20 * getScreenScale()));
         dimension = new Dimension((int) (300 * getWidthScale()), (int) (50 * getHeightScale()));
         inGameButtonDimension = new Dimension((int) (700 * getWidthScale()), (int) (50 * getHeightScale()));
 
@@ -161,5 +160,9 @@ public class Vars {
 
         ProcessBuilder pb = new ProcessBuilder(javaBin, "-jar", path);
         pb.start();
+    }
+
+    public static Font getSmallFont() {
+        return smallFont;
     }
 }
