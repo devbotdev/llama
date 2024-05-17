@@ -34,12 +34,6 @@ public class Sound {
         fxVolume = 0;
         musicVolume = 0;
 
-//        try {
-//            soundUrlFX[0] = new URL("file:///" + Vars.directory + "\\game_resources\\sound\\shepherd.wav");
-//        } catch (MalformedURLException e) {
-//            throw new RuntimeException(e);
-//        }
-
         try {
             soundUrlMusic[0] = new URL("file:///" + Vars.directory + "\\game_resources\\sound\\shepherd.wav");
         } catch (MalformedURLException e) {
@@ -136,12 +130,20 @@ public class Sound {
        }
     }
 
-    public void setVolume(double percentage, byte i) {
+    public void setVolume(double value, byte i) {
        if (i == SoundType.MUSIC) {
-           musicVolume = getDB(percentage);
+           if (value == -40) {
+               musicVolume = -80;
+           } else {
+               musicVolume = value;
+           }
            if (gainControlMusic != null) gainControlMusic.setValue((float) musicVolume);
        } else if (i == SoundType.SOUND_FX) {
-           fxVolume = getDB(percentage);
+           if (value == -40) {
+               fxVolume = -80;
+           } else {
+               fxVolume = value;
+           }
            if (gainControlFX != null) gainControlFX.setValue((float) fxVolume);
        }
     }
