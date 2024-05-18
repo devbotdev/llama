@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-import static Variables.Vars.*;
+import static variables.Vars.*;
 
 public class Llama {
 

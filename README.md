@@ -1,1 +1,1 @@
-Orjel Lamaj Type Game
+Orjel Lamaj Type game
