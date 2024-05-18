@@ -15,7 +15,6 @@ import static Variables.Vars.*;
 import static Variables.Vars.getSmallFont;
 
 public class SoundPanel extends JPanel implements ChangeListener, ActionListener {
-
     private final JSlider musicSlider, soundFXSlider;
     private final Hashtable<Integer, JLabel> musicTable, soundFXTable;
     private JLabel jLabel;
@@ -49,7 +48,7 @@ public class SoundPanel extends JPanel implements ChangeListener, ActionListener
         musicSlider.setPreferredSize(getDimension());
         musicSlider.setFont(getMenuFont());
         musicSlider.setMajorTickSpacing(10);
-        musicSlider.setPaintTicks(true);
+        musicSlider.setPaintTicks(false);
 
         soundFXSlider.setBackground(Color.WHITE);
         soundFXSlider.setPreferredSize(getDimension());
