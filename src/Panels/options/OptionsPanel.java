@@ -48,7 +48,6 @@ public class OptionsPanel extends JPanel implements ActionListener {
         bossModeButton.setPreferredSize(getDimension());
         sound.setPreferredSize(getDimension());
 
-        refresh();
         food.setFont(getMenuFont());
         exit.setFont(getMenuFont());
         bossModeButton.setFont(getMenuFont());
@@ -80,7 +79,6 @@ public class OptionsPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         button = e.getSource();
-        refresh();
 
         if (button == sound) {
             options.soundFrame.soundFrame(true);

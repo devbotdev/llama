@@ -25,8 +25,6 @@ public class SoundPanel extends JPanel implements ChangeListener, ActionListener
     public SoundPanel(SoundFrame soundFrame) {
         this.soundFrame = soundFrame;
 
-        refresh();
-
         gridLayout = new GridLayout(3, 1);
         setLayout(gridLayout);
 

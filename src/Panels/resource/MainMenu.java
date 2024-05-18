@@ -29,8 +29,6 @@ public class MainMenu extends JPanel implements ActionListener {
         sound = new Sound();
         sound.setFile(SoundType.MUSIC, (byte) 0, Sound.getVolume(SoundType.MUSIC));
 
-        refresh();
-
         playButton = new JButton("Play");
         optionsButton = new JButton("Options");
         exitButton = new JButton("Quit");

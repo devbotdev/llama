@@ -58,15 +58,6 @@ public class Pause extends JWindow {
         javaIsShit = false;
     }
 
-
-    private void setDecoration(boolean g, JFrame a, JFrame b) {
-        if (!isJavaGay) {
-            a.setUndecorated(g);
-            b.setUndecorated(g);
-            isJavaGay = true;
-        }
-    }
-
     public PausePanel getPausePanel() {
         return gp.pause.panel;
     }

@@ -41,9 +41,6 @@ public class Llama {
         gameStarted = false;
         javaIsShit = false;
         optionsPressed = false;
-        isJavaGay = false;
         codeIsWritten = false;
-
-        refresh();
     }
 }

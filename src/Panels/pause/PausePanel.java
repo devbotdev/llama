@@ -49,8 +49,6 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
         gbc.ipadx = 20;
         gbc.ipady = 20;
 
-        refresh();
-
         menu.setFont(getMenuFont());
         resume.setFont(getMenuFont());
         options.setFont(getMenuFont());

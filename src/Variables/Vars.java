@@ -17,12 +17,7 @@ public class Vars {
     public static short tileSizeX, tileSizeY;
     public static boolean printFPS = true;
     public static boolean javaIsShit;
-    public static boolean isJavaGay;
     public static final byte numberOfMaps = 2;
-
-    public Vars() {
-        refresh();
-    }
 
     public static double getScreenScale() {
         return screenScale;
@@ -54,6 +49,8 @@ public class Vars {
     public final static BufferedImage home;
 
     static {
+        refresh();
+
         try {
             home = ImageIO.read(new File(directory + "\\game_resources\\Home.png"));
         } catch (IOException e) {
