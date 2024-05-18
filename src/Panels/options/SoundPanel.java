@@ -53,8 +53,6 @@ public class SoundPanel extends JPanel implements ChangeListener, ActionListener
         soundFXSlider.setBackground(Color.WHITE);
         soundFXSlider.setPreferredSize(getDimension());
         soundFXSlider.setFont(getMenuFont());
-        soundFXSlider.setMajorTickSpacing(10);
-        soundFXSlider.setPaintTicks(true);
 
         musicTable = new Hashtable<>();
         soundFXTable = new Hashtable<>();
