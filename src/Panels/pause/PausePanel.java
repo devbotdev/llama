@@ -87,16 +87,16 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
 
         if (object == options) {
             if (!javaIsShit) {
-                MainMenu.o.optionsMenu(optionsPressed);
+                buttons.o.optionsMenu(optionsPressed);
                 javaIsShit = true;
             } else {
-                MainMenu.o.optionsMenu(!optionsPressed);
+                buttons.o.optionsMenu(!optionsPressed);
             }
 
             return;
         }
         if (object == resume) {
-            if (optionsPressed) MainMenu.o.optionsMenu(false);
+            if (optionsPressed) buttons.o.optionsMenu(false);
             gp.pause.pause(false);
             return;
         }

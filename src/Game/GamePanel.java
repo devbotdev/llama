@@ -107,7 +107,7 @@ public class GamePanel extends JPanel {
                         object.draw(g);
                     }
                 }
-            }catch (Exception ignored) {}
+            } catch (Exception ignored) {}
         }
 
         orjeli.draw(g);

@@ -104,7 +104,7 @@ public class OptionsPanel extends JPanel implements ActionListener {
         }
 
         if (button == exit) {
-            MainMenu.o.optionsMenu(false);
+            buttons.o.optionsMenu(false);
             if (gameStarted) gp.pause.getPausePanel().requestFocus();
         }
 

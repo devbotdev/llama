@@ -36,16 +36,18 @@ public class ObjectCollision {
     }
 
     public void pickUpObject(int i) {
-        if (i != 999) {
-            if (gp.object.get(i).getClass() == Key.class) {
-                gp.orjeli.keysGathered++;
-                System.out.println(gp.orjeli.keysGathered);
-            }
+        if (gp.object.get(i).image != null) {
+            if (i != 999) {
+                if (gp.object.get(i).getClass() == Key.class) {
+                    gp.orjeli.keysGathered++;
+                    System.out.println(gp.orjeli.keysGathered);
+                }
 
-            gp.object.get(i).image = null;
-            if (gp.object.get(i).isFood) gp.orjeli.fatnessLevel += 0.015F;
-            if (gp.object.get(i) instanceof Mosque) {
-                gp.orjeli.fatnessLevel += 0.3F;
+                gp.object.get(i).image = null;
+                if (gp.object.get(i).isFood) gp.orjeli.fatnessLevel += 0.015F;
+                if (gp.object.get(i) instanceof Mosque) {
+                    gp.orjeli.fatnessLevel += 0.3F;
+                }
             }
         }
     }

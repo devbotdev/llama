@@ -11,7 +11,7 @@ import static javax.swing.SwingUtilities.getRootPane;
 public class Options extends JWindow {
 
     public final OptionsPanel panel;
-    protected final SoundFrame soundFrame;
+    public final SoundFrame soundFrame;
 
     public Options() {
         super();

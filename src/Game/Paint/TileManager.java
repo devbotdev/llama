@@ -52,14 +52,15 @@ public class TileManager {
 
     private void removeDoor(Orjeli e, int tileNum0) {
         if (tile[tileNum0] == tile[2]) {
-            if (e.keysGathered > 0) {
+            if (e.keysGathered > 0 && Level.isDoorClosed()) {
+                Level.openDoors();
                 e.keysGathered--;
                 tile[2] = tile[0];
             }
         }
     }
 
-    public void reDoor() {
+    public void reDoor(){
         tile[2] = tile2;
     }
 
@@ -153,7 +154,6 @@ public class TileManager {
 
     public void loadMap(String s) {
         killMap();
-        System.out.println(s);
 
         map = new File(directory + "\\game_resources\\maps\\" + s);
 

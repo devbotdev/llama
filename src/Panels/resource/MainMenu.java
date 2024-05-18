@@ -22,7 +22,7 @@ public class MainMenu extends JPanel implements ActionListener {
     private GridBagConstraints gbc;
     public final Sound sound;
 
-    public static Options o;
+    public final Options o;
 
     public MainMenu() {
         o = new Options();
@@ -55,7 +55,7 @@ public class MainMenu extends JPanel implements ActionListener {
         }
 
         if (button == optionsButton) {
-            MainMenu.o.optionsMenu(!optionsPressed);
+            buttons.o.optionsMenu(!optionsPressed);
             return;
         }
 

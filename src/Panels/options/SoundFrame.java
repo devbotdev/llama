@@ -36,7 +36,9 @@ public class SoundFrame extends JWindow {
             options.hideOptions(true);
         } else {
             remove(soundPanel);
-            options.hideOptions(false);
+            if (!gameStarted) {
+                options.hideOptions(false);
+            }
         }
 
         soundPanel.setVisible(soundPressed);

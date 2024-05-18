@@ -5,8 +5,6 @@ import Variables.SoundType.SoundType;
 
 import javax.swing.*;
 
-import java.awt.*;
-
 import static Variables.Vars.*;
 
 public class Pause extends JWindow {
@@ -44,6 +42,8 @@ public class Pause extends JWindow {
     private void play() {
         gp.gameRunning = true;
 
+        buttons.o.optionsMenu(false);
+        buttons.o.soundFrame.soundFrame(false);
         buttons.sound.resume(SoundType.MUSIC);
 
         gp.handler.upPressed = false;
@@ -60,18 +60,5 @@ public class Pause extends JWindow {
 
     public PausePanel getPausePanel() {
         return gp.pause.panel;
-    }
-
-    public void setPanelEnabled(JFrame panel, Boolean isEnabled) {
-        panel.setEnabled(isEnabled);
-
-        Component[] components = panel.getComponents();
-
-        for (Component component : components) {
-            if (component instanceof JFrame) {
-                setPanelEnabled((JFrame) component, isEnabled);
-            }
-            component.setEnabled(isEnabled);
-        }
     }
 }
