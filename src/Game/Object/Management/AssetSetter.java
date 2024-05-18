@@ -2,6 +2,7 @@ package Game.Object.Management;
 
 import Game.Object.*;
 import Game.GamePanel;
+import Game.Paint.Level;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class AssetSetter {
     }
 
     public void mapObjects() {
-        if (gp.map == 0) {
+        if (Level.LEVEL() == 0) {
             setObject(Mosque.class, 10, 7);
 
             setObject(10, 10);
@@ -64,7 +65,7 @@ public class AssetSetter {
 
             setObject(Key.class, 5, 12);
 
-        } else if (gp.map == 1) {
+        } else if (Level.LEVEL() == 1) {
             setObject(Mosque.class, 10, 7);
 
             setObject(10, 10);
@@ -83,7 +84,7 @@ public class AssetSetter {
 
             setObject(Key.class, 5, 12);
 
-        } else if (gp.map == 2) {
+        } else if (Level.LEVEL() == 2) {
             setObject(Mosque.class, 10, 7);
 
             setObject(10, 10);

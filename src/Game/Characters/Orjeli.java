@@ -1,6 +1,7 @@
 package Game.Characters;
 
 import Game.GamePanel;
+import Game.Paint.Level;
 import Game.Run;
 
 import javax.swing.*;
@@ -115,12 +116,12 @@ public class Orjeli extends Entity {
     }
 
     private void loadMap() {
-        gp.tileManager.loadMap("map" + gp.map + ".txt");
+        gp.tileManager.loadMap("map" + Level.LEVEL() + ".txt");
     }
 
     public void nextLevel() {
-        if (gp.map < numberOfMaps) {
-            gp.map++;
+        if (Level.LEVEL() < numberOfMaps) {
+            Level.addLevel();
             loadMap();
             setInitalPosition();
             gp.tileManager.reDoor();

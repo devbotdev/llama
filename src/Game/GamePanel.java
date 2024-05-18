@@ -3,10 +3,10 @@ package Game;
 import Game.Characters.Orjeli;
 import Game.Object.Management.Object;
 import Game.Object.Management.AssetSetter;
+import Game.Paint.Level;
 import Game.Paint.TileManager;
 import Panels.options.Options;
 import Panels.pause.Pause;
-import Variables.Sound;
 import Variables.SoundType.SoundType;
 
 import javax.swing.*;
@@ -30,9 +30,10 @@ public class GamePanel extends JPanel {
     public final ControlsHandler handler;
     public boolean renderItems = true;
     public boolean gameRunning;
-    public int map;
+    public final Level level;
 
     public GamePanel() {
+        level = new Level();
         orjeli = new Orjeli(this);
         handler = new ControlsHandler(this);
         tileManager = new TileManager(this);
@@ -46,7 +47,6 @@ public class GamePanel extends JPanel {
         setter = new AssetSetter(this);
 
         orjeli.keysGathered = 0;
-        map = 0;
     }
 
     public void startGame(Options o) {
