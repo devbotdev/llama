@@ -85,7 +85,7 @@ public class TileManager {
             return false;
         }
 
-        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) <= 44 || gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1859 * getWidthScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) <= 44 || gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1857 * getWidthScale()) {
             if (b == 0 && gp.orjeli.entityY - (gp.orjeli.solidArea.y) <= 465 * getHeightScale()) {
                 return false;
             }

@@ -15,14 +15,14 @@ public class Sound {
    private AudioInputStream aisFX;
    private FloatControl gainControlFX;
    private long clipTimeFX;
-   private static double fxVolume;
+   private static float fxVolume;
 
     private Clip clipMusic;
     private final URL[] soundUrlMusic = new URL[1];
     private AudioInputStream aisMusic;
     private FloatControl gainControlMusic;
     private long clipTimeMusic;
-    private static double musicVolume;
+    private static float musicVolume;
 
    private static SoundPanel soundPanel = null;
 
@@ -136,21 +136,29 @@ public class Sound {
        }
     }
 
-    public void setVolume(double percentage, byte i) {
+    public void setVolume(float value, byte i) {
        if (i == SoundType.MUSIC) {
-           musicVolume = getDB(percentage);
-           if (gainControlMusic != null) gainControlMusic.setValue((float) musicVolume);
+           if (value == -40){
+               musicVolume = -80;
+           } else {
+               musicVolume = value;
+           }
+           if (gainControlMusic != null) gainControlMusic.setValue(musicVolume);
        } else if (i == SoundType.SOUND_FX) {
-           fxVolume = getDB(percentage);
-           if (gainControlFX != null) gainControlFX.setValue((float) fxVolume);
+           if (value == -40){
+               fxVolume = -80;
+           } else {
+               fxVolume = value;
+           }
+           if (gainControlFX != null) gainControlFX.setValue(fxVolume);
        }
     }
 
     public static Float getVolume(byte i) {
        if (i == SoundType.MUSIC) {
-           return (float) musicVolume;
+           return musicVolume;
        } else if (i == SoundType.SOUND_FX) {
-           return (float) fxVolume;
+           return fxVolume;
        } else {
            throw new NullPointerException();
        }

@@ -36,8 +36,8 @@ public class SoundPanel extends JPanel implements ChangeListener, ActionListener
         setOpaque(true);
         setBackground(Color.WHITE);
 
-        musicSlider = new JSlider(0, 100, 100);
-        soundFXSlider = new JSlider(0, 100, 100);
+        musicSlider = new JSlider(-40, 0, 0);
+        soundFXSlider = new JSlider(-40, 0, 0);
 
         exit = new JButton("Exit");
 
@@ -62,21 +62,21 @@ public class SoundPanel extends JPanel implements ChangeListener, ActionListener
 
         jLabel = new JLabel("0");
         jLabel.setFont(getSmallFont());
-        musicTable.put(0, jLabel);
-        soundFXTable.put(0 , jLabel);
+        musicTable.put(-40, jLabel);
+        soundFXTable.put(-40 , jLabel);
 
         jLabel = new JLabel("100");
         jLabel.setFont(getSmallFont());
-        musicTable.put(100, jLabel);
-        soundFXTable.put(100, jLabel);
+        musicTable.put(0, jLabel);
+        soundFXTable.put(0, jLabel);
 
         jLabel = new JLabel("Music");
         jLabel.setFont(getSmallFont());
-        musicTable.put(50, jLabel);
+        musicTable.put(-20, jLabel);
 
         jLabel = new JLabel("Sound FX");
         jLabel.setFont(getSmallFont());
-        soundFXTable.put(50, jLabel);
+        soundFXTable.put(-20, jLabel);
 
         musicSlider.setLabelTable(musicTable);
         musicSlider.setPaintLabels(true);
