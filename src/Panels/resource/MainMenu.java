@@ -14,7 +14,7 @@ import static Variables.Vars.*;
 
 public class MainMenu extends JPanel implements ActionListener {
 
-    private static JButton playButton, optionsButton, quitButton;
+    private static JButton playButton, optionsButton, exitButton;
     private static boolean exitPressed = false;
     private static Object button;
     private Graphics g;
@@ -33,25 +33,25 @@ public class MainMenu extends JPanel implements ActionListener {
 
         playButton = new JButton("Play");
         optionsButton = new JButton("Options");
-        quitButton = new JButton("Quit");
+        exitButton = new JButton("Quit");
 
         gbc = new GridBagConstraints();
 
         playButton.addActionListener(this);
         optionsButton.addActionListener(this);
-        quitButton.addActionListener(this);
+        exitButton.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         button = e.getSource();
 
-        if (button == quitButton) {
+        if (button == exitButton) {
             if (!exitPressed) {
-                quitButton.setText("ska shanc");
+                exitButton.setText("ska shanc");
                 exitPressed = true;
             } else {
-                quitButton.setText("luj aty gej muti");
+                exitButton.setText("luj aty gej muti");
             }
             return;
         }
@@ -75,6 +75,10 @@ public class MainMenu extends JPanel implements ActionListener {
 
         g.drawImage(home, 0 ,0, screenWidth, screenHeight,null);
 
+        playButton.repaint();
+        optionsButton.repaint();
+        exitButton.repaint();
+
         g.dispose();
 
         set();
@@ -88,11 +92,11 @@ public class MainMenu extends JPanel implements ActionListener {
 
         playButton.setBackground(Color.WHITE);
         optionsButton.setBackground(Color.WHITE);
-        quitButton.setBackground(Color.WHITE);
+        exitButton.setBackground(Color.WHITE);
 
         playButton.setPreferredSize(getDimension());
         optionsButton.setPreferredSize(getDimension());
-        quitButton.setPreferredSize(getDimension());
+        exitButton.setPreferredSize(getDimension());
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -104,10 +108,10 @@ public class MainMenu extends JPanel implements ActionListener {
         gbc.gridy++;
         add(optionsButton, gbc);
         gbc.gridy++;
-        add(quitButton, gbc);
+        add(exitButton, gbc);
 
         playButton.setFont(getMenuFont());
         optionsButton.setFont(getMenuFont());
-        quitButton.setFont(getMenuFont());
+        exitButton.setFont(getMenuFont());
     }
 }
