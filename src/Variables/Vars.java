@@ -61,7 +61,7 @@ public class Vars {
         }
     }
 
-    public static ImageIcon pauseMenuImage;
+    public static BufferedImage pauseImage;
 
     public static JFrame frame;
     public final static MainMenu buttons = new MainMenu();
@@ -79,6 +79,9 @@ public class Vars {
     private static double widthScale;
     private static double heightScale;
     private static double screenScale;
+
+    public static final Dimension fullscreenDimension =
+            new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 
     public static void refresh() {
         screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -99,14 +102,17 @@ public class Vars {
         menuFont = null;
         dimension = null;
         inGameButtonDimension = null;
-        pauseMenuImage = null;
 
         menuFont = new Font("Serif", Font.BOLD, (int) (25 * getScreenScale()));
         smallFont = new Font("Serif", Font.BOLD, (int) (20 * getScreenScale()));
         dimension = new Dimension((int) (300 * getWidthScale()), (int) (50 * getHeightScale()));
         inGameButtonDimension = new Dimension((int) (700 * getWidthScale()), (int) (50 * getHeightScale()));
 
-        pauseMenuImage = new ImageIcon(directory + "\\images\\" + pauseMenuImageString);
+        try {
+            pauseImage = ImageIO.read(new File(directory + "\\game_resources\\" + pauseMenuImageString));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void setString(String enabledHamburger, String enabledBacon, String enabledSteak, String enabledFrenchFries, String enabledPizza) {

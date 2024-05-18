@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class ControlsHandler implements KeyListener {
+
     public static int a, b;
     public boolean upPressed, downPressed, leftPressed, rightPressed;
     private final GamePanel gp;
@@ -23,7 +24,7 @@ public class ControlsHandler implements KeyListener {
         a = event.getKeyCode();
 
         if (a == KeyEvent.VK_ESCAPE) {
-            gp.pause.pause(true);
+            gp.pause.pause(gp.gameRunning);
         }
 
         if (ControlsHandler.a == KeyEvent.VK_W || ControlsHandler.a == KeyEvent.VK_UP)

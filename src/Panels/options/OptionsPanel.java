@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static Panels.options.SoundFrame.soundPressed;
 import static Variables.Vars.getDimension;
 import static Variables.Vars.*;
 

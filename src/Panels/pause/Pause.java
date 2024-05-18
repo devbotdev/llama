@@ -9,39 +9,36 @@ import java.awt.*;
 
 import static Variables.Vars.*;
 
-public class Pause {
+public class Pause extends JWindow {
 
-    protected JFrame pause = new JFrame("Pause Menu");
     private final PausePanel panel;
-    private final JFrame pauseB = new JFrame("P");
-    protected JLabel image = new JLabel(pauseMenuImage);
     protected GamePanel gp;
 
     public Pause(GamePanel gp) {
+        super();
         this.gp = gp;
         panel = new PausePanel(this.gp);
     }
 
     public void pause(boolean visible) {
         optionsPressed = visible;
+
         if (visible) {
+            setFocusable(true);
+            requestFocus();
+
+            setSize(fullscreenDimension);
+
+            setBackground(blankColor);
+
             gp.gameRunning = false;
 
             buttons.sound.pause(SoundType.MUSIC);
 
-            setFrame(pauseB);
-            setFrame(pause);
+            add(panel);
 
-            setPanel();
-
-            pauseB.add(image);
-            pause.add(panel);
-
-            pauseB.setVisible(true);
-            pause.setVisible(true);
+            setVisible(true);
         } else play();
-
-        System.out.println(optionsPressed);
     }
 
     private void play() {
@@ -54,30 +51,13 @@ public class Pause {
         gp.handler.leftPressed = false;
         gp.handler.rightPressed = false;
 
-        setPanel();
+        setVisible(false);
 
-        pauseB.setVisible(false);
-        pause.setVisible(false);
-
-        pause.remove(panel);
-        pauseB.remove(image);
+        remove(panel);
 
         javaIsShit = false;
     }
 
-    private void setPanel() {
-        setPanelEnabled(gp.getFrame(), !optionsPressed);
-        setPanelEnabled(gp.pause.pauseB, !optionsPressed);
-        setPanelEnabled(pause, optionsPressed);
-    }
-
-    private void setFrame(JFrame frame) {
-        setDecoration(true, pauseB, pause);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setBackground(blankColor);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setLocationRelativeTo(null);
-    }
 
     private void setDecoration(boolean g, JFrame a, JFrame b) {
         if (!isJavaGay) {

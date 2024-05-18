@@ -19,6 +19,7 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
     private Object object;
     private int e;
     private GamePanel gp;
+    private Graphics g;
 
     public PausePanel(GamePanel gp) {
         this.gp = gp;
@@ -66,6 +67,21 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
 
         addKeyListener(this);
     }
+
+    protected void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+
+        g = graphics;
+
+        g.drawImage(pauseImage, 0 ,0, screenWidth, screenHeight,null);
+
+        menu.repaint();
+        resume.repaint();
+        options.repaint();
+
+        g.dispose();
+    }
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         this.requestFocus();
