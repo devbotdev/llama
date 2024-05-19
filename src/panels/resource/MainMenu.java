@@ -2,6 +2,7 @@ package panels.resource;
 
 import game.GamePanel;
 import panels.options.Options;
+import variables.Actions;
 import variables.Sound;
 import variables.sound.SoundType;
 
@@ -23,11 +24,14 @@ public class MainMenu extends JPanel implements ActionListener {
     public final Sound sound;
 
     public final Options o;
+    public final Actions actions;
 
     public MainMenu() {
         o = new Options();
         sound = new Sound();
         sound.setFile(SoundType.MUSIC, (byte) 0, Sound.getVolume(SoundType.MUSIC));
+
+        actions = new Actions();
 
         playButton = new JButton("Play");
         optionsButton = new JButton("Options");

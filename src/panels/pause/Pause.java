@@ -16,6 +16,7 @@ public class Pause extends JWindow {
         super();
         this.gp = gp;
         panel = new PausePanel(this.gp);
+        setFocusableWindowState(true);
     }
 
     public void pause(boolean visible) {

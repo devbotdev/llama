@@ -1,27 +1,29 @@
 package panels.pause;
 
 import game.GamePanel;
+import variables.Actions;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import static variables.Vars.*;
 
-public class PausePanel extends JPanel implements ActionListener, KeyListener {
+public class PausePanel extends JPanel implements ActionListener {
 
     private final JButton menu, resume, options;
     private Object object;
     private int e;
     private final GamePanel gp;
     private Graphics g;
+    private final Actions actions;
 
     public PausePanel(GamePanel gp) {
         this.gp = gp;
+
+        actions = buttons.actions;
 
         setLayout(new GridBagLayout());
 
@@ -58,13 +60,16 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
         gbc.gridy++;
         add(menu, gbc);
 
+        map();
+
         menu.addActionListener(this);
         resume.addActionListener(this);
         options.addActionListener(this);
+    }
 
-        addKeyListener(this);
-
-        setFocusable(true);
+    private void map() {
+        getInputMap().put(Actions.getKeyStroke(actions.getEscAction()), Actions.getName(actions.getEscAction()));
+        getActionMap().put(Actions.getName(actions.getEscAction()), actions.getEscAction());
     }
 
     protected void paintComponent(Graphics graphics) {
@@ -112,23 +117,5 @@ public class PausePanel extends JPanel implements ActionListener, KeyListener {
     @Override
     public boolean isFocusable() {
         return true;
-    }
-
-    @Override
-    public void keyTyped(KeyEvent event) {
-    }
-
-    // Esc doesnt close pause menu
-
-    @Override
-    public void keyPressed(KeyEvent event) {
-        e = event.getKeyCode();
-        if (e == KeyEvent.VK_ESCAPE) {
-            gp.pause.pause(false);
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent event) {
     }
 }

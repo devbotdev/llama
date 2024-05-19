@@ -7,6 +7,7 @@ import game.paint.Level;
 import game.paint.TileManager;
 import panels.options.Options;
 import panels.pause.Pause;
+import variables.Actions;
 import variables.sound.SoundType;
 
 import javax.swing.*;
@@ -37,7 +38,6 @@ public class GamePanel extends JPanel {
         orjeli = new Orjeli(this);
         handler = new ControlsHandler(this);
         tileManager = new TileManager(this);
-        addKeyListener(handler);
         setOpaque(true);
         setFocusable(true);
         requestFocusInWindow();
@@ -62,6 +62,8 @@ public class GamePanel extends JPanel {
         optionsPressed = false;
         frame = new JFrame();
 
+        map();
+
         pausePressed = false;
 
         frame.setUndecorated(true);
@@ -75,10 +77,13 @@ public class GamePanel extends JPanel {
         frame.setVisible(true);
         toggleMenu(false);
 
-        frame.addKeyListener(handler);
-
         gameStarted = true;
         run.gameThread.start();
+    }
+
+    private void map() {
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getEscAction()), Actions.getName(buttons.actions.getEscAction()));
+        getActionMap().put(Actions.getName(buttons.actions.getEscAction()), buttons.actions.getEscAction());
     }
 
     private void endGame() {
