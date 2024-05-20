@@ -22,7 +22,6 @@ public class MainMenu extends JPanel implements ActionListener {
     private GamePanel gp;
     private final GridBagConstraints gbc;
     public final Sound sound;
-
     public final Options o;
     public final Actions actions;
 
@@ -66,6 +65,7 @@ public class MainMenu extends JPanel implements ActionListener {
         if (button == playButton) {
             playButton.removeActionListener(this);
             gp = new GamePanel();
+            actions.setGPClass(gp);
             gp.startGame(o);
         }
     }

@@ -65,7 +65,7 @@ public class Run implements Runnable {
         if (Entity.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1907 * getWidthScale()) {
             gp.orjeli.down = true;
             gp.orjeli.nextLevel();
-            gp.orjeli.up = false;
+//            gp.orjeli.up = false;
         }
     }
 

@@ -15,15 +15,11 @@ public class PausePanel extends JPanel implements ActionListener {
 
     private final JButton menu, resume, options;
     private Object object;
-    private int e;
     private final GamePanel gp;
     private Graphics g;
-    private final Actions actions;
 
     public PausePanel(GamePanel gp) {
         this.gp = gp;
-
-        actions = buttons.actions;
 
         setLayout(new GridBagLayout());
 
@@ -60,16 +56,11 @@ public class PausePanel extends JPanel implements ActionListener {
         gbc.gridy++;
         add(menu, gbc);
 
-        map();
+        requestFocus();
 
         menu.addActionListener(this);
         resume.addActionListener(this);
         options.addActionListener(this);
-    }
-
-    private void map() {
-        getInputMap().put(Actions.getKeyStroke(actions.getEscAction()), Actions.getName(actions.getEscAction()));
-        getActionMap().put(Actions.getName(actions.getEscAction()), actions.getEscAction());
     }
 
     protected void paintComponent(Graphics graphics) {

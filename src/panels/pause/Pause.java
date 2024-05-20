@@ -15,15 +15,18 @@ public class Pause extends JWindow {
     public Pause(GamePanel gp) {
         super();
         this.gp = gp;
+
         panel = new PausePanel(this.gp);
         setFocusableWindowState(true);
     }
 
     public void pause(boolean visible) {
-        optionsPressed = visible;
+        gp.pausePressed = visible;
 
         if (visible) {
             setFocusable(true);
+
+            requestFocus();
 
             setSize(fullscreenDimension);
 
@@ -36,9 +39,6 @@ public class Pause extends JWindow {
             add(panel);
 
             setVisible(true);
-
-            panel.requestFocus();
-            requestFocus();
         } else play();
     }
 
@@ -49,10 +49,10 @@ public class Pause extends JWindow {
         buttons.o.soundFrame.soundFrame(false);
         buttons.sound.resume(SoundType.MUSIC);
 
-        gp.handler.upPressed = false;
-        gp.handler.downPressed = false;
-        gp.handler.leftPressed = false;
-        gp.handler.rightPressed = false;
+        gp.orjeli.upPressed = false;
+        gp.orjeli.downPressed = false;
+        gp.orjeli.leftPressed = false;
+        gp.orjeli.rightPressed = false;
 
         setVisible(false);
 

@@ -8,6 +8,7 @@ import game.paint.TileManager;
 import panels.options.Options;
 import panels.pause.Pause;
 import variables.Actions;
+import variables.UtilityTool;
 import variables.sound.SoundType;
 
 import javax.swing.*;
@@ -32,8 +33,10 @@ public class GamePanel extends JPanel {
     public boolean renderItems = true;
     public boolean gameRunning;
     public final Level level;
+    public final UtilityTool ut;
 
     public GamePanel() {
+        ut = new UtilityTool();
         level = new Level();
         orjeli = new Orjeli(this);
         handler = new ControlsHandler(this);
@@ -50,6 +53,7 @@ public class GamePanel extends JPanel {
     }
 
     public void startGame(Options o) {
+
         buttons.sound.play(SoundType.MUSIC);
 
         o.panel.setGamePanel(this);
@@ -78,12 +82,39 @@ public class GamePanel extends JPanel {
         toggleMenu(false);
 
         gameStarted = true;
+
         run.gameThread.start();
     }
 
     private void map() {
         getInputMap().put(Actions.getKeyStroke(buttons.actions.getEscAction()), Actions.getName(buttons.actions.getEscAction()));
         getActionMap().put(Actions.getName(buttons.actions.getEscAction()), buttons.actions.getEscAction());
+
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getUpAction(false)), Actions.getName(buttons.actions.getUpAction(false)));
+        getActionMap().put(Actions.getName(buttons.actions.getUpAction(false)), buttons.actions.getUpAction(false));
+
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getDownAction(false)), Actions.getName(buttons.actions.getDownAction(false)));
+        getActionMap().put(Actions.getName(buttons.actions.getDownAction(false)), buttons.actions.getDownAction(false));
+
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getLeftAction(false)), Actions.getName(buttons.actions.getLeftAction(false)));
+        getActionMap().put(Actions.getName(buttons.actions.getLeftAction(false)), buttons.actions.getLeftAction(false));
+
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getRightAction(false)), Actions.getName(buttons.actions.getRightAction(false)));
+        getActionMap().put(Actions.getName(buttons.actions.getRightAction(false)), buttons.actions.getRightAction(false));
+
+
+
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getUpAction(true)), Actions.getName(buttons.actions.getUpAction(true)));
+        getActionMap().put(Actions.getName(buttons.actions.getUpAction(true)), buttons.actions.getUpAction(true));
+
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getDownAction(true)), Actions.getName(buttons.actions.getDownAction(true)));
+        getActionMap().put(Actions.getName(buttons.actions.getDownAction(true)), buttons.actions.getDownAction(true));
+
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getLeftAction(true)), Actions.getName(buttons.actions.getLeftAction(true)));
+        getActionMap().put(Actions.getName(buttons.actions.getLeftAction(true)), buttons.actions.getLeftAction(true));
+
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getRightAction(true)), Actions.getName(buttons.actions.getRightAction(true)));
+        getActionMap().put(Actions.getName(buttons.actions.getRightAction(true)), buttons.actions.getRightAction(true));
     }
 
     private void endGame() {

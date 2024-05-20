@@ -115,7 +115,7 @@ public class TileManager {
 
     private boolean singular(Orjeli e, int a) {
         if (a == 0) {
-            if (gp.handler.upPressed) {
+            if (gp.orjeli.upPressed) {
                 tileNum0 = mapTile[entityCol][entityTopRow];
 
                 removeDoor(e, tileNum0);
@@ -123,7 +123,7 @@ public class TileManager {
                 return !tile[tileNum0].collision;
             }
         } else if (a == 1) {
-            if (gp.handler.downPressed) {
+            if (gp.orjeli.downPressed) {
                 tileNum0 = mapTile[entityCol][entityBottomRow];
 
                 removeDoor(e, tileNum0);
@@ -131,7 +131,7 @@ public class TileManager {
                 return !tile[tileNum0].collision;
             }
         } else if (a == 2) {
-            if (gp.handler.leftPressed) {
+            if (gp.orjeli.leftPressed) {
                 tileNum0 = mapTile[entityLeftCol][entityRow];
 
                 removeDoor(e, tileNum0);
@@ -139,7 +139,7 @@ public class TileManager {
                 return !tile[tileNum0].collision;
             }
         } else if (a == 3) {
-            if (gp.handler.rightPressed) {
+            if (gp.orjeli.rightPressed) {
                 if (gp.orjeli.down) return true;
 
                 tileNum0 = mapTile[entityRightCol][entityRow];
@@ -198,24 +198,23 @@ public class TileManager {
     }
 
     public void setTileImage() {
-        tile[0] = new Tile();
-        tile[1] = new Tile();
-        tile[2] = new Tile();
-
-        tile[1].collision = true;
-        tile[2].collision = true;
+        setupImage(0, "tile.png", false);
+        setupImage(1, "tile_brown.jpg", true);
+        setupImage(2, "door.png", true);
 
         tile[2].transparentBackground = true;
 
+        tile2 = tile[2];
+    }
+
+    private void setupImage(int i, String path, boolean collision) {
         try {
-            tile[0].image = getTile("tile.png");
-            tile[1].image = getTile("tile_brown.jpg");
-            tile[2].image = getTile("door.png");
+            tile[i] = new Tile();
+            tile[i].image = gp.ut.scaleImage(getTile(path), tileSizeX, tileSizeY);
+            tile[i].collision = collision;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        tile2 = tile[2];
     }
 
     private BufferedImage getTile(String s) throws IOException {
@@ -232,7 +231,7 @@ public class TileManager {
             tileNum = mapTile[col][row];
 
             if (tile[tileNum].transparentBackground) g.drawImage(tile[0].image, x, y, tileSizeX, tileSizeY, null);
-            g.drawImage(tile[tileNum].image, x, y, tileSizeX, tileSizeY, null);
+            g.drawImage(tile[tileNum].image, x, y, null);
             col++;
             x += tileSizeX;
 

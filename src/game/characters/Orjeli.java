@@ -4,8 +4,12 @@ import game.GamePanel;
 import game.paint.Level;
 import game.Run;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import static variables.Vars.*;
 
@@ -13,7 +17,8 @@ public class Orjeli extends Entity {
 
     private final GamePanel gp;
     public short keysGathered;
-    public boolean down, up;
+    public boolean down;
+    public boolean upPressed, downPressed, leftPressed, rightPressed;
     private final int fatnessCooldown = 60;
     public short timePassedForCooldown;
 
@@ -24,6 +29,8 @@ public class Orjeli extends Entity {
         this.solidArea.y = 16;
         this.solidAreaDefaultX = this.solidArea.x;
         this.solidAreaDefaultY = this.solidArea.y;
+
+        portraitFile = new File(directory + "\\game_resources\\file.png");
 
         this.setDefaultValues();
     }
@@ -64,8 +71,6 @@ public class Orjeli extends Entity {
 
         this.solidArea.width = (int) (size / 1.5);
         this.solidArea.height = (int) (size / 1.5);
-
-        setPortrait();
     }
 
     public void update() {
@@ -77,37 +82,45 @@ public class Orjeli extends Entity {
         gp.tileManager.om.checkObject(this, true);
     }
 
-    private ImageIcon portrait;
+    private BufferedImage portrait;
+    private final File portraitFile;
 
-    public void setPortrait() {
-        portrait = new ImageIcon(new ImageIcon(directory + "\\game_resources\\file.png")
-                .getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH));
+
+    private BufferedImage getPortrait() {
+        try {
+            portrait = null;
+            portrait = gp.ut.scaleImage(ImageIO.read(portraitFile), size, size);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return portrait;
     }
 
     public void draw(Graphics2D g) {
-        portrait.paintIcon(gp, g, entityX, entityY);
+        g.drawImage(getPortrait(), entityX, entityY, null);
     }
 
     public void movingAllowed() {
-        if (gp.handler.upPressed) {
+        if (upPressed) {
             direction = 0;
             if (gp.tileManager.movementAllowed(this)) {
                 entityY -= (int) entitySpeed;
             }
         }
-        if (gp.handler.downPressed) {
+        if (downPressed) {
             direction = 1;
             if (gp.tileManager.movementAllowed(this)) {
                 entityY += (int) entitySpeed;
             }
         }
-        if (gp.handler.leftPressed) {
+        if (leftPressed) {
             direction = 2;
             if (gp.tileManager.movementAllowed(this)) {
                 entityX -= (int) entitySpeed;
             }
         }
-        if (gp.handler.rightPressed) {
+        if (rightPressed) {
             direction = 3;
             if (gp.tileManager.movementAllowed(this)) {
                 entityX += (int) entitySpeed;

@@ -1,5 +1,8 @@
 package variables;
 
+import game.GamePanel;
+
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -12,12 +15,27 @@ public class Actions {
     private final LeftAction leftAction;
     private final RightAction rightAction;
 
+    private final UpActionReleased upActionReleased;
+    private final DownActionReleased downActionReleased;
+    private final LeftActionReleased leftActionReleased;
+    private final RightActionReleased rightActionReleased;
+    private static GamePanel gp;
+
     public Actions() {
         escAction = new EscAction();
         upAction = new UpAction();
         downAction = new DownAction();
         leftAction = new LeftAction();
         rightAction = new RightAction();
+
+        upActionReleased = new UpActionReleased();
+        downActionReleased = new DownActionReleased();
+        leftActionReleased = new LeftActionReleased();
+        rightActionReleased = new RightActionReleased();
+    }
+
+    public void setGPClass(GamePanel gp) {
+        Actions.gp = gp;
     }
 
     public final static class EscAction extends AbstractAction {
@@ -27,35 +45,71 @@ public class Actions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("TEST");
+            System.out.println(e.getSource().getClass());
+
+            if (e.getSource().getClass() == GamePanel.class) {
+                gp.pause.pause(!gp.pausePressed);
+            }
         }
     }
 
     public final static class UpAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if (!gp.gameRunning) return;
+            gp.orjeli.upPressed = true;
         }
     }
 
     public final static class DownAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if (!gp.gameRunning) return;
+            gp.orjeli.downPressed = true;
         }
     }
 
     public final static class LeftAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if (!gp.gameRunning) return;
+            gp.orjeli.leftPressed = true;
         }
     }
 
     public final static class RightAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (!gp.gameRunning) return;
+            gp.orjeli.rightPressed = true;
+        }
+    }
 
+    public final static class UpActionReleased extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gp.orjeli.upPressed = false;
+        }
+    }
+
+    public final static class DownActionReleased extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gp.orjeli.downPressed = false;
+        }
+    }
+
+    public final static class LeftActionReleased extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gp.orjeli.leftPressed = false;
+        }
+    }
+
+    public final static class RightActionReleased extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gp.orjeli.rightPressed = false;
         }
     }
 
@@ -75,24 +129,43 @@ public class Actions {
         if (a.getClass() == RightAction.class) {
             return "rightAction";
         }
+
+        if (a.getClass() == UpActionReleased.class) {
+            return "upActionReleased";
+        }
+        if (a.getClass() == DownActionReleased.class) {
+            return "downActionReleased";
+        }
+        if (a.getClass() == LeftActionReleased.class) {
+            return "leftActionReleased";
+        }
+        if (a.getClass() == RightActionReleased.class) {
+            return "rightActionReleased";
+        }
         return "";
     }
 
     public static KeyStroke getKeyStroke(Action a) {
         if (a.getClass() == EscAction.class) {
-            return KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+            return KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
+        } else if (a.getClass() == UpAction.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false);
+        } else if (a.getClass() == DownAction.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, false);
+        } else if (a.getClass() == LeftAction.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false);
+        } else if (a.getClass() == RightAction.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false);
         }
-        if (a.getClass() == UpAction.class) {
-            return KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0);
-        }
-        if (a.getClass() == DownAction.class) {
-            return KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0);
-        }
-        if (a.getClass() == LeftAction.class) {
-            return KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0);
-        }
-        if (a.getClass() == RightAction.class) {
-            return KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0);
+
+        if (a.getClass() == UpActionReleased.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, true);
+        } else if (a.getClass() == DownActionReleased.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, true);
+        } else if (a.getClass() == LeftActionReleased.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true);
+        } else if (a.getClass() == RightActionReleased.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true);
         }
         return null;
     }
@@ -101,19 +174,35 @@ public class Actions {
         return escAction;
     }
 
-    public UpAction getUpAction() {
-        return upAction;
+    public AbstractAction getUpAction(boolean released) {
+        if (released) {
+            return upActionReleased;
+        } else {
+            return upAction;
+        }
     }
 
-    public DownAction getDownAction() {
-        return downAction;
+    public AbstractAction getDownAction(boolean released) {
+        if (released) {
+            return downActionReleased;
+        } else {
+            return downAction;
+        }
     }
 
-    public LeftAction getLeftAction() {
-        return leftAction;
+    public AbstractAction getLeftAction(boolean released) {
+        if (released) {
+            return leftActionReleased;
+        } else {
+            return leftAction;
+        }
     }
 
-    public RightAction getRightAction() {
-        return rightAction;
+    public AbstractAction getRightAction(boolean released) {
+        if (released) {
+            return rightActionReleased;
+        } else {
+            return rightAction;
+        }
     }
 }
