@@ -18,6 +18,9 @@ public class ObjectCollision {
 
         for (int i = 0; i < gp.object.size(); i++) {
             if (gp.object.get(i) == null) continue;
+
+            //pickUpObject also has this check
+            if (gp.object.get(i).image == null) continue;
             e.solidArea.x += Entity.entityX;
             e.solidArea.y += Entity.entityY;
             gp.object.get(i).solidArea.x += gp.object.get(i).objectX;
@@ -29,7 +32,6 @@ public class ObjectCollision {
             }
             e.solidArea.x = e.solidAreaDefaultX;
             e.solidArea.y = e.solidAreaDefaultY;
-            if (gp.object.get(i).image == null) continue;
             gp.object.get(i).solidArea.x = gp.object.get(i).solidADX;
             gp.object.get(i).solidArea.y = gp.object.get(i).solidADY;
         }
