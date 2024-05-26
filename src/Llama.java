@@ -45,6 +45,8 @@ public class Llama {
         optionsPressed = false;
         codeIsWritten = false;
 
+        printFPS = true;
+
         buttons = new MainMenu();
     }
 }

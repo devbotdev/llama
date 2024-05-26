@@ -14,7 +14,7 @@ public abstract class Vars {
 
     public static boolean debug;
     public static short tileSizeX, tileSizeY;
-    public final static boolean printFPS = true;
+    public static boolean printFPS;
     public static boolean javaIsShit;
     public static final byte numberOfMaps = 2;
 
@@ -31,21 +31,25 @@ public abstract class Vars {
     }
 
     public final static String directory = System.getProperty("user.dir") + "\\src";
-    public final static String disabledBacon = "bacon1.png",
+    public final static String
+            disabledBacon = "bacon1.png",
             disabledSteak = "steak2.png",
             disabledFrenchFries = "frenchfries3.png",
             disabledPizza = "pizza4.png",
             disabledHamburger = "hamburger0.png";
 
 
-    public final static String enabledBacon = "baconO1.png",
+    public final static String
+            enabledBacon = "baconO1.png",
             enabledSteak = "steakO2.png",
             enabledFrenchFries = "frenchfriesO3.png",
             enabledPizza = "pizzaO4.png",
             enabledHamburger = "hamburgerO0.png";
+
     private static String pauseMenuImageString;
     public static final Color blankColor = new Color(0,0,0,0);
     public final static BufferedImage home;
+
 
     static {
         refresh();
@@ -53,6 +57,12 @@ public abstract class Vars {
         try {
             home = ImageIO.read(new File(directory + "\\game_resources\\Home.png"));
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            path = new File(new File(Vars.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath());
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
@@ -142,13 +152,6 @@ public abstract class Vars {
 
     private static final File path;
 
-    static {
-        try {
-            path = new File(new File(Vars.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public static void restart() throws IOException {
         exec(path.getPath());
         System.exit(0);
