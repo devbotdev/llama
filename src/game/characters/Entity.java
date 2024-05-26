@@ -12,6 +12,8 @@ public class Entity {
     public int entitySpeedI;
 
     public short size;
+    protected short previousSize;
+
     public short sizeXI, sizeYI, sizeI;
 
     public Rectangle solidArea;

@@ -47,9 +47,10 @@ public class Orjeli extends Entity {
 
         entityY = screenHeight / 2 - tileSizeY / 2;
 
-        setInitalPosition();
-
         updateFatness();
+        previousSize = size;
+
+        setInitalPosition();
 
         entitySpeedF = 6;
     }
@@ -67,7 +68,12 @@ public class Orjeli extends Entity {
             fatnessLevel -= 0.015F;
         }
 
+        previousSize = size;
         size = (short) (sizeI * fatnessLevel);
+
+        if (previousSize != size) {
+            updatePortrait(size);
+        }
 
         this.solidArea.width = (int) (size / 1.5);
         this.solidArea.height = (int) (size / 1.5);
@@ -85,16 +91,17 @@ public class Orjeli extends Entity {
     private BufferedImage portrait;
     private final File portraitFile;
 
-
     private BufferedImage getPortrait() {
+        return portrait;
+    }
+
+    private void updatePortrait(int size) {
         try {
             portrait = null;
             portrait = gp.ut.scaleImage(ImageIO.read(portraitFile), size, size);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return portrait;
     }
 
     public void draw(Graphics2D g) {

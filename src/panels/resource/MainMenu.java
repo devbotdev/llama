@@ -28,7 +28,7 @@ public class MainMenu extends JPanel implements ActionListener {
     public MainMenu() {
         o = new Options();
         sound = new Sound();
-        sound.setFile(SoundType.MUSIC, (byte) 0, Sound.getVolume(SoundType.MUSIC));
+        sound.setFile(SoundType.MUSIC, (byte) 0, -80);
 
         actions = new Actions();
 
