@@ -87,9 +87,6 @@ public class GamePanel extends JPanel {
     }
 
     private void map() {
-//        getInputMap().put(Actions.getKeyStroke(buttons.actions.getEscAction(), false), Actions.getName(buttons.actions.getEscAction()));
-//        getActionMap().put(Actions.getName(buttons.actions.getEscAction()), buttons.actions.getEscAction());
-
         mapActions(false, Actions.ESC_ACTION, false);
 
         mapD(false);
