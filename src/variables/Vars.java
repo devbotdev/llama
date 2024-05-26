@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class Vars {
+public abstract class Vars {
 
     public static boolean debug;
     public static short tileSizeX, tileSizeY;
@@ -60,7 +60,7 @@ public class Vars {
     public static BufferedImage pauseImage;
 
     public static JFrame frame;
-    public final static MainMenu buttons = new MainMenu();
+    public static MainMenu buttons;
     private static Dimension dimension;
     private static Dimension inGameButtonDimension;
     private static Font menuFont, smallFont;

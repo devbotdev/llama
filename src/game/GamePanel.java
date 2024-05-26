@@ -87,34 +87,32 @@ public class GamePanel extends JPanel {
     }
 
     private void map() {
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getEscAction()), Actions.getName(buttons.actions.getEscAction()));
-        getActionMap().put(Actions.getName(buttons.actions.getEscAction()), buttons.actions.getEscAction());
+//        getInputMap().put(Actions.getKeyStroke(buttons.actions.getEscAction(), false), Actions.getName(buttons.actions.getEscAction()));
+//        getActionMap().put(Actions.getName(buttons.actions.getEscAction()), buttons.actions.getEscAction());
 
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getUpAction(false)), Actions.getName(buttons.actions.getUpAction(false)));
-        getActionMap().put(Actions.getName(buttons.actions.getUpAction(false)), buttons.actions.getUpAction(false));
+        mapActions(false, Actions.ESC_ACTION, false);
 
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getDownAction(false)), Actions.getName(buttons.actions.getDownAction(false)));
-        getActionMap().put(Actions.getName(buttons.actions.getDownAction(false)), buttons.actions.getDownAction(false));
+        mapD(false);
+        mapD(true);
+    }
 
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getLeftAction(false)), Actions.getName(buttons.actions.getLeftAction(false)));
-        getActionMap().put(Actions.getName(buttons.actions.getLeftAction(false)), buttons.actions.getLeftAction(false));
+    private void mapD(boolean b) {
+        mapActions(b, Actions.UP_ACTION, false);
+        mapActions(b, Actions.UP_ACTION, true);
 
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getRightAction(false)), Actions.getName(buttons.actions.getRightAction(false)));
-        getActionMap().put(Actions.getName(buttons.actions.getRightAction(false)), buttons.actions.getRightAction(false));
+        mapActions(b, Actions.DOWN_ACTION, false);
+        mapActions(b, Actions.DOWN_ACTION, true);
 
+        mapActions(b, Actions.LEFT_ACTION, false);
+        mapActions(b, Actions.LEFT_ACTION, true);
 
+        mapActions(b, Actions.RIGHT_ACTION, false);
+        mapActions(b, Actions.RIGHT_ACTION, true);
+    }
 
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getUpAction(true)), Actions.getName(buttons.actions.getUpAction(true)));
-        getActionMap().put(Actions.getName(buttons.actions.getUpAction(true)), buttons.actions.getUpAction(true));
-
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getDownAction(true)), Actions.getName(buttons.actions.getDownAction(true)));
-        getActionMap().put(Actions.getName(buttons.actions.getDownAction(true)), buttons.actions.getDownAction(true));
-
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getLeftAction(true)), Actions.getName(buttons.actions.getLeftAction(true)));
-        getActionMap().put(Actions.getName(buttons.actions.getLeftAction(true)), buttons.actions.getLeftAction(true));
-
-        getInputMap().put(Actions.getKeyStroke(buttons.actions.getRightAction(true)), Actions.getName(buttons.actions.getRightAction(true)));
-        getActionMap().put(Actions.getName(buttons.actions.getRightAction(true)), buttons.actions.getRightAction(true));
+    private void mapActions(boolean released, byte b, boolean secondary) {
+        getInputMap().put(Actions.getKeyStroke(buttons.actions.getAction(released, b), secondary), Actions.getName(buttons.actions.getAction(released, b)));
+        getActionMap().put(Actions.getName(buttons.actions.getAction(released, b)), buttons.actions.getAction(released, b));
     }
 
     private void endGame() {

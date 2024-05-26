@@ -1,3 +1,5 @@
+import panels.resource.MainMenu;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -42,5 +44,7 @@ public class Llama {
         javaIsShit = false;
         optionsPressed = false;
         codeIsWritten = false;
+
+        buttons = new MainMenu();
     }
 }

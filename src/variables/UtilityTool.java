@@ -3,9 +3,6 @@ package variables;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static variables.Vars.tileSizeX;
-import static variables.Vars.tileSizeY;
-
 public class UtilityTool {
 
     public BufferedImage scaleImage(BufferedImage or, int width, int height) {
