@@ -21,8 +21,8 @@ public class ObjectCollision {
 
             //pickUpObject also has this check
             if (gp.object.get(i).image == null) continue;
-            e.solidArea.x += Entity.entityX;
-            e.solidArea.y += Entity.entityY;
+            e.solidArea.x += gp.orjeli.entityX;
+            e.solidArea.y += gp.orjeli.entityY;
             gp.object.get(i).solidArea.x += gp.object.get(i).objectX;
             gp.object.get(i).solidArea.y += gp.object.get(i).objectY;
             e.solidArea.y -= (int) e.entitySpeed;

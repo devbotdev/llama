@@ -15,7 +15,6 @@ import static variables.Vars.*;
 
 public class Orjeli extends Entity {
 
-    private final GamePanel gp;
     public short keysGathered;
     public boolean down;
     public boolean upPressed, downPressed, leftPressed, rightPressed;
@@ -23,6 +22,7 @@ public class Orjeli extends Entity {
     public short timePassedForCooldown;
 
     public Orjeli(GamePanel gp) {
+        super(gp);
         this.gp = gp;
         this.solidArea = new Rectangle();
         this.solidArea.x = 8;
@@ -110,25 +110,25 @@ public class Orjeli extends Entity {
 
     public void movingAllowed() {
         if (upPressed) {
-            direction = 0;
+            direction = DIRECTION_UP;
             if (gp.tileManager.movementAllowed(this)) {
                 entityY -= (int) entitySpeed;
             }
         }
         if (downPressed) {
-            direction = 1;
+            direction = DIRECTION_DOWN;
             if (gp.tileManager.movementAllowed(this)) {
                 entityY += (int) entitySpeed;
             }
         }
         if (leftPressed) {
-            direction = 2;
+            direction = DIRECTION_LEFT;
             if (gp.tileManager.movementAllowed(this)) {
                 entityX -= (int) entitySpeed;
             }
         }
         if (rightPressed) {
-            direction = 3;
+            direction = DIRECTION_RIGHT;
             if (gp.tileManager.movementAllowed(this)) {
                 entityX += (int) entitySpeed;
             }

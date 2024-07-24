@@ -1,5 +1,6 @@
 package game;
 
+import game.characters.Entity;
 import game.characters.Orjeli;
 import game.object.management.Object;
 import game.object.management.AssetSetter;
@@ -19,21 +20,29 @@ import static variables.Vars.*;
 
 public class GamePanel extends JPanel {
 
+    public final Pause pause = new Pause(this);
+
     public final int maxCol = 32, maxRow = 18;
-    public final Orjeli orjeli;
+
     public final TileManager tileManager;
     private Run run;
+
     public boolean pausePressed;
-    private JFrame frame;
-    private Graphics2D g;
-    public final Pause pause = new Pause(this);
-    public ArrayList<Object> object;
-    public AssetSetter setter;
-    public final ControlsHandler handler;
     public boolean renderItems = true;
     public boolean gameRunning;
+
+    private JFrame frame;
+    private Graphics2D g;
+
+    public ArrayList<Object> object;
+    public AssetSetter setter;
+
+    public final ControlsHandler handler;
     public final Level level;
     public final UtilityTool ut;
+
+    public final Orjeli orjeli;
+    public Entity[] npc = new Entity[10];
 
     public GamePanel() {
         ut = new UtilityTool();
@@ -50,6 +59,8 @@ public class GamePanel extends JPanel {
         setter = new AssetSetter(this);
 
         orjeli.keysGathered = 0;
+
+        setter.setNPC();
     }
 
     public void startGame(Options o) {
@@ -129,6 +140,13 @@ public class GamePanel extends JPanel {
 
         // Map
         tileManager.draw(g);
+
+        // NPC
+        for (Entity entity : npc) {
+            if (entity != null) {
+                entity.draw(g);
+            }
+        }
 
         // Foods
         if (renderItems) {

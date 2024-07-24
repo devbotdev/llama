@@ -73,34 +73,34 @@ public class TileManager {
     public boolean movementAllowed(Entity e) {
         b = e.direction;
 
-        if (b == 0 && Entity.entityY <= 10 * getHeightScale()) {
+        if (b == 0 && gp.orjeli.entityY <= 10 * getHeightScale()) {
             return false;
         }
-        if (b == 1 && Entity.entityY + e.size >= (screenHeight - 4 * getHeightScale())) {
+        if (b == 1 && gp.orjeli.entityY + e.size >= (screenHeight - 4 * getHeightScale())) {
             return false;
         }
-        if (b == 2 && Entity.entityX <= 10 * getWidthScale()) {
+        if (b == 2 && gp.orjeli.entityX <= 10 * getWidthScale()) {
             return false;
         }
-        if (b == 3 && Entity.entityX + e.size >= (screenWidth - 4 * getWidthScale())) {
+        if (b == 3 && gp.orjeli.entityX + e.size >= (screenWidth - 4 * getWidthScale())) {
             return false;
         }
 
-        if (Entity.entityX - (gp.orjeli.solidArea.x) <= 44 || Entity.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1857 * getWidthScale()) {
-            if (b == 0 && Entity.entityY - (gp.orjeli.solidArea.y) <= 465 * getHeightScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) <= 44 || gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1857 * getWidthScale()) {
+            if (b == 0 && gp.orjeli.entityY - (gp.orjeli.solidArea.y) <= 465 * getHeightScale()) {
                 return false;
             }
-            if (b == 1 && Entity.entityY - (gp.orjeli.solidArea.y) + gp.orjeli.size >= 584 * getHeightScale()) {
+            if (b == 1 && gp.orjeli.entityY - (gp.orjeli.solidArea.y) + gp.orjeli.size >= 584 * getHeightScale()) {
                 return false;
             }
         }
 
         e.entitySpeedI = (int) e.entitySpeed;
 
-        entityLeftWorldX = Entity.entityX - (int) (2 * getWidthScale());
-        entityRightWorldX = (Entity.entityX + e.size);
-        entityTopWorldY = Entity.entityY + (int) (-4 * getHeightScale());
-        entityBottomWorldY = (Entity.entityY + e.size) + (int) (1 * getHeightScale());
+        entityLeftWorldX = gp.orjeli.entityX - (int) (2 * getWidthScale());
+        entityRightWorldX = (gp.orjeli.entityX + e.size);
+        entityTopWorldY = gp.orjeli.entityY + (int) (-4 * getHeightScale());
+        entityBottomWorldY = (gp.orjeli.entityY + e.size) + (int) (1 * getHeightScale());
 
         entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSizeX;
         entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeY;

@@ -1,5 +1,6 @@
 package game.object.management;
 
+import game.characters.NPC0;
 import game.object.*;
 import game.GamePanel;
 import game.paint.Level;
@@ -43,6 +44,10 @@ public class AssetSetter {
         mapObjects();
 
         i = 0;
+    }
+
+    public void setNPC() {
+        gp.npc[0] = new NPC0(gp);
     }
 
     public void mapObjects() {
