@@ -25,7 +25,7 @@ public class Orjeli extends Entity {
         super(gp);
         this.gp = gp;
         this.solidArea = new Rectangle();
-        this.solidArea.x = 8;
+        this.solidArea.x = 16;
         this.solidArea.y = 16;
         this.solidAreaDefaultX = this.solidArea.x;
         this.solidAreaDefaultY = this.solidArea.y;
@@ -86,6 +86,14 @@ public class Orjeli extends Entity {
         gp.orjeli.movingAllowed();
 
         gp.tileManager.om.checkObject(this, true);
+
+        interactNPC(gp.tileManager.om.checkEntity(this, gp.npc));
+    }
+
+    private void interactNPC(int i) {
+        if (i != 999) {
+            gp.deathScreen.showDeathScreen();
+        }
     }
 
     private BufferedImage portrait;

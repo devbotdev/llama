@@ -6,6 +6,7 @@ import game.object.management.Object;
 import game.object.management.AssetSetter;
 import game.paint.Level;
 import game.paint.TileManager;
+import panels.dead.Death;
 import panels.options.Options;
 import panels.pause.Pause;
 import variables.Actions;
@@ -21,6 +22,7 @@ import static variables.Vars.*;
 public class GamePanel extends JPanel {
 
     public final Pause pause = new Pause(this);
+    public final Death deathScreen;
 
     public final int maxCol = 32, maxRow = 18;
 
@@ -53,6 +55,8 @@ public class GamePanel extends JPanel {
         setOpaque(true);
         setFocusable(true);
         requestFocusInWindow();
+
+        deathScreen = new Death(this);
     }
 
     public void setupGame() {

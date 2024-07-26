@@ -20,6 +20,14 @@ public class NPC0 extends Entity {
         entityY = npcPath.getPointY(0);
 
         entitySpeed = 4;
+
+        this.solidArea = new Rectangle();
+        this.solidArea.x = 40;
+        this.solidArea.y = 40;
+        solidArea.width = 40;
+        solidArea.height = 40;
+        this.solidAreaDefaultX = this.solidArea.x;
+        this.solidAreaDefaultY = this.solidArea.y;
     }
 
     private void setPoints() {

@@ -57,13 +57,13 @@ public class Run implements Runnable {
         gp.orjeli.update();
         gp.npc[0].update();
 
-        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1899 * getWidthScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1891 * getWidthScale()) {
             if (gp.setter.isLoad()) {
                 gp.setter.newObjects();
             }
         }
 
-        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1907 * getWidthScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1899 * getWidthScale()) {
             gp.orjeli.down = true;
             gp.orjeli.nextLevel();
 //            gp.orjeli.up = false;

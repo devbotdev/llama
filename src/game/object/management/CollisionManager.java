@@ -5,11 +5,11 @@ import game.GamePanel;
 import game.object.Key;
 import game.object.Mosque;
 
-public class ObjectCollision {
+public class CollisionManager {
 
     private final GamePanel gp;
 
-    public ObjectCollision(GamePanel gp) {
+    public CollisionManager(GamePanel gp) {
         this.gp = gp;
     }
 
@@ -30,6 +30,7 @@ public class ObjectCollision {
             if (e.solidArea.intersects(gp.object.get(i).solidArea)) {
                 pickUpObject(i);
             }
+
             e.solidArea.x = e.solidAreaDefaultX;
             e.solidArea.y = e.solidAreaDefaultY;
             gp.object.get(i).solidArea.x = gp.object.get(i).solidADX;
@@ -52,5 +53,30 @@ public class ObjectCollision {
                 }
             }
         }
+    }
+
+    private int index;
+    public int checkEntity(Entity e, Entity[] target) {
+        index = 999;
+
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] == null) continue;
+
+            e.solidArea.x += e.entityX;
+            e.solidArea.y += e.entityY;
+            target[i].solidArea.x += target[i].entityX;
+            target[i].solidArea.y += target[i].entityY;
+
+
+            if (e.solidArea.intersects(target[i].solidArea)) {
+                index = i;
+            }
+
+            e.solidArea.x = e.solidAreaDefaultX;
+            e.solidArea.y = e.solidAreaDefaultY;
+            target[i].solidArea.x = target[i].solidAreaDefaultX;
+            target[i].solidArea.y = target[i].solidAreaDefaultY;
+        }
+        return index;
     }
 }

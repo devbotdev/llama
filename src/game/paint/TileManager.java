@@ -3,7 +3,7 @@ package game.paint;
 import game.characters.Entity;
 import game.characters.Orjeli;
 import game.GamePanel;
-import game.object.management.ObjectCollision;
+import game.object.management.CollisionManager;
 
 import javax.imageio.ImageIO;
 
@@ -21,7 +21,7 @@ public class TileManager {
     protected String[] numbers;
     private final GamePanel gp;
     protected final Tile[] tile;
-    public final ObjectCollision om;
+    public final CollisionManager om;
     private File map;
     private BufferedReader br;
     private Tile tile2;
@@ -45,7 +45,7 @@ public class TileManager {
 
         setTileImage();
 
-        om = new ObjectCollision(this.gp);
+        om = new CollisionManager(this.gp);
 
         loadMap("map0.txt");
     }
@@ -79,14 +79,14 @@ public class TileManager {
         if (b == 1 && gp.orjeli.entityY + e.size >= (screenHeight - 4 * getHeightScale())) {
             return false;
         }
-        if (b == 2 && gp.orjeli.entityX <= 10 * getWidthScale()) {
+        if (b == 2 && gp.orjeli.entityX <= 4 * getWidthScale()) {
             return false;
         }
         if (b == 3 && gp.orjeli.entityX + e.size >= (screenWidth - 4 * getWidthScale())) {
             return false;
         }
 
-        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) <= 44 || gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1857 * getWidthScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) <= 36 || gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1857 * getWidthScale()) {
             if (b == 0 && gp.orjeli.entityY - (gp.orjeli.solidArea.y) <= 465 * getHeightScale()) {
                 return false;
             }

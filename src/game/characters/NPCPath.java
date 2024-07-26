@@ -1,5 +1,7 @@
 package game.characters;
 
+import game.GamePanel;
+
 import static variables.Vars.tileSizeX;
 import static variables.Vars.tileSizeY;
 
