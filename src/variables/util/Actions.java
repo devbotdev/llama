@@ -1,4 +1,4 @@
-package variables;
+package variables.util;
 
 import game.GamePanel;
 

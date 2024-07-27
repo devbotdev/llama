@@ -7,19 +7,19 @@ import game.object.management.AssetSetter;
 import game.paint.Level;
 import game.paint.TileManager;
 import panels.dead.Death;
-import panels.options.Options;
 import panels.pause.Pause;
-import variables.Actions;
-import variables.UtilityTool;
+import variables.util.Actions;
+import variables.util.UtilityTool;
 import variables.sound.SoundType;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 import static variables.Vars.*;
 
 public class GamePanel extends JPanel {
+
+    public boolean gameOver;
 
     public final Pause pause = new Pause(this);
     public final Death deathScreen;
@@ -36,7 +36,7 @@ public class GamePanel extends JPanel {
     private JFrame frame;
     private Graphics2D g;
 
-    public ArrayList<Object> object;
+    public Object[] object;
     public AssetSetter setter;
 
     public final ControlsHandler handler;
@@ -61,25 +61,66 @@ public class GamePanel extends JPanel {
 
     public void setupGame() {
         setter = new AssetSetter(this);
-
         orjeli.keysGathered = 0;
 
         setter.setNPC();
     }
 
-    public void startGame(Options o) {
+    public void endGame() {
+        run.gameThread.interrupt();
+
+        gameOver = true;
+        gameRunning = false;
+        optionsPressed = false;
+        pausePressed = false;
+
+        getInputMap().clear();
+        getActionMap().clear();
+
+        run.gameThread = null;
+
+        run = null;
+    }
+
+    public void restart() {
+        backToMenu(false);
+        startGame();
+    }
+
+    public void backToMenu(boolean menu) {
+        buttons.sound.stop(SoundType.MUSIC);
+        buttons.sound.stop(SoundType.SOUND_FX);
+
+        deathScreen.hideDeathScreen();
+
+        frame.remove(this);
+
+        frame.dispose();
+
+        frame = null;
+
+        toggleMenu(menu);
+    }
+
+    public GamePanel startGame() {
+        javaIsShit = false;
+
+        orjeli.setDefaultValues();
+        level.setLevel(0);
+
+        frame = new JFrame();
 
         buttons.sound.play(SoundType.MUSIC);
 
-        o.panel.setGamePanel(this);
-
         gameRunning = true;
+        gameOver = false;
+        orjeli.down = false;
+
         run = new Run(this);
 
         setupGame();
 
         optionsPressed = false;
-        frame = new JFrame();
 
         map();
 
@@ -99,6 +140,10 @@ public class GamePanel extends JPanel {
         gameStarted = true;
 
         run.gameThread.start();
+
+        classFirstCreated();
+
+        return this;
     }
 
     private void map() {
@@ -127,44 +172,37 @@ public class GamePanel extends JPanel {
         getActionMap().put(Actions.getName(buttons.actions.getAction(released, b)), buttons.actions.getAction(released, b));
     }
 
-    private void endGame() {
-        toggleMenu(true);
-
-        gameStarted = false;
-    }
-
-    public JFrame getFrame() {
-        return frame;
-    }
-
     protected void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
+        if (gameRunning) {
+            super.paintComponent(graphics);
 
-        g = (Graphics2D) graphics;
+            g = (Graphics2D) graphics;
 
-        // Map
-        tileManager.draw(g);
+            // Map
+            tileManager.draw(g);
 
-        // NPC
-        for (Entity entity : npc) {
-            if (entity != null) {
-                entity.draw(g);
-            }
-        }
-
-        // Foods
-        if (renderItems) {
-            try {
-                for (Object object : object) {
-                    if (object != null) {
-                        object.draw(g);
-                    }
+            // NPC
+            for (Entity entity : npc) {
+                if (entity != null) {
+                    entity.draw(g);
                 }
-            } catch (Exception ignored) {}
+            }
+
+            // Foods
+            if (renderItems) {
+                try {
+                    for (Object object : object) {
+                        if (object != null) {
+                            object.draw(g);
+                        }
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+
+            orjeli.draw(g);
+
+            g.dispose();
         }
-
-        orjeli.draw(g);
-
-        g.dispose();
     }
 }

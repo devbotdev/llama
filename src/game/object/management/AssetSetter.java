@@ -6,7 +6,7 @@ import game.GamePanel;
 import game.paint.Level;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import static variables.Vars.*;
 
@@ -14,7 +14,7 @@ public class AssetSetter {
 
     private final GamePanel gp;
     private int i;
-    public final ArrayList<Object> object;
+    public final Object[] object;
     private boolean load;
 
     public AssetSetter(GamePanel gp) {
@@ -22,10 +22,8 @@ public class AssetSetter {
 
         setLoad(true);
 
-        gp.object = new ArrayList<>();
-        this.object = new ArrayList<>();
+        this.object = new Object[10];
 
-        i = 0;
         set();
 
         setArray();
@@ -38,8 +36,9 @@ public class AssetSetter {
     }
 
     public void set() {
-        this.object.clear();
-        gp.object.clear();
+        i = 0;
+
+        Arrays.fill(object, null);
 
         mapObjects();
 
@@ -47,6 +46,8 @@ public class AssetSetter {
     }
 
     public void setNPC() {
+        for (i = 0; i < gp.npc.length; i++) gp.npc[i] = null;
+
         gp.npc[0] = new NPC0(gp);
     }
 
@@ -112,10 +113,10 @@ public class AssetSetter {
 
     private void setObject(Class<?> cl, int objectX, int objectY) {
         try {
-            this.object.add(i, (Object) cl.getDeclaredConstructor().newInstance());
+            this.object[i] = (Object) cl.getDeclaredConstructor().newInstance();
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ignored) {}
-        this.object.get(i).objectX = objectX * tileSizeX;
-        this.object.get(i).objectY = objectY * tileSizeY;
+        object[i].objectX = objectX * tileSizeX;
+        this.object[i].objectY = objectY * tileSizeY;
         i++;
     }
 
@@ -127,18 +128,19 @@ public class AssetSetter {
 
     private void setObject(int objectX, int objectY) {
         if (foodType == 0) {
-            this.object.add(i, new Hamburger());
+            this.object[i] = new Hamburger();
         } else if (foodType == 1) {
-            this.object.add(i, new Bacon());
+            this.object[i] = new Bacon();
         } else if (foodType == 2) {
-            this.object.add(i, new Steak());
+            this.object[i] = new Steak();
         } else if (foodType == 3) {
-            this.object.add(i, new FrenchFries());
+            this.object[i] = new FrenchFries();
         } else if (foodType == 4) {
-            this.object.add(i, new Pizza());
+            this.object[i] = new Pizza();
         }
-        this.object.get(i).objectX = objectX * tileSizeX;
-        this.object.get(i).objectY = objectY * tileSizeY;
+
+        this.object[i].objectX = objectX * tileSizeX;
+        this.object[i].objectY = objectY * tileSizeY;
         i++;
     }
 

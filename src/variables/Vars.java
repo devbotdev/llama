@@ -12,6 +12,16 @@ import java.net.URISyntaxException;
 
 public abstract class Vars {
 
+    private static boolean firstStarted = false;
+
+    public static boolean isFirstStarted() {
+        return !firstStarted;
+    }
+
+    public static void classFirstCreated() {
+        if (!firstStarted) firstStarted = true;
+    }
+
     public static boolean debug;
     public static short tileSizeX, tileSizeY;
     public static boolean printFPS;
@@ -148,6 +158,10 @@ public abstract class Vars {
     }
     public static void toggleMenu(boolean b) {
         frame.setVisible(b);
+
+        if (b) {
+            buttons.setActionListeners();
+        }
     }
 
     private static final File path;

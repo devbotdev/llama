@@ -16,39 +16,39 @@ public class CollisionManager {
     public void checkObject(Entity e, boolean player) {
         if (!player) return;
 
-        for (int i = 0; i < gp.object.size(); i++) {
-            if (gp.object.get(i) == null) continue;
+        for (int i = 0; i < gp.object.length; i++) {
+            if (gp.object[i] == null) continue;
 
             //pickUpObject also has this check
-            if (gp.object.get(i).image == null) continue;
+            if (gp.object[i].image == null) continue;
             e.solidArea.x += gp.orjeli.entityX;
             e.solidArea.y += gp.orjeli.entityY;
-            gp.object.get(i).solidArea.x += gp.object.get(i).objectX;
-            gp.object.get(i).solidArea.y += gp.object.get(i).objectY;
+            gp.object[i].solidArea.x += gp.object[i].objectX;
+            gp.object[i].solidArea.y += gp.object[i].objectY;
             e.solidArea.y -= (int) e.entitySpeed;
 
-            if (e.solidArea.intersects(gp.object.get(i).solidArea)) {
+            if (e.solidArea.intersects(gp.object[i].solidArea)) {
                 pickUpObject(i);
             }
 
             e.solidArea.x = e.solidAreaDefaultX;
             e.solidArea.y = e.solidAreaDefaultY;
-            gp.object.get(i).solidArea.x = gp.object.get(i).solidADX;
-            gp.object.get(i).solidArea.y = gp.object.get(i).solidADY;
+            gp.object[i].solidArea.x = gp.object[i].solidADX;
+            gp.object[i].solidArea.y = gp.object[i].solidADY;
         }
     }
 
     public void pickUpObject(int i) {
-        if (gp.object.get(i).image != null) {
+        if (gp.object[i].image != null) {
             if (i != 999) {
-                if (gp.object.get(i).getClass() == Key.class) {
+                if (gp.object[i].getClass() == Key.class) {
                     gp.orjeli.keysGathered++;
                     System.out.println(gp.orjeli.keysGathered);
                 }
 
-                gp.object.get(i).image = null;
-                if (gp.object.get(i).isFood) gp.orjeli.fatnessLevel += 0.015F;
-                if (gp.object.get(i) instanceof Mosque) {
+                gp.object[i].image = null;
+                if (gp.object[i].isFood) gp.orjeli.fatnessLevel += 0.015F;
+                if (gp.object[i] instanceof Mosque) {
                     gp.orjeli.fatnessLevel += 0.3F;
                 }
             }

@@ -37,11 +37,10 @@ public class Llama {
         frame.setLocationRelativeTo(null);
     }
 
-    private static void setVariables() {
+    public static void setVariables() {
         foodType = 0;
         bossMode = false;
         gameStarted = false;
-        javaIsShit = false;
         optionsPressed = false;
         codeIsWritten = false;
 

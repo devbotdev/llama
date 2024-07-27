@@ -1,7 +1,5 @@
 package game;
 
-import game.characters.Entity;
-
 import static variables.Vars.*;
 
 public class Run implements Runnable {
@@ -12,7 +10,7 @@ public class Run implements Runnable {
     public long lastTime, currentTime, timer;
     public int drawCount;
     private final GamePanel gp;
-    protected final Thread gameThread;
+    protected Thread gameThread;
 
     protected Run(GamePanel gp) {
         this.gp = gp;
@@ -28,27 +26,29 @@ public class Run implements Runnable {
         timer = 0L;
         drawCount = 0;
         while (gameThread != null) {
-            if (gp.orjeli.down) {
-                continue;
-            }
-            currentTime = System.nanoTime();
-            delta += (currentTime - lastTime) / drawInterval;
-            timer += currentTime - lastTime;
-            lastTime = currentTime;
-
-            if (delta >= 1) {
-                if (gp.gameRunning) {
-                    update();
-                    gp.repaint();
+            if (!gp.gameOver) {
+                if (gp.orjeli.down) {
+                    continue;
                 }
-                delta--;
-                drawCount++;
-            }
-            if (timer >= 1000000000) {
-                if (printFPS) System.out.println(drawCount);
-                updateSecond();
-                drawCount = 0;
-                timer = 0L;
+                currentTime = System.nanoTime();
+                delta += (currentTime - lastTime) / drawInterval;
+                timer += currentTime - lastTime;
+                lastTime = currentTime;
+
+                if (delta >= 1) {
+                    if (gp.gameRunning) {
+                        update();
+                        gp.repaint();
+                    }
+                    delta--;
+                    drawCount++;
+                }
+                if (timer >= 1000000000) {
+                    if (printFPS) System.out.println(drawCount);
+                    updateSecond();
+                    drawCount = 0;
+                    timer = 0L;
+                }
             }
         }
     }
@@ -57,16 +57,15 @@ public class Run implements Runnable {
         gp.orjeli.update();
         gp.npc[0].update();
 
-        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1891 * getWidthScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1871d * getWidthScale()) {
             if (gp.setter.isLoad()) {
                 gp.setter.newObjects();
             }
         }
 
-        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1899 * getWidthScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1881 * getWidthScale()) {
             gp.orjeli.down = true;
             gp.orjeli.nextLevel();
-//            gp.orjeli.up = false;
         }
     }
 

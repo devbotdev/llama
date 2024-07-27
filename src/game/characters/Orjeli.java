@@ -25,8 +25,8 @@ public class Orjeli extends Entity {
         super(gp);
         this.gp = gp;
         this.solidArea = new Rectangle();
-        this.solidArea.x = 16;
-        this.solidArea.y = 16;
+        this.solidArea.x = 30;
+        this.solidArea.y = 30;
         this.solidAreaDefaultX = this.solidArea.x;
         this.solidAreaDefaultY = this.solidArea.y;
 
@@ -35,8 +35,13 @@ public class Orjeli extends Entity {
         this.setDefaultValues();
     }
 
-    private void setDefaultValues() {
+    public void setDefaultValues() {
         timePassedForCooldown = 0;
+
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
 
         fatnessLevel = 1.0F;
         fatnessLevel = (float) (fatnessLevel * getScreenScale());

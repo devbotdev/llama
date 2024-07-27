@@ -9,7 +9,7 @@ import static variables.Vars.fullscreenDimension;
 
 public class Death extends JWindow {
 
-    private final GamePanel gp;
+    protected final GamePanel gp;
     public final DeathPanel deathPanel;
 
     public Death(GamePanel gp) {
@@ -20,6 +20,8 @@ public class Death extends JWindow {
     }
 
     public void showDeathScreen() {
+        gp.endGame();
+
         setFocusable(true);
 
         requestFocus();
@@ -27,8 +29,6 @@ public class Death extends JWindow {
         setSize(fullscreenDimension);
 
         setBackground(blankColor);
-
-        gp.gameRunning = false;
 
         add(deathPanel);
 

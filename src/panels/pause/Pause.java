@@ -23,6 +23,8 @@ public class Pause extends JWindow {
     public void pause(boolean visible) {
         gp.pausePressed = visible;
 
+        if (gp.gameOver) return;
+
         if (visible) {
             setFocusable(true);
 

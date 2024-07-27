@@ -1,6 +1,6 @@
-package variables;
+package variables.sound;
 
-import variables.sound.SoundType;
+import variables.Vars;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

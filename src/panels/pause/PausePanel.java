@@ -1,13 +1,11 @@
 package panels.pause;
 
 import game.GamePanel;
-import variables.Actions;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import static variables.Vars.*;
 
@@ -83,6 +81,14 @@ public class PausePanel extends JPanel implements ActionListener {
         object = actionEvent.getSource();
 
         if (object == options) {
+            if (!isFirstStarted()) {
+                if (!javaIsShit) {
+                    buttons.o.optionsMenu(optionsPressed);
+                    javaIsShit = true;
+                } else {
+                    buttons.o.optionsMenu(!optionsPressed);
+                }
+            }
             if (!javaIsShit) {
                 buttons.o.optionsMenu(optionsPressed);
                 javaIsShit = true;
@@ -99,9 +105,8 @@ public class PausePanel extends JPanel implements ActionListener {
         }
 
         if (object == menu) {
-            try {
-                restart();
-            } catch (IOException ignored){}
+            gp.endGame();
+            gp.backToMenu(true);
         }
     }
 

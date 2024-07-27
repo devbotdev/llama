@@ -4,6 +4,9 @@ import game.GamePanel;
 
 import java.awt.*;
 
+import static variables.Vars.tileSizeX;
+import static variables.Vars.tileSizeY;
+
 public class NPC0 extends Entity {
 
     private final NPCPath npcPath;
@@ -22,10 +25,10 @@ public class NPC0 extends Entity {
         entitySpeed = 4;
 
         this.solidArea = new Rectangle();
-        this.solidArea.x = 0;
-        this.solidArea.y = 0;
-        solidArea.width = 40;
-        solidArea.height = 40;
+        this.solidArea.x = 30;
+        this.solidArea.y = 30;
+        solidArea.width = tileSizeX;
+        solidArea.height = tileSizeY;
         this.solidAreaDefaultX = this.solidArea.x;
         this.solidAreaDefaultY = this.solidArea.y;
     }

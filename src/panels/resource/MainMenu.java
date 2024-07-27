@@ -2,8 +2,8 @@ package panels.resource;
 
 import game.GamePanel;
 import panels.options.Options;
-import variables.Actions;
-import variables.Sound;
+import variables.util.Actions;
+import variables.sound.Sound;
 import variables.sound.SoundType;
 
 import javax.swing.*;
@@ -32,11 +32,21 @@ public class MainMenu extends JPanel implements ActionListener {
 
         actions = new Actions();
 
+        setLayout(new GridBagLayout());
+
         playButton = new JButton("Play");
         optionsButton = new JButton("Options");
         exitButton = new JButton("Quit");
 
         gbc = new GridBagConstraints();
+
+        setActionListeners();
+    }
+
+    public void setActionListeners() {
+        playButton.removeActionListener(this);
+        optionsButton.addActionListener(this);
+        exitButton.addActionListener(this);
 
         playButton.addActionListener(this);
         optionsButton.addActionListener(this);
@@ -64,9 +74,14 @@ public class MainMenu extends JPanel implements ActionListener {
 
         if (button == playButton) {
             playButton.removeActionListener(this);
-            gp = new GamePanel();
-            actions.setGPClass(gp);
-            gp.startGame(o);
+            if (isFirstStarted()) {
+                gp = new GamePanel();
+                actions.setGPClass(gp);
+            }
+
+            System.out.println("daa");
+
+            o.panel.setGamePanel(gp.startGame());
         }
     }
 
@@ -87,8 +102,6 @@ public class MainMenu extends JPanel implements ActionListener {
     }
 
     private void set() {
-        setLayout(new GridBagLayout());
-
         setOpaque(true);
         setBackground(Color.WHITE);
 
