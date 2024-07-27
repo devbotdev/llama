@@ -22,8 +22,8 @@ public class NPC0 extends Entity {
         entitySpeed = 4;
 
         this.solidArea = new Rectangle();
-        this.solidArea.x = 40;
-        this.solidArea.y = 40;
+        this.solidArea.x = 0;
+        this.solidArea.y = 0;
         solidArea.width = 40;
         solidArea.height = 40;
         this.solidAreaDefaultX = this.solidArea.x;
