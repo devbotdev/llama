@@ -112,8 +112,8 @@ public class DeathPanel extends JPanel implements ActionListener {
         if (button == restart) {
             death.gp.restart();
         }
-        if (options == mainMenu) {
-            // TO-DO
+        if (button == this.options) {
+            buttons.o.optionsMenu();
         }
     }
 }

@@ -50,7 +50,7 @@ public class Actions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource().getClass() == GamePanel.class) {
-                gp.pause.pause(!gp.pausePressed);
+                gp.pause.pause(!gp.pausePressed, true);
             }
         }
     }

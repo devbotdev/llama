@@ -1,6 +1,7 @@
 package panels.options;
 
 import game.GamePanel;
+import panels.pause.Pause;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,7 +104,6 @@ public class OptionsPanel extends JPanel implements ActionListener {
 
         if (button == exit) {
             buttons.o.optionsMenu(false);
-            if (gameStarted) gp.pause.getPausePanel().requestFocus();
         }
 
         if (button == bossModeButton && !gameStarted) {

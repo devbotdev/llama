@@ -2,6 +2,7 @@ package panels.resource;
 
 import game.GamePanel;
 import panels.options.Options;
+import panels.pause.Pause;
 import variables.util.Actions;
 import variables.sound.Sound;
 import variables.sound.SoundType;
@@ -45,8 +46,8 @@ public class MainMenu extends JPanel implements ActionListener {
 
     public void setActionListeners() {
         playButton.removeActionListener(this);
-        optionsButton.addActionListener(this);
-        exitButton.addActionListener(this);
+        optionsButton.removeActionListener(this);
+        exitButton.removeActionListener(this);
 
         playButton.addActionListener(this);
         optionsButton.addActionListener(this);
@@ -68,7 +69,7 @@ public class MainMenu extends JPanel implements ActionListener {
         }
 
         if (button == optionsButton) {
-            buttons.o.optionsMenu(!optionsPressed);
+            buttons.o.optionsMenu();
             return;
         }
 
@@ -78,10 +79,9 @@ public class MainMenu extends JPanel implements ActionListener {
                 gp = new GamePanel();
                 actions.setGPClass(gp);
             }
-
-            System.out.println("daa");
-
             o.panel.setGamePanel(gp.startGame());
+
+            gp.pause = new Pause(gp);
         }
     }
 

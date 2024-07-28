@@ -9,19 +9,31 @@ import static variables.Vars.*;
 
 public class Pause extends JWindow {
 
-    private final PausePanel panel;
-    protected final GamePanel gp;
+    private PausePanel panel;
+    protected GamePanel gp;
 
     public Pause(GamePanel gp) {
         super();
         this.gp = gp;
 
         panel = new PausePanel(this.gp);
-        setFocusableWindowState(true);
+        setAlwaysOnTop(true);
     }
 
-    public void pause(boolean visible) {
+    public void selfDestruct() {
+        panel.selfDestruct();
+
+        panel = null;
+        gp = null;
+
+        removeAll();
+        dispose();
+    }
+
+    public void pause(boolean visible, boolean gameRunning) {
         gp.pausePressed = visible;
+
+        System.out.println("Paused: " + visible);
 
         if (gp.gameOver) return;
 
@@ -41,11 +53,11 @@ public class Pause extends JWindow {
             add(panel);
 
             setVisible(true);
-        } else play();
+        } else play(gameRunning);
     }
 
-    private void play() {
-        gp.gameRunning = true;
+    private void play(boolean gameRunning) {
+        gp.gameRunning = gameRunning;
 
         buttons.o.optionsMenu(false);
         buttons.o.soundFrame.soundFrame(false);
@@ -56,11 +68,9 @@ public class Pause extends JWindow {
         gp.orjeli.leftPressed = false;
         gp.orjeli.rightPressed = false;
 
-        setVisible(false);
-
         remove(panel);
 
-        javaIsShit = false;
+        setVisible(false);
     }
 
     public PausePanel getPausePanel() {

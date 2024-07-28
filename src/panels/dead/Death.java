@@ -17,6 +17,7 @@ public class Death extends JWindow {
         this.gp = gp;
         deathPanel = new DeathPanel(this);
         setFocusableWindowState(true);
+        setAlwaysOnTop(true);
     }
 
     public void showDeathScreen() {

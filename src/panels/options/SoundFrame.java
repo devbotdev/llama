@@ -17,6 +17,7 @@ public class SoundFrame extends JWindow {
         this.options = options;
 
         soundPanel = new SoundPanel(this);
+        setAlwaysOnTop(true);
     }
 
     public void soundFrame(boolean visible) {
@@ -28,11 +29,11 @@ public class SoundFrame extends JWindow {
 
         if (soundPressed) {
             add(soundPanel);
-            options.hideOptions(true);
+            options.optionsMenu(false);
         } else {
             remove(soundPanel);
             if (!gameStarted) {
-                options.hideOptions(false);
+                options.optionsMenu(true);
             }
         }
 

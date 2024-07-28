@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
 
     public boolean gameOver;
 
-    public final Pause pause = new Pause(this);
+    public Pause pause;
     public final Death deathScreen;
 
     public final int maxCol = 32, maxRow = 18;
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel {
     public boolean renderItems = true;
     public boolean gameRunning;
 
-    private JFrame frame;
+    public JFrame frame;
     private Graphics2D g;
 
     public Object[] object;
@@ -93,7 +93,16 @@ public class GamePanel extends JPanel {
 
         deathScreen.hideDeathScreen();
 
+        buttons.o.optionsMenu(false);
+
+        pause.pause(false, false);
+
         frame.remove(this);
+
+        if (menu) {
+            pause.selfDestruct();
+            pause = null;
+        }
 
         frame.dispose();
 
@@ -103,14 +112,14 @@ public class GamePanel extends JPanel {
     }
 
     public GamePanel startGame() {
-        javaIsShit = false;
+        frame = new JFrame();
 
         orjeli.setDefaultValues();
         level.setLevel(0);
 
-        frame = new JFrame();
-
         buttons.sound.play(SoundType.MUSIC);
+
+        frame.setFocusableWindowState(true);
 
         gameRunning = true;
         gameOver = false;

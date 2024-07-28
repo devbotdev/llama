@@ -11,9 +11,9 @@ import static variables.Vars.*;
 
 public class PausePanel extends JPanel implements ActionListener {
 
-    private final JButton menu, resume, options;
+    private JButton menu, resume, options;
     private Object object;
-    private final GamePanel gp;
+    private GamePanel gp;
     private Graphics g;
 
     public PausePanel(GamePanel gp) {
@@ -61,12 +61,28 @@ public class PausePanel extends JPanel implements ActionListener {
         options.addActionListener(this);
     }
 
+    void selfDestruct() {
+        menu.removeActionListener(this);
+        resume.removeActionListener(this);
+        options.removeActionListener(this);
+
+        menu = null;
+        resume = null;
+        options = null;
+        object = null;
+        gp = null;
+        g = null;
+
+        removeAll();
+        setVisible(false);
+    }
+
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
         g = graphics;
 
-        g.drawImage(pauseImage, 0 ,0, screenWidth, screenHeight,null);
+        g.drawImage(pauseImage, 0, 0, screenWidth, screenHeight, null);
 
         menu.repaint();
         resume.repaint();
@@ -81,26 +97,12 @@ public class PausePanel extends JPanel implements ActionListener {
         object = actionEvent.getSource();
 
         if (object == options) {
-            if (!isFirstStarted()) {
-                if (!javaIsShit) {
-                    buttons.o.optionsMenu(optionsPressed);
-                    javaIsShit = true;
-                } else {
-                    buttons.o.optionsMenu(!optionsPressed);
-                }
-            }
-            if (!javaIsShit) {
-                buttons.o.optionsMenu(optionsPressed);
-                javaIsShit = true;
-            } else {
-                buttons.o.optionsMenu(!optionsPressed);
-            }
-
+            buttons.o.optionsMenu();
             return;
         }
         if (object == resume) {
-            if (optionsPressed) buttons.o.optionsMenu(false);
-            gp.pause.pause(false);
+            buttons.o.optionsMenu(false);
+            gp.pause.pause(false, true);
             return;
         }
 
