@@ -67,10 +67,13 @@ public class GamePanel extends JPanel {
     }
 
     public void endGame() {
+        System.out.println("game ended");
+
         run.gameThread.interrupt();
 
         gameOver = true;
         gameRunning = false;
+        gameStarted = false;
         optionsPressed = false;
         pausePressed = false;
 

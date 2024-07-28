@@ -25,7 +25,6 @@ public abstract class Vars {
     public static boolean debug;
     public static short tileSizeX, tileSizeY;
     public static boolean printFPS;
-    public static boolean javaIsShit;
     public static final byte numberOfMaps = 2;
 
     public static double getScreenScale() {

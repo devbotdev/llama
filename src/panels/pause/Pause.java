@@ -33,8 +33,6 @@ public class Pause extends JWindow {
     public void pause(boolean visible, boolean gameRunning) {
         gp.pausePressed = visible;
 
-        System.out.println("Paused: " + visible);
-
         if (gp.gameOver) return;
 
         if (visible) {
