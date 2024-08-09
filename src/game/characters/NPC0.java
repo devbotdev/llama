@@ -1,6 +1,7 @@
 package game.characters;
 
 import game.GamePanel;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import java.awt.*;
 
@@ -14,6 +15,8 @@ public class NPC0 extends Entity {
 
     public NPC0(GamePanel gp) {
         super(gp);
+
+        dead = false;
 
         npcPath = new NPCPath();
 
@@ -42,17 +45,25 @@ public class NPC0 extends Entity {
 
     @Override
     public void update() {
-        if (point == 4) point = 0;
-        if (npcPath.arrivedAtPoint(point, this)) {
-            point++;
+        if (!dead) {
+            if (point == 4) point = 0;
+            if (npcPath.arrivedAtPoint(point, this)) {
+                point++;
+            }
         }
     }
 
     @Override
+    @Ignore
     public void updateHealth(int i) {
     }
 
+    @Override
+    public void killEntity() {
+        dead = true;
+    }
+
     public void draw(Graphics2D g) {
-        g.drawImage(getNPCImage(0, direction), entityX, entityY, null);
+        if (!dead) g.drawImage(getNPCImage(0, direction), entityX, entityY, null);
     }
 }

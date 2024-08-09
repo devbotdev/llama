@@ -2,11 +2,9 @@ package game.characters;
 
 import game.GamePanel;
 import game.paint.Level;
-import game.Run;
-import variables.Vars;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -54,19 +52,19 @@ public class Orjeli extends Entity {
 
         sizeI = (short) (60 * getScreenScale());
         sizeYI = (short) (60 * getHeightScale());
-        sizeXI = (short) (60 * getWidthScale());
+        sizeXI = (short) (58 * getWidthScale());
 
         entityY = screenHeight / 2 - tileSizeY / 2;
 
         updateFatness();
         previousSize = size;
 
-        setInitalPosition();
+        setInitialPosition();
 
         entitySpeedF = 6;
     }
 
-    public void setInitalPosition() {
+    public void setInitialPosition() {
         entityX = (int) (92 * getWidthScale());
     }
 
@@ -107,8 +105,44 @@ public class Orjeli extends Entity {
         setHealth();
     }
 
+    @Override
+    @Deprecated
+    @Ignore
+    public void killEntity() {
+    }
+
     private void interactNPC(int i) {
         if (i != 999) {
+            System.out.println(gp.npc[i].direction);
+            if (gp.npc[i].direction == DIRECTION_UP) {
+                if (gp.npc[i].entityY < entityY) {
+                    if (gp.npc[i].entityX > entityX - 45 || gp.npc[i].entityX > entityX - 45) {
+                        gp.npc[i].killEntity();
+                        return;
+                    }
+                }
+            } else if (gp.npc[i].direction == DIRECTION_DOWN) {
+                if (gp.npc[i].entityY > entityY) {
+                    if (gp.npc[i].entityX > entityX - 45 || gp.npc[i].entityX > entityX - 45) {
+                        gp.npc[i].killEntity();
+                        return;
+                    }
+                }
+            } else if (gp.npc[i].direction == DIRECTION_LEFT) {
+                if (gp.npc[i].entityX < entityX) {
+                    if (gp.npc[i].entityY > entityY - 45 || gp.npc[i].entityY > entityY - 45) {
+                        gp.npc[i].killEntity();
+                        return;
+                    }
+                }
+            } else if (gp.npc[i].direction == DIRECTION_RIGHT) {
+                if (gp.npc[i].entityX > entityX) {
+                    if (gp.npc[i].entityY > entityY - 45 || gp.npc[i].entityY > entityY - 45) {
+                        gp.npc[i].killEntity();
+                        return;
+                    }
+                }
+            }
             gp.deathScreen.showDeathScreen();
         }
     }
@@ -182,7 +216,7 @@ public class Orjeli extends Entity {
         if (Level.LEVEL() < numberOfMaps) {
             Level.addLevel();
             loadMap();
-            setInitalPosition();
+            setInitialPosition();
             gp.tileManager.reDoor();
             gp.setter.setArray();
         }

@@ -14,6 +14,8 @@ public abstract class Entity {
 
     public static final byte numberOfNPCS = 1;
 
+    public boolean dead;
+
     protected GamePanel gp;
 
     public byte direction;
@@ -76,9 +78,9 @@ public abstract class Entity {
         } else if (a == Entity.DIRECTION_LEFT) {
             return npcImagesLeft[i];
         } else if (a == Entity.DIRECTION_UP) {
-            return npcImagesLeft[i];
-        } else if (a == Entity.DIRECTION_DOWN) {
             return npcImagesRight[i];
+        } else if (a == Entity.DIRECTION_DOWN) {
+            return npcImagesLeft[i];
         } else {
             return null;
         }
@@ -90,11 +92,5 @@ public abstract class Entity {
 
     public abstract void updateHealth(int i);
 
-    public void killEntity(Entity e) {
-        if (e.getClass() == Orjeli.class) {
-
-        } else {
-
-        }
-    }
+    public abstract void killEntity();
 }

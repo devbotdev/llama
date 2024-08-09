@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+import static game.characters.Entity.*;
 import static variables.Vars.*;
 
 public class TileManager {
@@ -73,20 +74,20 @@ public class TileManager {
     public boolean movementAllowed(Entity e) {
         b = e.direction;
 
-        if (b == 0 && gp.orjeli.entityY <= 10 * getHeightScale()) {
+        if (b == DIRECTION_UP && gp.orjeli.entityY <= 10 * getHeightScale()) {
             return false;
         }
-        if (b == 1 && gp.orjeli.entityY + e.size >= (screenHeight - 4 * getHeightScale())) {
+        if (b == DIRECTION_DOWN && gp.orjeli.entityY + e.size >= (screenHeight - 4 * getHeightScale())) {
             return false;
         }
-        if (b == 2 && gp.orjeli.entityX <= 4 * getWidthScale()) {
+        if (b == DIRECTION_LEFT && gp.orjeli.entityX <= 4 * getWidthScale()) {
             return false;
         }
-        if (b == 3 && gp.orjeli.entityX + e.size >= (screenWidth - 4 * getWidthScale())) {
+        if (b == DIRECTION_RIGHT && gp.orjeli.entityX + e.size >= (screenWidth * getWidthScale())) {
             return false;
         }
 
-        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) <= 36 || gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1857 * getWidthScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) <= 26 || gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1857 * getWidthScale()) {
             if (b == 0 && gp.orjeli.entityY - (gp.orjeli.solidArea.y) <= 465 * getHeightScale()) {
                 return false;
             }
@@ -97,10 +98,10 @@ public class TileManager {
 
         e.entitySpeedI = (int) e.entitySpeed;
 
-        entityLeftWorldX = gp.orjeli.entityX - (int) (2 * getWidthScale());
+        entityLeftWorldX = gp.orjeli.entityX - 3;
         entityRightWorldX = (gp.orjeli.entityX + e.size);
         entityTopWorldY = gp.orjeli.entityY + (int) (-4 * getHeightScale());
-        entityBottomWorldY = (gp.orjeli.entityY + e.size) + (int) (1 * getHeightScale());
+        entityBottomWorldY = (gp.orjeli.entityY + e.size);
 
         entityCol = ((entityLeftWorldX + entityRightWorldX) / 2) / tileSizeX;
         entityRow = ((entityBottomWorldY + entityTopWorldY) / 2) / tileSizeY;

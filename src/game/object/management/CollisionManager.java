@@ -56,17 +56,18 @@ public class CollisionManager {
     }
 
     private int index;
+
     public int checkEntity(Entity e, Entity[] target) {
         index = 999;
 
         for (int i = 0; i < target.length; i++) {
             if (target[i] == null) continue;
+            if (target[i].dead) continue;
 
             e.solidArea.x += e.entityX;
             e.solidArea.y += e.entityY;
             target[i].solidArea.x += target[i].entityX;
             target[i].solidArea.y += target[i].entityY;
-
 
             if (e.solidArea.intersects(target[i].solidArea)) {
                 index = i;

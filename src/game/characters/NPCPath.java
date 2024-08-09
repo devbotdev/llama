@@ -1,7 +1,5 @@
 package game.characters;
 
-import game.GamePanel;
-
 import static variables.Vars.tileSizeX;
 import static variables.Vars.tileSizeY;
 
@@ -34,16 +32,18 @@ public class NPCPath {
     }
 
     public boolean arrivedAtPoint(int point, Entity e) {
+        System.out.println(e.direction);
+
         if (e.entityX == this.point[point].x) {
 
             if (e.entityY == this.point[point].y) {
                 return true;
             } else {
                 if (e.entityY < this.point[point].y) {
-                    e.direction = Entity.DIRECTION_UP;
+                    e.direction = Entity.DIRECTION_DOWN;
                     e.entityY += (int) e.entitySpeed;
                 } else {
-                    e.direction = Entity.DIRECTION_DOWN;
+                    e.direction = Entity.DIRECTION_UP;
                     e.entityY -= (int) e.entitySpeed;
                 }
             }
