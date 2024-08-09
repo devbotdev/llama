@@ -3,6 +3,7 @@ package game.characters;
 import game.GamePanel;
 import game.paint.Level;
 import game.Run;
+import variables.Vars;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,6 +21,9 @@ public class Orjeli extends Entity {
     public boolean upPressed, downPressed, leftPressed, rightPressed;
     private final int fatnessCooldown = 60;
     public short timePassedForCooldown;
+    public BufferedImage healthBar;
+
+    public final static String healthDirectory = directory + "\\game_resources\\health\\";
 
     public Orjeli(GamePanel gp) {
         super(gp);
@@ -42,6 +46,8 @@ public class Orjeli extends Entity {
         downPressed = false;
         leftPressed = false;
         rightPressed = false;
+
+        updateHealth(100);
 
         fatnessLevel = 1.0F;
         fatnessLevel = (float) (fatnessLevel * getScreenScale());
@@ -95,6 +101,12 @@ public class Orjeli extends Entity {
         interactNPC(gp.tileManager.om.checkEntity(this, gp.npc));
     }
 
+    @Override
+    public void updateHealth(int i) {
+        entityHealth = i;
+        setHealth();
+    }
+
     private void interactNPC(int i) {
         if (i != 999) {
             gp.deathScreen.showDeathScreen();
@@ -117,7 +129,21 @@ public class Orjeli extends Entity {
         }
     }
 
+    private int roundedHealth;
+
+    private void setHealth() {
+        roundedHealth = Math.round((float) entityHealth / 10);
+
+        try {
+            healthBar = null;
+            healthBar = gp.ut.scaleImage(ImageIO.read(new File(healthDirectory + roundedHealth + ".png")), screenWidth, screenHeight);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void draw(Graphics2D g) {
+        g.drawImage(healthBar, 0, 0, null);
         g.drawImage(getPortrait(), entityX, entityY, null);
     }
 

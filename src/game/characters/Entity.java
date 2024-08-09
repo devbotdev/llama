@@ -22,6 +22,8 @@ public abstract class Entity {
     public static byte DIRECTION_LEFT = 2;
     public static byte DIRECTION_RIGHT = 3;
 
+    public int entityHealth;
+
     public float fatnessLevel;
     public int entityX, entityY;
     public double entitySpeed, entitySpeedF;
@@ -85,6 +87,8 @@ public abstract class Entity {
     public abstract void draw(Graphics2D g);
 
     public abstract void update();
+
+    public abstract void updateHealth(int i);
 
     public void killEntity(Entity e) {
         if (e.getClass() == Orjeli.class) {

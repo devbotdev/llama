@@ -48,6 +48,10 @@ public class NPC0 extends Entity {
         }
     }
 
+    @Override
+    public void updateHealth(int i) {
+    }
+
     public void draw(Graphics2D g) {
         g.drawImage(getNPCImage(0, direction), entityX, entityY, null);
     }
