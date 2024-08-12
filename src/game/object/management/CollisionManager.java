@@ -47,8 +47,12 @@ public class CollisionManager {
                 }
 
                 gp.object[i].image = null;
-                if (gp.object[i].isFood) gp.orjeli.fatnessLevel += 0.015F;
+                if (gp.object[i].isFood) {
+                    gp.orjeli.foodEaten++;
+                    gp.orjeli.fatnessLevel += 0.015F;
+                }
                 if (gp.object[i] instanceof Mosque) {
+                    gp.orjeli.mosquesEaten++;
                     gp.orjeli.fatnessLevel += 0.3F;
                 }
             }
@@ -71,6 +75,8 @@ public class CollisionManager {
 
             if (e.solidArea.intersects(target[i].solidArea)) {
                 index = i;
+                gp.orjeli.fatnessLevel += 0.1f;
+                gp.orjeli.entitiesKilled++;
             }
 
             e.solidArea.x = e.solidAreaDefaultX;

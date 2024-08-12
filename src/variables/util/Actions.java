@@ -22,12 +22,17 @@ public class Actions {
     private final LeftActionReleased leftActionReleased;
     private final RightActionReleased rightActionReleased;
 
+    private final TabAction tabAction;
+    private final TabActionReleased tabActionReleased;
+
     public static byte ESC_ACTION = 0;
 
     public static byte UP_ACTION = 1;
     public static byte DOWN_ACTION = 2;
     public static byte LEFT_ACTION = 3;
     public static byte RIGHT_ACTION = 4;
+
+    public static byte TAB_ACTION = 5;
 
     public Actions() {
         escAction = new EscAction();
@@ -40,10 +45,27 @@ public class Actions {
         downActionReleased = new DownActionReleased();
         leftActionReleased = new LeftActionReleased();
         rightActionReleased = new RightActionReleased();
+
+        tabAction = new TabAction();
+        tabActionReleased = new TabActionReleased();
     }
 
     public void setGPClass(GamePanel gp) {
         Actions.gp = gp;
+    }
+
+    private final static class TabAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gp.orjeli.tabPressed = true;
+        }
+    }
+
+    private final static class TabActionReleased extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gp.orjeli.tabPressed = false;
+        }
     }
 
     private final static class EscAction extends AbstractAction {
@@ -144,6 +166,12 @@ public class Actions {
         if (a.getClass() == RightActionReleased.class) {
             return "rightActionReleased";
         }
+        if (a.getClass() == TabAction.class) {
+            return "tabAction";
+        }
+        if (a.getClass() == TabActionReleased.class) {
+            return "tabActionReleased";
+        }
         return "";
     }
 
@@ -151,6 +179,13 @@ public class Actions {
         if (a.getClass() == EscAction.class) {
             return KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false);
         }
+        if (a.getClass() == TabAction.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0, false);
+        }
+        if (a.getClass() == TabActionReleased.class) {
+            return KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0, true);
+        }
+
         if (!secondary) {
             if (a.getClass() == UpAction.class) {
                 return KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false);
@@ -200,8 +235,10 @@ public class Actions {
         if (b == ESC_ACTION) {
             return escAction;
         }
-
         if (!released) {
+            if (b == TAB_ACTION) {
+                return tabAction;
+            }
             if (b == UP_ACTION) {
                 return upAction;
             }
@@ -215,6 +252,9 @@ public class Actions {
                 return rightAction;
             }
         } else {
+            if (b == TAB_ACTION) {
+                return tabActionReleased;
+            }
             if (b == UP_ACTION) {
                 return upActionReleased;
             }

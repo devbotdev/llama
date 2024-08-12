@@ -6,11 +6,14 @@ import game.GamePanel;
 import game.paint.Level;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 import static variables.Vars.*;
 
 public class AssetSetter {
+
+    public final Key key;
+    public final Mosque mosque;
+    public final Object food;
 
     private final GamePanel gp;
     private int i;
@@ -23,6 +26,22 @@ public class AssetSetter {
         setLoad(true);
 
         this.object = new Object[10];
+
+        key = new Key();
+        mosque = new Mosque();
+        if (foodType == 0) {
+            food = new Hamburger();
+        } else if (foodType == 1) {
+            food = new Bacon();
+        } else if (foodType == 2) {
+            food = new Steak();
+        } else if (foodType == 3) {
+            food = new FrenchFries();
+        } else if (foodType == 4) {
+            food = new Pizza();
+        } else {
+            food = null;
+        }
 
         set();
 
@@ -37,8 +56,6 @@ public class AssetSetter {
 
     public void set() {
         i = 0;
-
-        Arrays.fill(object, null);
 
         mapObjects();
 
@@ -114,9 +131,12 @@ public class AssetSetter {
     private void setObject(Class<?> cl, int objectX, int objectY) {
         try {
             this.object[i] = (Object) cl.getDeclaredConstructor().newInstance();
-        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ignored) {}
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+                 IllegalAccessException ignored) {
+        }
         object[i].objectX = objectX * tileSizeX;
         this.object[i].objectY = objectY * tileSizeY;
+
         i++;
     }
 

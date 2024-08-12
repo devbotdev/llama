@@ -2,7 +2,9 @@ package game.characters;
 
 import game.GamePanel;
 import game.paint.Level;
+import game.panels.Inventory;
 import jdk.nashorn.internal.ir.annotations.Ignore;
+import variables.util.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,18 +16,24 @@ import static variables.Vars.*;
 
 public class Orjeli extends Entity {
 
+    public int entitiesKilled;
+
     public short keysGathered;
     public boolean down;
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, tabPressed;
     private final int fatnessCooldown = 60;
     public short timePassedForCooldown;
     public BufferedImage healthBar;
+    public Inventory inventory;
+
+    public int foodEaten, mosquesEaten;
 
     public final static String healthDirectory = directory + "\\game_resources\\health\\";
 
     public Orjeli(GamePanel gp) {
         super(gp);
         this.gp = gp;
+
         this.solidArea = new Rectangle();
         this.solidArea.x = 30;
         this.solidArea.y = 30;
@@ -39,6 +47,8 @@ public class Orjeli extends Entity {
 
     public void setDefaultValues() {
         timePassedForCooldown = 0;
+
+        entitiesKilled = 0;
 
         upPressed = false;
         downPressed = false;
@@ -157,7 +167,7 @@ public class Orjeli extends Entity {
     private void updatePortrait(int size) {
         try {
             portrait = null;
-            portrait = gp.ut.scaleImage(ImageIO.read(portraitFile), size, size);
+            portrait = UtilityTool.scaleImage(ImageIO.read(portraitFile), size, size);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -170,7 +180,7 @@ public class Orjeli extends Entity {
 
         try {
             healthBar = null;
-            healthBar = gp.ut.scaleImage(ImageIO.read(new File(healthDirectory + roundedHealth + ".png")), screenWidth, screenHeight);
+            healthBar = UtilityTool.scaleImage(ImageIO.read(new File(healthDirectory + roundedHealth + ".png")), screenWidth, screenHeight);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -179,6 +189,8 @@ public class Orjeli extends Entity {
     public void draw(Graphics2D g) {
         g.drawImage(healthBar, 0, 0, null);
         g.drawImage(getPortrait(), entityX, entityY, null);
+        inventory.drawInventory();
+        inventory.drawInventoryItems();
     }
 
     public void movingAllowed() {

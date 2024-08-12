@@ -57,7 +57,7 @@ public class Run implements Runnable {
         gp.orjeli.update();
         gp.npc[0].update();
 
-        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1871d * getWidthScale()) {
+        if (gp.orjeli.entityX - (gp.orjeli.solidArea.x) + gp.orjeli.size >= 1871 * getWidthScale()) {
             if (gp.setter.isLoad()) {
                 gp.setter.newObjects();
             }

@@ -32,8 +32,6 @@ public class NPCPath {
     }
 
     public boolean arrivedAtPoint(int point, Entity e) {
-        System.out.println(e.direction);
-
         if (e.entityX == this.point[point].x) {
 
             if (e.entityY == this.point[point].y) {

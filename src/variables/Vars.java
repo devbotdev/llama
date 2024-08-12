@@ -27,6 +27,10 @@ public abstract class Vars {
     public static boolean printFPS;
     public static final byte numberOfMaps = 2;
 
+    public static int getTileSize() {
+        return (tileSizeX + tileSizeY) / 2;
+    }
+
     public static double getScreenScale() {
         return screenScale;
     }
@@ -88,7 +92,6 @@ public abstract class Vars {
     public static boolean gameStarted;
     public static boolean optionsPressed;
     public static boolean codeIsWritten;
-
     public static int screenWidth;
     public static int screenHeight;
     private static double widthScale;

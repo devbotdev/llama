@@ -1,32 +1,21 @@
 package game.object;
 
 import game.object.management.Object;
+import variables.util.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-import static variables.Vars.directory;
+import static variables.Vars.*;
 
 public class Key extends Object {
 
-    private final File file;
-
     public Key() {
-        file = new File(directory + "\\game_resources\\key.png");
         name = "key";
         isFood = false;
         try {
-            image = ImageIO.read(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void setImage() {
-        try {
-            image = ImageIO.read(file);
+            image = UtilityTool.scaleImage(ImageIO.read(new File(directory + "\\game_resources\\key.png")), tileSizeX, tileSizeY);
         } catch (IOException e) {
             e.printStackTrace();
         }

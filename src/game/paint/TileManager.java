@@ -15,7 +15,7 @@ import static game.characters.Entity.*;
 import static variables.Vars.*;
 
 public class TileManager {
-    private int col, row, x, y;
+    public int col, row, x, y;
     protected final int[][] mapTile;
     protected int num, tileNum;
     protected String string;

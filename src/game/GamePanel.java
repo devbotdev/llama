@@ -6,21 +6,24 @@ import game.object.management.Object;
 import game.object.management.AssetSetter;
 import game.paint.Level;
 import game.paint.TileManager;
+import game.panels.Inventory;
 import panels.dead.Death;
 import panels.pause.Pause;
 import variables.util.Actions;
 import variables.util.UtilityTool;
 import variables.sound.SoundType;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import static variables.Vars.*;
 
 public class GamePanel extends JPanel {
 
     public boolean gameOver;
-
     public Pause pause;
     public final Death deathScreen;
 
@@ -34,7 +37,7 @@ public class GamePanel extends JPanel {
     public boolean gameRunning;
 
     public JFrame frame;
-    private Graphics2D g;
+    public Graphics2D g;
 
     public Object[] object;
     public AssetSetter setter;
@@ -46,12 +49,14 @@ public class GamePanel extends JPanel {
     public final Orjeli orjeli;
     public Entity[] npc = new Entity[10];
 
+    public BufferedImage npcImage;
+
     public GamePanel() {
         ut = new UtilityTool();
         level = new Level();
-        orjeli = new Orjeli(this);
         handler = new ControlsHandler(this);
         tileManager = new TileManager(this);
+        orjeli = new Orjeli(this);
         setOpaque(true);
         setFocusable(true);
         requestFocusInWindow();
@@ -61,9 +66,18 @@ public class GamePanel extends JPanel {
 
     public void setupGame() {
         setter = new AssetSetter(this);
+        orjeli.inventory = new Inventory(this);
+        orjeli.foodEaten = 0;
+        orjeli.mosquesEaten = 0;
         orjeli.keysGathered = 0;
 
         setter.setNPC();
+
+        try {
+            npcImage = UtilityTool.scaleImage(ImageIO.read(npc[0].imageFilesRight[0]), tileSizeX - 10, tileSizeY - 10);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void endGame() {
@@ -79,6 +93,8 @@ public class GamePanel extends JPanel {
 
         getInputMap().clear();
         getActionMap().clear();
+
+        orjeli.inventory = null;
 
         run.gameThread = null;
 
@@ -177,6 +193,9 @@ public class GamePanel extends JPanel {
 
         mapActions(b, Actions.RIGHT_ACTION, false);
         mapActions(b, Actions.RIGHT_ACTION, true);
+
+        setFocusTraversalKeysEnabled(false);
+        mapActions(b, Actions.TAB_ACTION, false);
     }
 
     private void mapActions(boolean released, byte b, boolean secondary) {
@@ -213,6 +232,7 @@ public class GamePanel extends JPanel {
             }
 
             orjeli.draw(g);
+
 
             g.dispose();
         }

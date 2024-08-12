@@ -1,6 +1,7 @@
 package game.characters;
 
 import game.GamePanel;
+import variables.util.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -46,7 +47,7 @@ public abstract class Entity {
     private final BufferedImage[] npcImagesRight = new BufferedImage[numberOfNPCS];
 
     private final File[] imageFilesLeft = new File[numberOfNPCS];
-    private final File[] imageFilesRight = new File[numberOfNPCS];
+    public final File[] imageFilesRight = new File[numberOfNPCS];
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -65,14 +66,14 @@ public abstract class Entity {
 
     private void setNPCImages(int i) {
         try {
-            npcImagesLeft[i] = gp.ut.scaleImage(ImageIO.read(imageFilesLeft[i]), tileSizeX, tileSizeY);
-            npcImagesRight[i] = gp.ut.scaleImage(ImageIO.read(imageFilesRight[i]), tileSizeX, tileSizeY);
+            npcImagesLeft[i] = UtilityTool.scaleImage(ImageIO.read(imageFilesLeft[i]), tileSizeX, tileSizeY);
+            npcImagesRight[i] = UtilityTool.scaleImage(ImageIO.read(imageFilesRight[i]), tileSizeX, tileSizeY);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    protected BufferedImage getNPCImage(int i, int a) {
+    public BufferedImage getNPCImage(int i, int a) {
         if (a == Entity.DIRECTION_RIGHT) {
             return npcImagesRight[i];
         } else if (a == Entity.DIRECTION_LEFT) {
